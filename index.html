@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Affidavit Format for India – Court Ready PDF Generator</title>
+
+<style>
+body{
+font-family: "Times New Roman", serif;
+background:#f4f4f4;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:850px;
+margin:auto;
+background:white;
+padding:25px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h1{
+text-align:center;
+font-size:22px;
+margin-bottom:20px;
+}
+
+select,input,textarea{
+width:100%;
+padding:8px;
+margin:8px 0;
+font-size:14px;
+}
+
+button{
+background:#000;
+color:white;
+padding:12px;
+border:none;
+width:100%;
+font-size:16px;
+cursor:pointer;
+}
+
+#printArea{
+margin-top:30px;
+padding:60px;
+border:1px solid #000;
+min-height:1000px;
+}
+
+.title{
+text-align:center;
+font-weight:bold;
+font-size:18px;
+margin-bottom:20px;
+}
+
+.signature-section{
+display:flex;
+justify-content:space-between;
+margin-top:80px;
+}
+
+.signature-block{
+width:45%;
+text-align:center;
+}
+
+.doc-id{
+text-align:center;
+font-size:12px;
+margin-top:40px;
+}
+
+@media print{
+body *{
+visibility:hidden;
+}
+#printArea, #printArea *{
+visibility:visible;
+}
+#printArea{
+position:absolute;
+left:0;
+top:0;
+width:100%;
+}
+button{
+display:none;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Free Affidavit Format for India – Court Ready PDF Generator</h1>
+
+<select id="lang">
+<option value="english">English</option>
+<option value="hindi">Hindi</option>
+<option value="urdu">Urdu</option>
+</select>
+
+<input id="name" placeholder="Full Name">
+<input id="father" placeholder="Father Name">
+<input id="age" placeholder="Age">
+<textarea id="address" placeholder="Full Address"></textarea>
+<textarea id="purpose" placeholder="Affidavit Purpose"></textarea>
+<input id="place" placeholder="Place">
+<input id="date" type="date">
+
+<button onclick="generate()">GENERATE & PRINT A4</button>
+
+<div id="printArea"></div>
+
+</div>
+
+<script>
+
+function generateDocID(){
+return "IND-AFF-" + Math.random().toString(36).substr(2,6).toUpperCase();
+}
+
+function formatIndianDate(dateStr){
+let d=new Date(dateStr);
+return d.toLocaleDateString("en-IN");
+}
+
+function generate(){
+
+let lang=document.getElementById("lang").value;
+let name=document.getElementById("name").value;
+let father=document.getElementById("father").value;
+let age=document.getElementById("age").value;
+let address=document.getElementById("address").value;
+let purpose=document.getElementById("purpose").value;
+let place=document.getElementById("place").value;
+let date=formatIndianDate(document.getElementById("date").value);
+let docID=generateDocID();
+
+let content="";
+
+if(lang==="english"){
+content=`
+<div class="title">AFFIDAVIT</div>
+
+<p>I, <strong>${name}</strong>, Son/Daughter of <strong>${father}</strong>, aged about <strong>${age}</strong> years, residing at <strong>${address}</strong>, do hereby solemnly affirm and declare as follows:</p>
+
+<p>1. That I am a citizen of India.</p>
+<p>2. That the statements made in this affidavit are true and correct to the best of my knowledge and belief.</p>
+<p>3. That this affidavit is executed for the purpose of <strong>${purpose}</strong>.</p>
+<p>4. That this affidavit is executed on non-judicial stamp paper as required under the applicable laws of India.</p>
+
+<p><br>Verified at <strong>${place}</strong> on this <strong>${date}</strong>.</p>
+
+<div class="signature-section">
+<div class="signature-block">
+_________________________<br>
+Signature of Deponent
+</div>
+
+<div class="signature-block">
+_________________________<br>
+Signature of Notary<br>
+(Seal & Registration No.)
+</div>
+</div>
+
+<div class="doc-id">
+Document ID: ${docID} | Generated on: ${date}
+</div>
+`;
+}
+
+if(lang==="hindi"){
+content=`
+<div class="title">शपथ पत्र</div>
+
+<p>मैं <strong>${name}</strong>, पिता <strong>${father}</strong>, आयु <strong>${age}</strong> वर्ष, निवासी <strong>${address}</strong>, शपथपूर्वक यह घोषणा करता/करती हूँ कि:</p>
+
+<p>1. मैं भारत का नागरिक हूँ।</p>
+<p>2. इस शपथ पत्र में दी गई जानकारी मेरे ज्ञान एवं विश्वास के अनुसार सत्य है।</p>
+<p>3. यह शपथ पत्र <strong>${purpose}</strong> के उद्देश्य से बनाया गया है।</p>
+<p>4. यह शपथ पत्र भारतीय कानून के अनुसार गैर-न्यायिक स्टाम्प पेपर पर निष्पादित किया गया है।</p>
+
+<p><br>स्थान <strong>${place}</strong>, दिनांक <strong>${date}</strong></p>
+
+<div class="signature-section">
+<div class="signature-block">
+_________________________<br>
+हस्ताक्षर (शपथकर्ता)
+</div>
+
+<div class="signature-block">
+_________________________<br>
+नोटरी हस्ताक्षर<br>
+(सील एवं पंजीकरण संख्या)
+</div>
+</div>
+
+<div class="doc-id">
+दस्तावेज़ आईडी: ${docID}
+</div>
+`;
+}
+
+if(lang==="urdu"){
+content=`
+<div class="title">حلف نامہ</div>
+
+<p>میں <strong>${name}</strong>, ولد <strong>${father}</strong>, عمر <strong>${age}</strong> سال، رہائشی <strong>${address}</strong>، حلفاً بیان کرتا/کرتی ہوں کہ:</p>
+
+<p>1. میں بھارت کا شہری ہوں۔</p>
+<p>2. اس حلف نامہ میں دی گئی تمام معلومات میرے علم اور یقین کے مطابق درست ہیں۔</p>
+<p>3. یہ حلف نامہ <strong>${purpose}</strong> کے مقصد کے لئے تیار کیا گیا ہے۔</p>
+<p>4. یہ حلف نامہ بھارتی قانون کے مطابق نان جوڈیشل اسٹامپ پیپر پر تیار کیا گیا ہے۔</p>
+
+<p><br>مقام <strong>${place}</strong>، تاریخ <strong>${date}</strong></p>
+
+<div class="signature-section">
+<div class="signature-block">
+_________________________<br>
+دستخط (حلف دہندہ)
+</div>
+
+<div class="signature-block">
+_________________________<br>
+نوٹری دستخط<br>
+(مہر و رجسٹریشن نمبر)
+</div>
+</div>
+
+<div class="doc-id">
+دستاویز آئی ڈی: ${docID}
+</div>
+`;
+}
+
+document.getElementById("printArea").innerHTML=content;
+window.print();
+}
+
+</script>
+
+</body>
+</html>
