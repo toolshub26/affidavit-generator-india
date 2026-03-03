@@ -7,7 +7,7 @@
 
 <style>
 body{
-font-family: "Times New Roman", serif;
+font-family:"Times New Roman",serif;
 background:#f4f4f4;
 margin:0;
 padding:20px;
@@ -42,13 +42,30 @@ border:none;
 width:100%;
 font-size:16px;
 cursor:pointer;
+margin-bottom:10px;
 }
 
+/* PRINT AREA FIXED FOR 1 PAGE */
 #printArea{
-margin-top:30px;
-padding:60px;
+margin-top:20px;
+padding:40px;
 border:1px solid #000;
-min-height:1000px;
+min-height:auto;
+line-height:1.6;
+position:relative;
+}
+
+/* Watermark */
+.watermark{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:70px;
+color:rgba(0,0,0,0.06);
+font-weight:bold;
+pointer-events:none;
+white-space:nowrap;
 }
 
 .title{
@@ -61,7 +78,7 @@ margin-bottom:20px;
 .signature-section{
 display:flex;
 justify-content:space-between;
-margin-top:80px;
+margin-top:60px;
 }
 
 .signature-block{
@@ -72,24 +89,34 @@ text-align:center;
 .doc-id{
 text-align:center;
 font-size:12px;
-margin-top:40px;
+margin-top:30px;
 }
 
+/* PRINT SETTINGS – FORCE SINGLE PAGE */
 @media print{
 body *{
 visibility:hidden;
 }
+
 #printArea, #printArea *{
 visibility:visible;
 }
+
 #printArea{
 position:absolute;
 left:0;
 top:0;
 width:100%;
+border:none;
 }
+
 button{
 display:none;
+}
+
+@page{
+size:A4;
+margin:20mm;
 }
 }
 </style>
@@ -116,12 +143,25 @@ display:none;
 <input id="date" type="date">
 
 <button onclick="generate()">GENERATE & PRINT A4</button>
+<button onclick="unlockPremium()">Enter Premium Code</button>
 
 <div id="printArea"></div>
 
 </div>
 
 <script>
+
+let premiumUnlocked = false;
+
+function unlockPremium(){
+let code = prompt("Enter Premium Access Code:");
+if(code === "INDIA49"){
+premiumUnlocked = true;
+alert("Premium Activated ✔ Watermark Removed");
+}else{
+alert("Invalid Code ❌");
+}
+}
 
 function generateDocID(){
 return "IND-AFF-" + Math.random().toString(36).substr(2,6).toUpperCase();
@@ -144,10 +184,16 @@ let place=document.getElementById("place").value;
 let date=formatIndianDate(document.getElementById("date").value);
 let docID=generateDocID();
 
+let watermark="";
+if(!premiumUnlocked){
+watermark='<div class="watermark">FREE VERSION</div>';
+}
+
 let content="";
 
 if(lang==="english"){
 content=`
+${watermark}
 <div class="title">AFFIDAVIT</div>
 
 <p>I, <strong>${name}</strong>, Son/Daughter of <strong>${father}</strong>, aged about <strong>${age}</strong> years, residing at <strong>${address}</strong>, do hereby solemnly affirm and declare as follows:</p>
@@ -173,21 +219,22 @@ Signature of Notary<br>
 </div>
 
 <div class="doc-id">
-Document ID: ${docID} | Generated on: ${date}
+Document ID: ${docID}
 </div>
 `;
 }
 
 if(lang==="hindi"){
 content=`
+${watermark}
 <div class="title">शपथ पत्र</div>
 
 <p>मैं <strong>${name}</strong>, पिता <strong>${father}</strong>, आयु <strong>${age}</strong> वर्ष, निवासी <strong>${address}</strong>, शपथपूर्वक यह घोषणा करता/करती हूँ कि:</p>
 
 <p>1. मैं भारत का नागरिक हूँ।</p>
-<p>2. इस शपथ पत्र में दी गई जानकारी मेरे ज्ञान एवं विश्वास के अनुसार सत्य है।</p>
+<p>2. इस शपथ पत्र में दी गई जानकारी सत्य है।</p>
 <p>3. यह शपथ पत्र <strong>${purpose}</strong> के उद्देश्य से बनाया गया है।</p>
-<p>4. यह शपथ पत्र भारतीय कानून के अनुसार गैर-न्यायिक स्टाम्प पेपर पर निष्पादित किया गया है।</p>
+<p>4. यह शपथ पत्र भारतीय कानून के अनुसार निष्पादित किया गया है।</p>
 
 <p><br>स्थान <strong>${place}</strong>, दिनांक <strong>${date}</strong></p>
 
@@ -212,14 +259,15 @@ _________________________<br>
 
 if(lang==="urdu"){
 content=`
+${watermark}
 <div class="title">حلف نامہ</div>
 
 <p>میں <strong>${name}</strong>, ولد <strong>${father}</strong>, عمر <strong>${age}</strong> سال، رہائشی <strong>${address}</strong>، حلفاً بیان کرتا/کرتی ہوں کہ:</p>
 
 <p>1. میں بھارت کا شہری ہوں۔</p>
-<p>2. اس حلف نامہ میں دی گئی تمام معلومات میرے علم اور یقین کے مطابق درست ہیں۔</p>
-<p>3. یہ حلف نامہ <strong>${purpose}</strong> کے مقصد کے لئے تیار کیا گیا ہے۔</p>
-<p>4. یہ حلف نامہ بھارتی قانون کے مطابق نان جوڈیشل اسٹامپ پیپر پر تیار کیا گیا ہے۔</p>
+<p>2. اس حلف نامہ میں دی گئی معلومات درست ہیں۔</p>
+<p>3. یہ حلف نامہ <strong>${purpose}</strong> کے لئے تیار کیا گیا ہے۔</p>
+<p>4. یہ بھارتی قانون کے مطابق تیار کیا گیا ہے۔</p>
 
 <p><br>مقام <strong>${place}</strong>، تاریخ <strong>${date}</strong></p>
 
@@ -247,6 +295,5 @@ window.print();
 }
 
 </script>
-
 </body>
 </html>
