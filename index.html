@@ -7,6 +7,10 @@
 <title>Affidavit Generator India (AGI) – Professional Court Version</title>
 
 <link rel="stylesheet" href="style.css">
+
+<!-- QR Code Library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script>
+
 </head>
 
 <body>
@@ -20,6 +24,9 @@
 
 <section class="form-section">
 
+<!-- PREMIUM STATUS BADGE -->
+<div id="premiumStatus"></div>
+
 <h2>Affidavit Details</h2>
 
 <label>Language</label>
@@ -32,15 +39,15 @@
 <label>Template Type</label>
 <select id="template">
 <option value="general">General Declaration (Free)</option>
-<option value="name">Name Correction</option>
-<option value="address">Address Change</option>
-<option value="dob">DOB Correction</option>
-<option value="lost">Lost Document</option>
-<option value="marriage">Marriage Affidavit</option>
-<option value="income">Income Affidavit</option>
-<option value="identity">Identity Proof</option>
-<option value="property">Property Declaration</option>
-<option value="gap">Gap Certificate</option>
+<option value="name">Name Correction (Premium)</option>
+<option value="address">Address Change (Premium)</option>
+<option value="dob">DOB Correction (Premium)</option>
+<option value="lost">Lost Document (Premium)</option>
+<option value="marriage">Marriage Affidavit (Premium)</option>
+<option value="income">Income Affidavit (Premium)</option>
+<option value="identity">Identity Proof (Premium)</option>
+<option value="property">Property Declaration (Premium)</option>
+<option value="gap">Gap Certificate (Premium)</option>
 </select>
 
 <label>Gender</label>
@@ -109,8 +116,8 @@ Add Witness Section (Premium)
 <div class="button-group">
 <button onclick="generateAffidavit()">Generate Preview</button>
 <button onclick="printAffidavit()">Print A4</button>
-<button onclick="downloadPDF()">Download PDF (Premium)</button>
-<button onclick="unlockPremium()">Enter Premium Code</button>
+<button id="downloadBtn" onclick="downloadPDF()">Download PDF (Premium)</button>
+<button onclick="unlockPremium()">Upgrade to Premium</button>
 </div>
 
 </section>
