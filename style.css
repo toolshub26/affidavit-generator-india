@@ -44,6 +44,24 @@ color:#555;
 }
 
 /* ===============================
+   PREMIUM STATUS BADGE
+=============================== */
+.premium-active{
+background:#1f8f3d;
+color:#fff;
+padding:6px 10px;
+font-size:13px;
+border-radius:4px;
+margin-bottom:12px;
+display:inline-block;
+}
+
+.locked{
+opacity:0.5;
+pointer-events:none;
+}
+
+/* ===============================
    FORM SECTION
 =============================== */
 .form-section{
@@ -100,6 +118,11 @@ color:#fff;
 cursor:pointer;
 font-size:14px;
 border-radius:4px;
+transition:0.3s ease;
+}
+
+button:hover{
+background:#333;
 }
 
 /* ===============================
@@ -162,18 +185,28 @@ margin-top:30px;
 }
 
 /* ===============================
+   QR CODE POSITION
+=============================== */
+#qrCodeContainer{
+position:absolute;
+bottom:30px;
+right:30px;
+}
+
+/* ===============================
    WATERMARK
 =============================== */
 .watermark{
 position:absolute;
 top:50%;
 left:50%;
-transform:translate(-50%,-50%);
+transform:translate(-50%,-50%) rotate(-30deg);
 font-size:80px;
 color:rgba(0,0,0,0.05);
 font-weight:bold;
 pointer-events:none;
 white-space:nowrap;
+z-index:0;
 }
 
 /* ===============================
@@ -185,7 +218,7 @@ font-family:"Noto Nastaliq Urdu","Arial",serif;
 }
 
 /* ===============================
-   PRINT SETTINGS (LOCKED)
+   PRINT SETTINGS (STRICT A4)
 =============================== */
 @page{
 size:A4;
