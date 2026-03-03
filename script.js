@@ -1,59 +1,145 @@
 /* =========================================
-   AGI – PROFESSIONAL LOGIC ENGINE
+   AGI – PROFESSIONAL LOGIC ENGINE v2.2
+   UI Lock + QR + Premium Badge + Payment Ready
 ========================================= */
 
-let premiumUnlocked = false;
+const AGI = {
+    premium: false,
+    premiumCode: "INDIA49",
+    docPrefix: "IND-AFF-"
+};
 
 /* ===============================
-   PREMIUM UNLOCK
+   INIT SYSTEM
+=============================== */
+(function initAGI(){
+    AGI.premium = localStorage.getItem("agiPremium") === "true";
+    restoreDraft();
+    updateUI();
+})();
+
+/* ===============================
+   PREMIUM UNLOCK / PAYMENT
 =============================== */
 function unlockPremium(){
-let code = prompt("Enter Premium Access Code:");
 
-if(code === "INDIA49"){
-premiumUnlocked = true;
-localStorage.setItem("agiPremium","true");
-alert("Premium Activated ✔");
-}else{
-alert("Invalid Code ❌");
-}
+    // Payment redirect (Replace with real Razorpay link later)
+    window.open("https://rzp.io/l/YOUR_PAYMENT_LINK","_blank");
+
+    alert("Complete payment. After confirmation, Premium will be activated manually.");
 }
 
-if(localStorage.getItem("agiPremium") === "true"){
-premiumUnlocked = true;
+/* Manual activation fallback */
+function activatePremiumManually(){
+    let code = prompt("Enter Admin Premium Code:");
+    if(code === AGI.premiumCode){
+        AGI.premium = true;
+        localStorage.setItem("agiPremium","true");
+        alert("Premium Activated ✔");
+        location.reload();
+    } else {
+        alert("Invalid Code ❌");
+    }
 }
 
 /* ===============================
-   SAVE DRAFT SYSTEM
+   UPDATE UI STATE
 =============================== */
-const fields = ["lang","template","gender","name","father","age","address","purpose","state","stamp","place","date","customParagraph"];
+function updateUI(){
 
-fields.forEach(id=>{
-let el=document.getElementById(id);
-if(el){
-el.addEventListener("input",()=>{
-localStorage.setItem(id,el.value);
-});
-if(localStorage.getItem(id)){
-el.value=localStorage.getItem(id);
+    const badge = document.getElementById("premiumStatus");
+    const downloadBtn = document.getElementById("downloadBtn");
+    const witnessToggle = document.getElementById("addWitness");
+
+    if(AGI.premium){
+        if(badge) badge.innerHTML = `<div class="premium-active">Premium Active ✔</div>`;
+        if(downloadBtn) downloadBtn.classList.remove("locked");
+    } else {
+        if(badge) badge.innerHTML = "";
+        if(downloadBtn) downloadBtn.classList.add("locked");
+        if(witnessToggle) witnessToggle.checked = false;
+    }
 }
+
+/* ===============================
+   SAVE & RESTORE DRAFT
+=============================== */
+const fieldIDs = [
+    "lang","template","gender","name","father","age",
+    "address","purpose","state","stamp","place",
+    "date","customParagraph"
+];
+
+function restoreDraft(){
+    fieldIDs.forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el) return;
+
+        const saved = localStorage.getItem("agi_"+id);
+        if(saved) el.value = saved;
+
+        el.addEventListener("input",()=>{
+            localStorage.setItem("agi_"+id, el.value);
+        });
+    });
 }
-});
 
 /* ===============================
    DOC ID GENERATOR
 =============================== */
 function generateDocID(){
-return "IND-AFF-" + Math.random().toString(36).substr(2,6).toUpperCase();
+    return AGI.docPrefix + Math.random().toString(36).substring(2,8).toUpperCase();
 }
 
 /* ===============================
-   GENDER SMART LOGIC
+   GENDER SMART TEXT
 =============================== */
 function genderText(gender){
-if(gender==="male") return {relation:"Son of", verb:"do hereby solemnly affirm"};
-if(gender==="female") return {relation:"Daughter of", verb:"do hereby solemnly affirm"};
-return {relation:"Child of", verb:"do hereby solemnly affirm"};
+    if(gender==="male") return { relation:"Son of", verb:"do hereby solemnly affirm" };
+    if(gender==="female") return { relation:"Daughter of", verb:"do hereby solemnly affirm" };
+    return { relation:"Child of", verb:"do hereby solemnly affirm" };
+}
+
+/* ===============================
+   WATERMARK
+=============================== */
+function getWatermark(){
+    return AGI.premium ? "" : `<div class="watermark">FREE VERSION</div>`;
+}
+
+/* ===============================
+   QR GENERATOR (Premium Only)
+=============================== */
+function generateQR(docID,name,date){
+
+    if(!AGI.premium) return;
+
+    const container = document.getElementById("qrCodeContainer");
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    new QRCode(container,{
+        text: `AGI Verification\nID:${docID}\nName:${name}\nDate:${date}`,
+        width:100,
+        height:100
+    });
+}
+
+/* ===============================
+   VALIDATION
+=============================== */
+function validateRequired(data){
+
+    const required = ["name","father","age","address","purpose","place","date"];
+
+    for(let key of required){
+        if(!data[key] || data[key].trim()===""){
+            alert("Please fill all required fields.");
+            return false;
+        }
+    }
+    return true;
 }
 
 /* ===============================
@@ -61,206 +147,104 @@ return {relation:"Child of", verb:"do hereby solemnly affirm"};
 =============================== */
 function generateAffidavit(){
 
-let lang=document.getElementById("lang").value;
-let template=document.getElementById("template").value;
-let gender=document.getElementById("gender").value;
-let name=document.getElementById("name").value;
-let father=document.getElementById("father").value;
-let age=document.getElementById("age").value;
-let address=document.getElementById("address").value;
-let purpose=document.getElementById("purpose").value;
-let state=document.getElementById("state").value;
-let stamp=document.getElementById("stamp").value;
-let place=document.getElementById("place").value;
-let date=document.getElementById("date").value;
-let custom=document.getElementById("customParagraph").value;
-let addWitness=document.getElementById("addWitness").checked;
+    const preview = document.getElementById("previewArea");
 
-let docID=generateDocID();
-let preview=document.getElementById("previewArea");
+    const data = {
+        lang: document.getElementById("lang")?.value,
+        template: document.getElementById("template")?.value,
+        gender: document.getElementById("gender")?.value,
+        name: document.getElementById("name")?.value,
+        father: document.getElementById("father")?.value,
+        age: document.getElementById("age")?.value,
+        address: document.getElementById("address")?.value,
+        purpose: document.getElementById("purpose")?.value,
+        state: document.getElementById("state")?.value,
+        stamp: document.getElementById("stamp")?.value,
+        place: document.getElementById("place")?.value,
+        date: document.getElementById("date")?.value,
+        custom: document.getElementById("customParagraph")?.value,
+        addWitness: document.getElementById("addWitness")?.checked
+    };
 
-let watermark="";
-if(!premiumUnlocked){
-watermark='<div class="watermark">FREE VERSION</div>';
-}
+    if(!validateRequired(data)) return;
 
-/* FREE restriction */
-if(!premiumUnlocked && template !== "general"){
-alert("Premium Template. Unlock to use.");
-return;
-}
+    if(!AGI.premium && data.template !== "general"){
+        alert("This template is Premium. Unlock to use.");
+        return;
+    }
 
-/* Smart relation */
-let g=genderText(gender);
+    const docID = generateDocID();
+    const g = genderText(data.gender);
+    let content = getWatermark();
 
-/* ===============================
-   ENGLISH TEMPLATE
-=============================== */
-let content="";
+    preview.removeAttribute("dir");
 
-if(lang==="english"){
+    /* ENGLISH */
+    if(data.lang==="english"){
+        content+=`
+        <div class="title">AFFIDAVIT</div>
+        <p>I, <strong>${data.name}</strong>, ${g.relation} <strong>${data.father}</strong>, aged about <strong>${data.age}</strong> years, residing at <strong>${data.address}</strong>, ${g.verb} as follows:</p>
+        <p>1. That I am a citizen of India.</p>
+        <p>2. That this affidavit is executed for the purpose of <strong>${data.purpose}</strong>.</p>
+        <p>3. Executed in the State of <strong>${data.state}</strong>.</p>
+        <p>4. To be executed on <strong>${data.stamp}</strong> Non-Judicial Stamp Paper.</p>
+        <p><br>Verified at <strong>${data.place}</strong> on <strong>${data.date}</strong>.</p>`;
+    }
 
-content=`
-${watermark}
-<div class="title">AFFIDAVIT</div>
+    /* HINDI */
+    if(data.lang==="hindi"){
+        content+=`
+        <div class="title">शपथ पत्र</div>
+        <p>मैं <strong>${data.name}</strong>, पिता <strong>${data.father}</strong>, आयु <strong>${data.age}</strong> वर्ष, निवासी <strong>${data.address}</strong>, शपथपूर्वक घोषणा करता/करती हूँ कि:</p>
+        <p>1. मैं भारत का नागरिक हूँ।</p>
+        <p>2. यह शपथ पत्र <strong>${data.purpose}</strong> हेतु बनाया गया है।</p>
+        <p><br>स्थान <strong>${data.place}</strong>, दिनांक <strong>${data.date}</strong></p>`;
+    }
 
-<p>I, <strong>${name}</strong>, ${g.relation} <strong>${father}</strong>, aged about <strong>${age}</strong> years, residing at <strong>${address}</strong>, ${g.verb} as follows:</p>
+    /* URDU */
+    if(data.lang==="urdu"){
+        preview.setAttribute("dir","rtl");
+        content+=`
+        <div class="title">حلف نامہ</div>
+        <p>میں <strong>${data.name}</strong>, ولد <strong>${data.father}</strong>, عمر <strong>${data.age}</strong> سال، ساکن <strong>${data.address}</strong>، حلفاً بیان کرتا/کرتی ہوں کہ:</p>
+        <p>1. میں بھارت کا شہری ہوں۔</p>
+        <p>2. یہ حلف نامہ <strong>${data.purpose}</strong> کے لئے ہے۔</p>
+        <p><br>مقام <strong>${data.place}</strong>, تاریخ <strong>${data.date}</strong></p>`;
+    }
 
-<p>1. That I am a citizen of India.</p>
-<p>2. That this affidavit is executed for the purpose of <strong>${purpose}</strong>.</p>
-<p>3. That the statements made herein are true to the best of my knowledge.</p>
-<p>4. Executed in the State of <strong>${state}</strong> under applicable Stamp Act.</p>
-<p>5. To be executed on <strong>${stamp}</strong> Non-Judicial Stamp Paper.</p>
-`;
+    content+=`
+    <div class="signature-section">
+        <div class="signature-block">_________________________<br>Signature</div>
+        <div class="signature-block">_________________________<br>Notary</div>
+    </div>
+    `;
 
-if(custom && premiumUnlocked){
-content+=`<p>6. ${custom}</p>`;
-}
+    if(AGI.premium){
+        content+=`<div class="doc-id">Document ID: ${docID}</div>
+                  <div id="qrCodeContainer"></div>`;
+    }
 
-content+=`
-<p><br>Verified at <strong>${place}</strong> on <strong>${date}</strong>.</p>
-`;
+    preview.innerHTML = content;
 
-/* Witness Section */
-if(addWitness && premiumUnlocked){
-content+=`
-<div class="signature-section">
-<div class="signature-block">
-_________________________<br>
-Witness 1
-</div>
-<div class="signature-block">
-_________________________<br>
-Witness 2
-</div>
-</div>
-`;
-}
-
-content+=`
-<div class="signature-section">
-<div class="signature-block">
-_________________________<br>
-Signature of Deponent
-</div>
-<div class="signature-block">
-_________________________<br>
-Signature of Notary
-</div>
-</div>
-`;
-
-if(premiumUnlocked){
-content+=`<div class="doc-id">Document ID: ${docID}</div>`;
-}
-}
-
-/* ===============================
-   HINDI
-=============================== */
-if(lang==="hindi"){
-content=`
-${watermark}
-<div class="title">शपथ पत्र</div>
-
-<p>मैं <strong>${name}</strong>, पिता <strong>${father}</strong>, आयु <strong>${age}</strong> वर्ष, निवासी <strong>${address}</strong>, शपथपूर्वक यह घोषणा करता/करती हूँ कि:</p>
-
-<p>1. मैं भारत का नागरिक हूँ।</p>
-<p>2. यह शपथ पत्र <strong>${purpose}</strong> के उद्देश्य से बनाया गया है।</p>
-<p>3. यह <strong>${state}</strong> राज्य में लागू कानून के अनुसार निष्पादित किया गया है।</p>
-<p>4. यह <strong>${stamp}</strong> के गैर-न्यायिक स्टाम्प पेपर पर तैयार किया गया है।</p>
-`;
-
-if(custom && premiumUnlocked){
-content+=`<p>5. ${custom}</p>`;
-}
-
-content+=`
-<p><br>स्थान <strong>${place}</strong>, दिनांक <strong>${date}</strong></p>
-`;
-
-if(addWitness && premiumUnlocked){
-content+=`
-<div class="signature-section">
-<div class="signature-block">_________________________<br>गवाह 1</div>
-<div class="signature-block">_________________________<br>गवाह 2</div>
-</div>
-`;
-}
-
-content+=`
-<div class="signature-section">
-<div class="signature-block">_________________________<br>हस्ताक्षर</div>
-<div class="signature-block">_________________________<br>नोटरी</div>
-</div>
-`;
-}
-
-/* ===============================
-   URDU
-=============================== */
-if(lang==="urdu"){
-preview.setAttribute("dir","rtl");
-
-content=`
-${watermark}
-<div class="title">حلف نامہ</div>
-
-<p>میں <strong>${name}</strong>, ولد <strong>${father}</strong>, عمر <strong>${age}</strong> سال، رہائشی <strong>${address}</strong>، حلفاً بیان کرتا/کرتی ہوں کہ:</p>
-
-<p>1. میں بھارت کا شہری ہوں۔</p>
-<p>2. یہ حلف نامہ <strong>${purpose}</strong> کے لئے تیار کیا گیا ہے۔</p>
-<p>3. یہ <strong>${state}</strong> کے قانون کے مطابق تیار کیا گیا ہے۔</p>
-<p>4. یہ <strong>${stamp}</strong> کے نان جوڈیشل اسٹامپ پیپر پر تیار کیا گیا ہے۔</p>
-`;
-
-if(custom && premiumUnlocked){
-content+=`<p>5. ${custom}</p>`;
-}
-
-content+=`
-<p><br>مقام <strong>${place}</strong>، تاریخ <strong>${date}</strong></p>
-`;
-
-if(addWitness && premiumUnlocked){
-content+=`
-<div class="signature-section">
-<div class="signature-block">_________________________<br>گواہ 1</div>
-<div class="signature-block">_________________________<br>گواہ 2</div>
-</div>
-`;
-}
-
-content+=`
-<div class="signature-section">
-<div class="signature-block">_________________________<br>دستخط</div>
-<div class="signature-block">_________________________<br>نوٹری</div>
-</div>
-`;
-}
-
-/* RESET RTL IF NOT URDU */
-if(lang!=="urdu"){
-preview.removeAttribute("dir");
-}
-
-preview.innerHTML=content;
+    if(AGI.premium){
+        generateQR(docID,data.name,data.date);
+    }
 }
 
 /* ===============================
    PRINT
 =============================== */
 function printAffidavit(){
-window.print();
+    window.print();
 }
 
 /* ===============================
-   PDF DOWNLOAD (PREMIUM)
+   DOWNLOAD PDF
 =============================== */
 function downloadPDF(){
-if(!premiumUnlocked){
-alert("Premium Required for PDF Download");
-return;
+    if(!AGI.premium){
+        alert("Premium Required for PDF Download");
+        return;
+    }
+    window.print();
 }
-window.print();
-                  }
