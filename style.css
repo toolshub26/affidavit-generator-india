@@ -1,0 +1,227 @@
+/* ===============================
+   GLOBAL RESET
+=============================== */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:"Times New Roman",serif;
+background:#f4f4f4;
+color:#000;
+line-height:1.6;
+}
+
+/* ===============================
+   MAIN LAYOUT
+=============================== */
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+display:flex;
+flex-wrap:wrap;
+gap:30px;
+justify-content:center;
+}
+
+header{
+width:100%;
+text-align:center;
+margin-bottom:20px;
+}
+
+header h1{
+font-size:24px;
+margin-bottom:5px;
+}
+
+.tagline{
+font-size:14px;
+color:#555;
+}
+
+/* ===============================
+   FORM SECTION
+=============================== */
+.form-section{
+background:#fff;
+padding:20px;
+width:350px;
+border-radius:6px;
+box-shadow:0 5px 15px rgba(0,0,0,0.08);
+}
+
+.form-section h2{
+margin-bottom:15px;
+}
+
+.form-section label{
+display:block;
+margin-top:12px;
+font-weight:600;
+font-size:14px;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea{
+width:100%;
+padding:8px;
+margin-top:5px;
+border:1px solid #ccc;
+border-radius:4px;
+font-size:14px;
+}
+
+.form-section textarea{
+min-height:70px;
+resize:vertical;
+}
+
+.toggle-group{
+margin-top:15px;
+}
+
+.button-group{
+margin-top:15px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+button{
+padding:10px;
+border:none;
+background:#000;
+color:#fff;
+cursor:pointer;
+font-size:14px;
+border-radius:4px;
+}
+
+/* ===============================
+   PREVIEW SECTION (STRICT A4)
+=============================== */
+.preview-section{
+background:#fff;
+width:210mm;
+min-height:297mm;
+padding:25mm 20mm;
+box-shadow:0 10px 25px rgba(0,0,0,0.1);
+position:relative;
+overflow:hidden;
+}
+
+.document-preview{
+font-size:14px;
+text-align:left;
+}
+
+.document-preview p{
+margin-bottom:10px;
+}
+
+.title{
+text-align:center;
+font-size:18px;
+font-weight:bold;
+margin-bottom:20px;
+}
+
+/* ===============================
+   SIGNATURE SECTION
+=============================== */
+.signature-section{
+display:flex;
+justify-content:space-between;
+margin-top:50px;
+}
+
+.signature-block{
+width:45%;
+text-align:center;
+}
+
+.signature-line{
+border-top:1px solid #000;
+margin-top:40px;
+padding-top:5px;
+font-size:13px;
+}
+
+/* ===============================
+   DOCUMENT ID
+=============================== */
+.doc-id{
+text-align:center;
+font-size:12px;
+margin-top:30px;
+}
+
+/* ===============================
+   WATERMARK
+=============================== */
+.watermark{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:80px;
+color:rgba(0,0,0,0.05);
+font-weight:bold;
+pointer-events:none;
+white-space:nowrap;
+}
+
+/* ===============================
+   RTL SUPPORT (URDU)
+=============================== */
+[dir="rtl"]{
+text-align:right;
+font-family:"Noto Nastaliq Urdu","Arial",serif;
+}
+
+/* ===============================
+   PRINT SETTINGS (LOCKED)
+=============================== */
+@page{
+size:A4;
+margin:15mm;
+}
+
+@media print{
+
+body{
+background:#fff;
+margin:0;
+padding:0;
+}
+
+.form-section{
+display:none !important;
+}
+
+header, footer{
+display:none !important;
+}
+
+.preview-section{
+width:180mm;
+min-height:auto;
+margin:0 auto;
+padding:0;
+box-shadow:none;
+}
+
+button{
+display:none !important;
+}
+
+.signature-section{
+page-break-inside:avoid;
+}
+
+}
