@@ -6,7 +6,7 @@
 
 <title>Affidavit Generator Premium System</title>
 
-<!-- Firebase -->
+<!-- Firebase v8 -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -15,33 +15,10 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <style>
-body{
-  font-family: Arial;
-  background:#111;
-  color:#fff;
-  text-align:center;
-}
-
-.container{
-  max-width:500px;
-  margin:auto;
-  padding:20px;
-}
-
-input{
-  width:90%;
-  padding:10px;
-  margin:10px;
-}
-
-button{
-  padding:12px 20px;
-  margin:5px;
-  border:none;
-  border-radius:6px;
-  cursor:pointer;
-}
-
+body{font-family:Arial;background:#111;color:#fff;text-align:center}
+.container{max-width:500px;margin:auto;padding:20px}
+input{width:90%;padding:10px;margin:10px}
+button{padding:12px 20px;margin:5px;border:none;border-radius:6px;cursor:pointer}
 .login{background:#007bff;color:#fff}
 .signup{background:#28a745;color:#fff}
 .buy{background:#ff9800;color:#fff}
@@ -56,7 +33,6 @@ button{
 
 <h2>🚀 Affidavit Premium System</h2>
 
-<!-- LOGIN -->
 <input type="email" id="email" placeholder="Email">
 <input type="password" id="password" placeholder="Password">
 
@@ -77,11 +53,14 @@ button{
 
 <script>
 
-// 🔥 FIREBASE CONFIG (CHANGE THIS)
+// ✅ 🔥 REAL FIREBASE CONFIG (REPLACE THIS)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID"
+  apiKey: "PASTE_YOUR_REAL_API_KEY",
+  authDomain: "PASTE.firebaseapp.com",
+  projectId: "PASTE_PROJECT_ID",
+  storageBucket: "PASTE.appspot.com",
+  messagingSenderId: "PASTE",
+  appId: "PASTE"
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -91,23 +70,27 @@ const db = firebase.firestore();
 
 // ================= SIGNUP =================
 function signup(){
-  auth.createUserWithEmailAndPassword(
-    email.value,
-    password.value
-  ).then(()=>{
+  if(!email.value || !password.value){
+    alert("Fill all fields ❗");
+    return;
+  }
+
+  auth.createUserWithEmailAndPassword(email.value, password.value)
+  .then(()=>{
     alert("Signup Success ✅");
-  }).catch(err=>alert(err.message));
+  })
+  .catch(err=>{
+    alert(err.message);
+  });
 }
 
 // ================= LOGIN =================
 function login(){
-  auth.signInWithEmailAndPassword(
-    email.value,
-    password.value
-  ).then(()=>{
+  auth.signInWithEmailAndPassword(email.value, password.value)
+  .then(()=>{
     alert("Login Success ✅");
-    checkPremium();
-  }).catch(err=>alert(err.message));
+  })
+  .catch(err=>alert(err.message));
 }
 
 // ================= LOGOUT =================
@@ -116,7 +99,7 @@ function logout(){
   alert("Logged out ❌");
 }
 
-// ================= CHECK USER =================
+// ================= AUTH STATE =================
 auth.onAuthStateChanged(user=>{
   if(user){
     checkPremium();
@@ -136,12 +119,13 @@ function buyPremium(){
   }
 
   var options = {
-    "key": "YOUR_RAZORPAY_KEY",
-    "amount": 9900,
-    "currency": "INR",
-    "name": "Affidavit Tool",
-    "description": "Premium Upgrade",
-    "handler": function (response){
+    key: "YOUR_RAZORPAY_KEY",
+    amount: 9900,
+    currency: "INR",
+    name: "Affidavit Tool",
+    description: "Premium Upgrade",
+
+    handler: function (){
 
       let expiry = Date.now() + (30*24*60*60*1000);
 
