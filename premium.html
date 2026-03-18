@@ -68,7 +68,21 @@ auth.onAuthStateChanged(user=>{
     }
 
     let d = doc.data();
+    let now = Date.now();
 
+    // 🔥 EXPIRY CHECK
+    if(d.expiry && now > d.expiry){
+
+      db.collection("users").doc(user.uid).update({
+        premium:false
+      });
+
+      alert("❌ Premium Expired");
+      location.href = "dashboard.html";
+      return;
+    }
+
+    // 🔥 ACCESS CHECK
     if(d.premium){
       console.log("Access Granted ✅");
     } else {
