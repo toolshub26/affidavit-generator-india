@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Affidavit Premium System</title>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+body{font-family:Arial;background:#111;color:#fff;padding:20px}
+.box{background:#222;padding:20px;border-radius:10px;margin:10px 0}
+button{padding:12px;border:none;border-radius:6px;background:#28a745;color:#fff;font-size:16px}
+</style>
+</head>
+
+<body>
+
+<h2>🚀 Affidavit Premium System</h2>
+
+<div class="box">
+<h3>💰 Buy Premium ₹99</h3>
+<button onclick="payNow()">Buy Now</button>
+</div>
+
+<div class="box">
+<h3>👤 User Status</h3>
+<p id="email"></p>
+<p id="status">Checking...</p>
+<p id="expiry"></p>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+// 🔥 FIREBASE CONFIG (CHANGE THIS)
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 🔐 USER CHECK
+async function checkUser(user){
+
+  document.getElementById("email").innerText = "Email: " + user.email;
+
+  const snap = await getDoc(doc(db,"users",user.uid));
+
+  if(!snap.exists()){
+    document.getElementById("status").innerText="Free ❌";
+    return;
+  }
+
+  let data = snap.data();
+
+  if(data.premium && Date.now() < data.expiry){
+
+    document.getElementById("status").innerText="Premium Active ✅";
+
+    let date = new Date(data.expiry);
+    document.getElementById("expiry").innerText="Expiry: "+date.toDateString();
+
+  }else{
+    document.getElementById("status").innerText="Free ❌";
+  }
+}
+
+// 🔄 AUTO LOGIN
+onAuthStateChanged(auth,(user)=>{
+  if(user){
+    checkUser(user);
+  }else{
+    alert("Please login first ❗");
+  }
+});
+
+// 💰 PAYMENT SYSTEM (NO BACKEND)
+window.payNow = function(){
+
+var options = {
+  "key": "YOUR_RAZORPAY_KEY",
+  "amount": "9900",
+  "currency": "INR",
+  "name": "Affidavit Tool",
+
+  handler: async function (response){
+
+    const user = auth.currentUser;
+
+    if(!user){
+      alert("Login required ❗");
+      return;
+    }
+
+    let expiry = Date.now() + (30 * 24 * 60 * 60 * 1000);
+
+    // 🔥 AUTO PREMIUM ON
+    await setDoc(doc(db,"users",user.uid),{
+      premium:true,
+      expiry:expiry
+    },{merge:true});
+
+    alert("Payment Success 🚀 Premium Activated");
+    location.reload();
+  }
+};
+
+var rzp = new Razorpay(options);
+rzp.open();
+
+}
+
+</script>
+
+</body>
+</html>
