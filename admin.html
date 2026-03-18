@@ -4,25 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Affidavit Generator Premium System</title>
+<title>Admin Panel - Affidavit SaaS</title>
 
-<!-- Firebase v8 -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
-<!-- Razorpay -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-
 <style>
-body{font-family:Arial;background:#111;color:#fff;text-align:center}
-.container{max-width:500px;margin:auto;padding:20px}
-input{width:90%;padding:10px;margin:10px}
-button{padding:12px 20px;margin:5px;border:none;border-radius:6px;cursor:pointer}
-.login{background:#007bff;color:#fff}
-.signup{background:#28a745;color:#fff}
-.buy{background:#ff9800;color:#fff}
-.logout{background:#e91e63;color:#fff}
+body{background:#111;color:#fff;font-family:Arial;text-align:center}
+.container{max-width:700px;margin:auto;padding:20px}
+.card{background:#222;padding:15px;margin:10px;border-radius:8px}
+button{padding:8px 12px;margin:5px;border:none;border-radius:5px;cursor:pointer}
+.approve{background:#28a745;color:#fff}
+.reject{background:#dc3545;color:#fff}
 </style>
 
 </head>
@@ -31,144 +24,105 @@ button{padding:12px 20px;margin:5px;border:none;border-radius:6px;cursor:pointer
 
 <div class="container">
 
-<h2>🚀 Affidavit Premium System</h2>
+<h2>👑 Admin Panel</h2>
 
-<input type="email" id="email" placeholder="Email">
-<input type="password" id="password" placeholder="Password">
+<h3>👥 Users</h3>
+<div id="users"></div>
 
-<br>
-
-<button class="signup" onclick="signup()">Signup</button>
-<button class="login" onclick="login()">Login</button>
-<button class="logout" onclick="logout()">Logout</button>
-
-<hr>
-
-<h3>💰 Buy Premium ₹99</h3>
-<button class="buy" onclick="buyPremium()">Buy Now</button>
-
-<h3 id="status">Checking...</h3>
+<h3>💸 Withdraw Requests</h3>
+<div id="withdrawals"></div>
 
 </div>
 
 <script>
 
-// ✅ 🔥 REAL FIREBASE CONFIG (REPLACE THIS)
+// ✅ FINAL FIREBASE CONFIG (ALREADY ADDED)
 const firebaseConfig = {
-  apiKey: "PASTE_YOUR_REAL_API_KEY",
-  authDomain: "PASTE.firebaseapp.com",
-  projectId: "PASTE_PROJECT_ID",
-  storageBucket: "PASTE.appspot.com",
-  messagingSenderId: "PASTE",
-  appId: "PASTE"
+  apiKey: "AIzaSyC_1bKbNGAoGviGt1-a1f27h9VDj4hr3oA",
+  authDomain: "affidavittool.firebaseapp.com",
+  projectId: "affidavittool",
+  storageBucket: "affidavittool.firebasestorage.app",
+  messagingSenderId: "108525725649",
+  appId: "1:108525725649:web:2c3cab440860c81e6de2f0"
 };
 
 firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
 const db = firebase.firestore();
 
-// ================= SIGNUP =================
-function signup(){
-  if(!email.value || !password.value){
-    alert("Fill all fields ❗");
-    return;
-  }
+// ================= LOAD USERS =================
+function loadUsers(){
+  db.collection("users").get().then(snapshot=>{
+    let html = "";
+    snapshot.forEach(doc=>{
+      let d = doc.data();
 
-  auth.createUserWithEmailAndPassword(email.value, password.value)
-  .then(()=>{
-    alert("Signup Success ✅");
-  })
-  .catch(err=>{
-    alert(err.message);
+      html += `
+      <div class="card">
+      <b>UID:</b> ${doc.id}<br>
+      💰 Wallet: ₹${d.wallet || 0}<br>
+      ⭐ Premium: ${d.premium ? "Yes" : "No"}
+      </div>`;
+    });
+
+    document.getElementById("users").innerHTML = html;
   });
 }
 
-// ================= LOGIN =================
-function login(){
-  auth.signInWithEmailAndPassword(email.value, password.value)
-  .then(()=>{
-    alert("Login Success ✅");
-  })
-  .catch(err=>alert(err.message));
-}
+// ================= LOAD WITHDRAW =================
+function loadWithdraw(){
 
-// ================= LOGOUT =================
-function logout(){
-  auth.signOut();
-  alert("Logged out ❌");
-}
+  db.collection("withdrawals").get().then(snapshot=>{
+    let html = "";
 
-// ================= AUTH STATE =================
-auth.onAuthStateChanged(user=>{
-  if(user){
-    checkPremium();
-  } else {
-    document.getElementById("status").innerText = "Not Logged In ❌";
-  }
-});
+    snapshot.forEach(doc=>{
+      let d = doc.data();
 
-// ================= BUY PREMIUM =================
-function buyPremium(){
+      html += `
+      <div class="card">
+      👤 ${d.uid}<br>
+      💸 ₹${d.amount}<br>
+      📌 Status: ${d.status}<br>
 
-  let user = auth.currentUser;
+      <button class="approve" onclick="approve('${doc.id}','${d.uid}',${d.amount})">Approve</button>
+      <button class="reject" onclick="reject('${doc.id}')">Reject</button>
 
-  if(!user){
-    alert("Please login first ❗");
-    return;
-  }
+      </div>`;
+    });
 
-  var options = {
-    key: "YOUR_RAZORPAY_KEY",
-    amount: 9900,
-    currency: "INR",
-    name: "Affidavit Tool",
-    description: "Premium Upgrade",
-
-    handler: function (){
-
-      let expiry = Date.now() + (30*24*60*60*1000);
-
-      db.collection("users").doc(user.uid).set({
-        premium:true,
-        expiry: expiry
-      });
-
-      alert("Premium Activated 🚀");
-      checkPremium();
-    }
-  };
-
-  var rzp = new Razorpay(options);
-  rzp.open();
-}
-
-// ================= CHECK PREMIUM =================
-function checkPremium(){
-
-  let user = auth.currentUser;
-
-  if(!user) return;
-
-  db.collection("users").doc(user.uid).get()
-  .then(doc=>{
-
-    if(!doc.exists){
-      document.getElementById("status").innerText = "Free User ❌";
-      return;
-    }
-
-    let data = doc.data();
-
-    if(data.premium && data.expiry > Date.now()){
-      document.getElementById("status").innerText = "Premium Active 🚀";
-    } else {
-      document.getElementById("status").innerText = "Premium Expired ❌";
-    }
-
+    document.getElementById("withdrawals").innerHTML = html;
   });
 
 }
+
+// ================= APPROVE =================
+function approve(id, uid, amount){
+
+  db.collection("users").doc(uid).update({
+    wallet: firebase.firestore.FieldValue.increment(-amount)
+  });
+
+  db.collection("withdrawals").doc(id).update({
+    status:"approved"
+  });
+
+  alert("Approved ✅");
+  loadWithdraw();
+}
+
+// ================= REJECT =================
+function reject(id){
+
+  db.collection("withdrawals").doc(id).update({
+    status:"rejected"
+  });
+
+  alert("Rejected ❌");
+  loadWithdraw();
+}
+
+// ================= INIT =================
+loadUsers();
+loadWithdraw();
 
 </script>
 
