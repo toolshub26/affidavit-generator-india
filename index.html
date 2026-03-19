@@ -69,8 +69,8 @@ const db = firebase.firestore();
 // ================= SIGNUP =================
 function signup(){
 
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
+  let email = emailEl.value.trim();
+  let password = passwordEl.value.trim();
 
   if(!email || !password){
     alert("Fill all fields ❗");
@@ -86,7 +86,8 @@ function signup(){
     db.collection("users").doc(uid).set({
       premium:false,
       wallet:0,
-      refCode:refCode
+      refCode:refCode,
+      usedReferral:false
     });
 
     alert("Signup Success ✅");
@@ -97,31 +98,27 @@ function signup(){
 // ================= LOGIN =================
 function login(){
 
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
+  let email = emailEl.value.trim();
+  let password = passwordEl.value.trim();
 
   auth.signInWithEmailAndPassword(email, password)
   .then(()=>{
     alert("Login Success ✅");
-    window.location.href = "/affidavit-generator-india/dashboard.html"; // ✅ FIXED
+    window.location.href = "/affidavit-generator-india/dashboard.html";
   })
   .catch(err=>alert(err.message));
 }
 
 // ================= AUTH CHECK =================
 auth.onAuthStateChanged(user=>{
-  if(user){
-    document.getElementById("status").innerText = "Logged In ✅";
-  } else {
-    document.getElementById("status").innerText = "Not Logged In ❌";
-  }
+  document.getElementById("status").innerText = user ? "Logged In ✅" : "Not Logged In ❌";
 });
 
 // ================= BUY PREMIUM =================
 function buy(){
 
   let user = auth.currentUser;
-  let refInput = document.getElementById("ref").value;
+  let refInput = document.getElementById("ref").value.trim();
 
   if(!user){
     alert("Login first ❗");
@@ -129,41 +126,68 @@ function buy(){
   }
 
   var options = {
-    key: "rzp_test_xxxxxxxx",
+    key: "rzp_test_xxxxxxxx", // 👉 replace with live key
     amount: 9900,
     currency: "INR",
     name: "Affidavit Tool",
     description: "Premium Plan",
 
-    handler: function (){
+    handler: async function (){
 
       let expiry = Date.now() + (30*24*60*60*1000);
 
-      db.collection("users").doc(user.uid).update({
+      let userRef = db.collection("users").doc(user.uid);
+      let userDoc = await userRef.get();
+      let userData = userDoc.data();
+
+      await userRef.update({
         premium:true,
         expiry:expiry
       });
 
-      if(refInput){
-        db.collection("users")
+      // 🔥 DOUBLE EARNING SYSTEM
+      if(refInput && !userData.usedReferral){
+
+        let snapshot = await db.collection("users")
         .where("refCode","==",refInput)
-        .get()
-        .then(snapshot=>{
-          snapshot.forEach(doc=>{
-            db.collection("users").doc(doc.id).update({
-              wallet: firebase.firestore.FieldValue.increment(20)
-            });
+        .get();
+
+        snapshot.forEach(async doc=>{
+
+          // ₹20 to referrer
+          await db.collection("users").doc(doc.id).update({
+            wallet: firebase.firestore.FieldValue.increment(20)
           });
+
+          // ₹10 to new user
+          await userRef.update({
+            wallet: firebase.firestore.FieldValue.increment(10),
+            usedReferral:true
+          });
+
+          // save history
+          await db.collection("referrals").add({
+            referrer: doc.id,
+            newUser: user.uid,
+            amountReferrer:20,
+            amountNewUser:10,
+            time:Date.now()
+          });
+
         });
       }
 
       alert("Premium Activated 🚀");
-      window.location.href="/affidavit-generator-india/dashboard.html"; // ✅ FIXED
+      window.location.href="/affidavit-generator-india/dashboard.html";
     }
   };
 
   new Razorpay(options).open();
 }
+
+// shorthand
+const emailEl = document.getElementById("email");
+const passwordEl = document.getElementById("password");
 
 </script>
 
