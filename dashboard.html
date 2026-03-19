@@ -15,6 +15,7 @@ body{background:#111;color:#fff;font-family:Arial;text-align:center}
 .container{max-width:500px;margin:auto;padding:20px}
 .card{background:#222;padding:15px;margin:10px;border-radius:8px}
 button{padding:10px 15px;margin:5px;border:none;border-radius:6px;cursor:pointer}
+.withdraw{background:#ff5722;color:#fff}
 </style>
 
 </head>
@@ -28,6 +29,7 @@ button{padding:10px 15px;margin:5px;border:none;border-radius:6px;cursor:pointer
 <div class="card" id="info">Loading...</div>
 
 <button onclick="openTool()">🚀 Open Premium Tool</button>
+<button class="withdraw" onclick="withdraw()">💸 Withdraw</button>
 <button onclick="logout()">Logout</button>
 
 </div>
@@ -63,28 +65,13 @@ auth.onAuthStateChanged(user=>{
     let d = doc.data();
     let now = Date.now();
 
-    // 🔥 EXPIRY CHECK
+    // 🔥 expiry fix
     if(d.expiry && now > d.expiry){
-
-      db.collection("users").doc(user.uid).update({
-        premium:false
-      });
-
+      db.collection("users").doc(user.uid).update({ premium:false });
       d.premium = false;
     }
 
-    // 🔥 PREMIUM STATUS TEXT
-    let premiumText = "";
-
-    if(d.expiry && now > d.expiry){
-      premiumText = "Expired ❌";
-    } 
-    else if(d.premium){
-      premiumText = "Active ✅";
-    } 
-    else {
-      premiumText = "Free ❌";
-    }
+    let premiumText = d.premium ? "Active ✅" : "Free ❌";
 
     document.getElementById("info").innerHTML = `
     📧 ${user.email}<br><br>
@@ -96,6 +83,60 @@ auth.onAuthStateChanged(user=>{
   });
 
 });
+
+// ================= WITHDRAW =================
+function withdraw(){
+
+  let amount = prompt("Enter amount ₹");
+  let upi = prompt("Enter UPI ID");
+
+  let user = auth.currentUser;
+
+  if(!amount || !upi){
+    alert("Fill all fields ❗");
+    return;
+  }
+
+  amount = Number(amount);
+
+  if(isNaN(amount) || amount <= 0){
+    alert("Invalid amount ❌");
+    return;
+  }
+
+  db.collection("users").doc(user.uid).get()
+  .then(doc=>{
+
+    let d = doc.data();
+    let wallet = Number(d.wallet || 0);
+
+    if(wallet < amount){
+      alert("Insufficient Balance ❌");
+      return;
+    }
+
+    // 💰 deduct wallet
+    db.collection("users").doc(user.uid).update({
+      wallet: wallet - amount
+    });
+
+    // 📩 save withdraw request
+    db.collection("withdraws").add({
+      uid: user.uid,
+      email: user.email,
+      amount: amount,
+      upi: upi,
+      status: "pending",
+      time: Date.now()
+    });
+
+    alert("Withdraw Request Sent ✅");
+
+    location.reload(); // refresh dashboard
+
+  });
+
+}
 
 // ================= OPEN TOOL =================
 function openTool(){
