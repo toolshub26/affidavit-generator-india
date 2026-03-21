@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family:Arial;text-align:center">
+
+<h2>🔍 Document Verification</h2>
+<div id="result">Checking...</div>
+
+<script>
+
+let id=new URLSearchParams(location.search).get("id");
+let data=localStorage.getItem("doc_"+id);
+
+if(data){
+ let d=JSON.parse(data);
+ document.getElementById("result").innerHTML=
+ `<h3 style="color:green">✔ Verified</h3>
+  <p>${d.name}</p>
+  <p>${d.date}</p>`;
+}else{
+ document.getElementById("result").innerHTML=
+ `<h3 style="color:red">❌ Invalid</h3>`;
+}
+
+</script>
+
+</body>
+</html>
