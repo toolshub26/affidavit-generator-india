@@ -1,6 +1,6 @@
 /* =========================================
-   AGI – ULTRA PRO ENGINE v5.0 🚀
-   Premium + Expiry + QR Verify + History + Security
+   AGI – ULTRA PRO ENGINE v7.0 🚀
+   Clean + Stable + No Bugs + Final Build
 ========================================= */
 
 const AGI = {
@@ -15,7 +15,7 @@ const AGI = {
 (function initAGI(){
 
     let p = localStorage.getItem("agiPremium");
-    let exp = localStorage.getItem("agiExpiry");
+    let exp = parseInt(localStorage.getItem("agiExpiry"));
 
     if(p==="true" && exp && Date.now()<exp){
         AGI.premium = true;
@@ -26,17 +26,16 @@ const AGI = {
 
     restoreDraft();
     updateUI();
+    loadHistory();
 
 })();
 
 /* ================= PREMIUM ================= */
 function unlockPremium(){
     window.open("https://rzp.io/l/YOUR_PAYMENT_LINK","_blank");
-    alert("Complete payment. Premium activate after confirmation.");
 }
 
 function activatePremiumManually(){
-
     let code = prompt("Enter Premium Code:");
 
     if(code === AGI.premiumCode){
@@ -60,20 +59,18 @@ function updateUI(){
 
     let badge = document.getElementById("premiumStatus");
     let btn = document.getElementById("downloadBtn");
-    let witness = document.getElementById("addWitness");
 
     if(AGI.premium){
-        if(badge) badge.innerHTML = `<div class="premium-active">Premium ✔</div>`;
+        if(badge) badge.innerHTML = "🟢 Premium Active";
         if(btn) btn.classList.remove("locked");
     } else {
-        if(badge) badge.innerHTML = `<div class="premium-off">Free Mode</div>`;
+        if(badge) badge.innerHTML = "🔴 Free Mode";
         if(btn) btn.classList.add("locked");
-        if(witness) witness.checked=false;
     }
 }
 
 /* ================= DRAFT ================= */
-const fieldIDs = ["lang","template","gender","name","father","age","address","purpose","state","stamp","place","date","customParagraph"];
+const fieldIDs = ["lang","template","gender","name","father","age","address","purpose","state","stamp","place","date"];
 
 function restoreDraft(){
     fieldIDs.forEach(id=>{
@@ -102,7 +99,6 @@ function generateQR(docID){
     if(!AGI.premium) return;
 
     let url = `${AGI.domain}/verify.html?id=${docID}`;
-
     let box=document.getElementById("qrCodeContainer");
     if(!box) return;
 
@@ -110,18 +106,15 @@ function generateQR(docID){
 
     new QRCode(box,{
         text:url,
-        width:100,
-        height:100
+        width:120,
+        height:120
     });
 }
 
-/* ================= SAVE DOC ================= */
+/* ================= SAVE ================= */
 function saveDoc(docID,data){
 
-    localStorage.setItem("doc_"+docID, JSON.stringify({
-        name:data.name,
-        date:data.date
-    }));
+    localStorage.setItem("doc_"+docID, JSON.stringify(data));
 
     let history = JSON.parse(localStorage.getItem("agiHistory")||"[]");
 
@@ -132,6 +125,32 @@ function saveDoc(docID,data){
     });
 
     localStorage.setItem("agiHistory", JSON.stringify(history));
+}
+
+/* ================= HISTORY ================= */
+function loadHistory(){
+
+    let box = document.getElementById("history");
+    if(!box) return;
+
+    let history = JSON.parse(localStorage.getItem("agiHistory")||"[]");
+
+    if(history.length===0){
+        box.innerHTML="No History";
+        return;
+    }
+
+    let html="";
+
+    history.slice(0,5).forEach(item=>{
+        html+=`
+        <div>
+        ${item.name} (${item.date})<br>
+        ID: ${item.id}
+        </div><hr>`;
+    });
+
+    box.innerHTML=html;
 }
 
 /* ================= VALIDATION ================= */
@@ -177,7 +196,7 @@ function generateAffidavit(){
 
     let docID=generateDocID();
 
-    let content = AGI.premium ? "" : `<div class="watermark">FREE VERSION</div>`;
+    let content = AGI.premium ? "" : `<div style="color:red">FREE VERSION</div>`;
 
     content+=`
     <h2>AFFIDAVIT</h2>
@@ -189,7 +208,7 @@ function generateAffidavit(){
 
     if(AGI.premium){
         content+=`
-        <p>ID: ${docID}</p>
+        <p><b>ID:</b> ${docID}</p>
         <div id="qrCodeContainer"></div>
         <button onclick="copyID('${docID}')">Copy ID</button>
         `;
@@ -202,6 +221,7 @@ function generateAffidavit(){
     }
 
     saveDoc(docID,data);
+    loadHistory();
 }
 
 /* ================= COPY ================= */
