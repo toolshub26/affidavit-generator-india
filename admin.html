@@ -8,14 +8,72 @@
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 
 <style>
-body{background:#111;color:#fff;font-family:Arial;text-align:center}
-.container{max-width:700px;margin:auto;padding:20px}
-.card{background:#222;padding:15px;margin:10px;border-radius:8px}
-button{padding:8px 12px;margin:5px;border:none;border-radius:5px;cursor:pointer}
-.approve{background:#28a745;color:#fff}
-.reject{background:#dc3545;color:#fff}
+body{
+  background:#0f172a;
+  color:#fff;
+  font-family:Arial;
+  margin:0;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  padding:20px;
+}
+
+h2{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+.card{
+  background:#1e293b;
+  padding:15px;
+  margin:10px 0;
+  border-radius:10px;
+  text-align:left;
+}
+
+button{
+  padding:8px 12px;
+  margin:5px;
+  border:none;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.approve{background:#22c55e;color:#fff}
+.reject{background:#ef4444;color:#fff}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:20px;
+}
+
+.search{
+  padding:8px;
+  width:100%;
+  border-radius:6px;
+  border:none;
+}
+
+.stats{
+  display:flex;
+  justify-content:space-around;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:#1e293b;
+  padding:10px;
+  border-radius:8px;
+  width:30%;
+  text-align:center;
+}
 </style>
 
 </head>
@@ -25,6 +83,16 @@ button{padding:8px 12px;margin:5px;border:none;border-radius:5px;cursor:pointer}
 <div class="container">
 
 <h2>👑 Admin Panel</h2>
+
+<div class="topbar">
+<input class="search" id="search" placeholder="Search user UID..." oninput="filterUsers()">
+</div>
+
+<div class="stats">
+<div class="stat">👥 Users: <span id="totalUsers">0</span></div>
+<div class="stat">💸 Requests: <span id="totalWithdraw">0</span></div>
+<div class="stat">💰 Total ₹ <span id="totalAmount">0</span></div>
+</div>
 
 <h3>👥 Users</h3>
 <div id="users"></div>
@@ -36,88 +104,129 @@ button{padding:8px 12px;margin:5px;border:none;border-radius:5px;cursor:pointer}
 
 <script>
 
-// ✅ FINAL FIREBASE CONFIG (ALREADY ADDED)
+// ================= FIREBASE =================
 const firebaseConfig = {
   apiKey: "AIzaSyC_1bKbNGAoGviGt1-a1f27h9VDj4hr3oA",
   authDomain: "affidavittool.firebaseapp.com",
-  projectId: "affidavittool",
-  storageBucket: "affidavittool.firebasestorage.app",
-  messagingSenderId: "108525725649",
-  appId: "1:108525725649:web:2c3cab440860c81e6de2f0"
+  projectId: "affidavittool"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const auth = firebase.auth();
 
-// ================= LOAD USERS =================
+// ================= SECURITY =================
+const ADMIN_UID = "PUT_YOUR_UID_HERE";
+
+auth.onAuthStateChanged(user=>{
+  if(!user || user.uid !== ADMIN_UID){
+    alert("Access Denied ❌");
+    location.href="index.html";
+  }
+});
+
+// ================= USERS =================
+let allUsers=[];
+
 function loadUsers(){
-  db.collection("users").get().then(snapshot=>{
-    let html = "";
-    snapshot.forEach(doc=>{
-      let d = doc.data();
 
-      html += `
+  db.collection("users").onSnapshot(snapshot=>{
+    let html="";
+    allUsers=[];
+
+    document.getElementById("totalUsers").innerText = snapshot.size;
+
+    snapshot.forEach(doc=>{
+      let d=doc.data();
+      allUsers.push({id:doc.id,...d});
+
+      html+=`
       <div class="card">
       <b>UID:</b> ${doc.id}<br>
-      💰 Wallet: ₹${d.wallet || 0}<br>
+      💰 Wallet: ₹${d.wallet||0}<br>
       ⭐ Premium: ${d.premium ? "Yes" : "No"}
       </div>`;
     });
 
-    document.getElementById("users").innerHTML = html;
+    document.getElementById("users").innerHTML=html;
   });
+
 }
 
-// ================= LOAD WITHDRAW =================
+// ================= FILTER =================
+function filterUsers(){
+
+  let val=document.getElementById("search").value.toLowerCase();
+  let html="";
+
+  allUsers.forEach(u=>{
+    if(u.id.toLowerCase().includes(val)){
+      html+=`
+      <div class="card">
+      <b>UID:</b> ${u.id}<br>
+      💰 Wallet: ₹${u.wallet||0}<br>
+      ⭐ Premium: ${u.premium ? "Yes" : "No"}
+      </div>`;
+    }
+  });
+
+  document.getElementById("users").innerHTML=html;
+}
+
+// ================= WITHDRAW =================
 function loadWithdraw(){
 
-  db.collection("withdrawals").get().then(snapshot=>{
-    let html = "";
+  db.collection("withdrawals")
+  .where("status","==","pending")
+  .onSnapshot(snapshot=>{
+
+    let html="";
+    let total=0;
+
+    document.getElementById("totalWithdraw").innerText=snapshot.size;
 
     snapshot.forEach(doc=>{
-      let d = doc.data();
+      let d=doc.data();
+      total+=d.amount;
 
-      html += `
+      html+=`
       <div class="card">
       👤 ${d.uid}<br>
       💸 ₹${d.amount}<br>
-      📌 Status: ${d.status}<br>
 
       <button class="approve" onclick="approve('${doc.id}','${d.uid}',${d.amount})">Approve</button>
       <button class="reject" onclick="reject('${doc.id}')">Reject</button>
-
       </div>`;
     });
 
-    document.getElementById("withdrawals").innerHTML = html;
+    document.getElementById("totalAmount").innerText=total;
+    document.getElementById("withdrawals").innerHTML=html;
   });
 
 }
 
 // ================= APPROVE =================
-function approve(id, uid, amount){
+async function approve(id, uid, amount){
 
-  db.collection("users").doc(uid).update({
+  await db.collection("users").doc(uid).update({
     wallet: firebase.firestore.FieldValue.increment(-amount)
   });
 
-  db.collection("withdrawals").doc(id).update({
+  await db.collection("withdrawals").doc(id).update({
     status:"approved"
   });
 
   alert("Approved ✅");
-  loadWithdraw();
 }
 
 // ================= REJECT =================
-function reject(id){
+async function reject(id){
 
-  db.collection("withdrawals").doc(id).update({
+  await db.collection("withdrawals").doc(id).update({
     status:"rejected"
   });
 
   alert("Rejected ❌");
-  loadWithdraw();
 }
 
 // ================= INIT =================
