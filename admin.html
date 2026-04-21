@@ -4,11 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Admin Panel - Affidavit SaaS</title>
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<title>Admin Panel - Earning SaaS</title>
 
 <style>
 body{
@@ -70,26 +66,34 @@ button{
 
 </div>
 
-<script>
+<!-- ✅ FIREBASE V9 (MODULE) -->
+<script type="module">
 
-// ================= FIREBASE (FIXED) =================
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { 
+  getFirestore, collection, doc, getDoc, onSnapshot, query, where, updateDoc, increment 
+} from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+// 🔥 YOUR CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyC_1bkBNGAoGviGt1-a1f27h9VDj4hr3oA",
   authDomain: "affidavittool.firebaseapp.com",
   projectId: "affidavittool",
-  storageBucket: "affidavittool.firebasestorage.app",
+  storageBucket: "affidavittool.appspot.com",
   messagingSenderId: "108525725649",
   appId: "1:108525725649:web:2c3cab440860c81e6de2f0"
 };
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-const auth = firebase.auth();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-// ================= SECURITY =================
+// ⚠️ ADMIN UID DAALNA
 const ADMIN_UID = "PUT_YOUR_UID_HERE";
 
-auth.onAuthStateChanged(user=>{
+// ================= SECURITY =================
+onAuthStateChanged(auth, async (user)=>{
   if(!user){
     alert("Login required ❌");
     location.href="index.html";
@@ -104,19 +108,19 @@ auth.onAuthStateChanged(user=>{
 let allUsers=[];
 
 function loadUsers(){
-  db.collection("users").onSnapshot(snapshot=>{
+  onSnapshot(collection(db,"users"), (snapshot)=>{
     let html="";
     allUsers=[];
 
     document.getElementById("totalUsers").innerText = snapshot.size;
 
-    snapshot.forEach(doc=>{
-      let d=doc.data();
-      allUsers.push({id:doc.id,...d});
+    snapshot.forEach(docSnap=>{
+      let d=docSnap.data();
+      allUsers.push({id:docSnap.id,...d});
 
       html+=`
       <div class="card">
-      <b>UID:</b> ${doc.id}<br>
+      <b>UID:</b> ${docSnap.id}<br>
       💰 Wallet: ₹${d.wallet||0}<br>
       ⭐ Premium: ${d.premium ? "Yes" : "No"}
       </div>`;
@@ -127,7 +131,7 @@ function loadUsers(){
 }
 
 // ================= FILTER =================
-function filterUsers(){
+window.filterUsers = function(){
   let val=document.getElementById("search").value.toLowerCase();
   let html="";
 
@@ -147,17 +151,18 @@ function filterUsers(){
 
 // ================= WITHDRAW =================
 function loadWithdraw(){
-  db.collection("withdrawals")
-  .where("status","==","pending")
-  .onSnapshot(snapshot=>{
+
+  const q = query(collection(db,"withdrawals"), where("status","==","pending"));
+
+  onSnapshot(q,(snapshot)=>{
 
     let html="";
     let total=0;
 
     document.getElementById("totalWithdraw").innerText=snapshot.size;
 
-    snapshot.forEach(doc=>{
-      let d=doc.data();
+    snapshot.forEach(docSnap=>{
+      let d=docSnap.data();
       total+=d.amount;
 
       html+=`
@@ -165,8 +170,8 @@ function loadWithdraw(){
       👤 ${d.uid}<br>
       💸 ₹${d.amount}<br>
 
-      <button class="approve" onclick="approve('${doc.id}','${d.uid}',${d.amount})">Approve</button>
-      <button class="reject" onclick="reject('${doc.id}')">Reject</button>
+      <button class="approve" onclick="approve('${docSnap.id}','${d.uid}',${d.amount})">Approve</button>
+      <button class="reject" onclick="reject('${docSnap.id}')">Reject</button>
       </div>`;
     });
 
@@ -176,12 +181,13 @@ function loadWithdraw(){
 }
 
 // ================= APPROVE =================
-async function approve(id, uid, amount){
-  await db.collection("users").doc(uid).update({
-    wallet: firebase.firestore.FieldValue.increment(-amount)
+window.approve = async function(id, uid, amount){
+
+  await updateDoc(doc(db,"users",uid),{
+    wallet: increment(-amount)
   });
 
-  await db.collection("withdrawals").doc(id).update({
+  await updateDoc(doc(db,"withdrawals",id),{
     status:"approved"
   });
 
@@ -189,8 +195,9 @@ async function approve(id, uid, amount){
 }
 
 // ================= REJECT =================
-async function reject(id){
-  await db.collection("withdrawals").doc(id).update({
+window.reject = async function(id){
+
+  await updateDoc(doc(db,"withdrawals",id),{
     status:"rejected"
   });
 
