@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Earning SaaS PRO FINAL</title>
+
+<!-- ✅ PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f172a">
 
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -14,9 +19,9 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 <style>
-body{background:#111;color:#fff;font-family:Arial;text-align:center}
+body{background:#0f172a;color:#fff;font-family:Arial;text-align:center}
 .container{max-width:420px;margin:auto;padding:20px}
-input{width:90%;padding:10px;margin:8px}
+input{width:90%;padding:10px;margin:8px;border-radius:6px;border:none}
 button{padding:10px;margin:5px;border:none;border-radius:6px;cursor:pointer}
 </style>
 </head>
@@ -65,16 +70,25 @@ button{padding:10px;margin:5px;border:none;border-radius:6px;cursor:pointer}
 
 <script>
 
-// 🔥 CONFIG (APNA KEY DALO)
+// 🔥 FIREBASE CONFIG (UPDATED)
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
+  apiKey: "AIzaSyC_1bkBNGAoGviGt1-a1f27h9VDj4hr3oA",
   authDomain: "affidavittool.firebaseapp.com",
-  projectId: "affidavittool"
+  projectId: "affidavittool",
+  storageBucket: "affidavittool.firebasestorage.app",
+  messagingSenderId: "108525725649",
+  appId: "1:108525725649:web:2c3cab440860c81e6de2f0"
 };
 
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.firestore();
+
+// ================= SERVICE WORKER =================
+if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("sw.js");
+}
 
 // ================= AUTO REF =================
 (function(){
@@ -92,7 +106,6 @@ async function signup(){
 
  if(!email||!pass) return alert("Fill fields");
 
- // Anti-fraud (device lock)
  if(localStorage.getItem("device")){
    alert("Multiple account blocked ❌");
    return;
@@ -140,8 +153,6 @@ async function applyReferral(uid,code){
  let user=await db.collection("users").doc(uid).get();
 
  if(user.data().usedReferral) return;
-
- // self check
  if(ref.id===uid) return;
 
  await db.collection("users").doc(ref.id).update({
@@ -187,7 +198,7 @@ async function dailyReward(){
  });
 }
 
-// ================= TASK (ADS SIM) =================
+// ================= TASK =================
 async function task(){
 
  let u=auth.currentUser;
@@ -236,7 +247,6 @@ async function withdraw(){
 
  if(amt>d.data().wallet) return alert("No balance");
 
- // auto deduct (safe)
  await ref.update({
   wallet:firebase.firestore.FieldValue.increment(-amt)
  });
@@ -252,22 +262,7 @@ async function admin(){
 
  if(!d.data().isAdmin) return alert("Not admin");
 
- let req=await db.collection("withdraws")
- .where("status","==","pending").get();
-
- req.forEach(async r=>{
-  let data=r.data();
-
-  await db.collection("users").doc(data.userId).update({
-   wallet:firebase.firestore.FieldValue.increment(-data.amount)
-  });
-
-  await db.collection("withdraws").doc(r.id).update({
-   status:"approved"
-  });
- });
-
- alert("Approved");
+ alert("Admin Access Granted");
 }
 
 // ================= LEADERBOARD =================
@@ -297,5 +292,6 @@ auth.onAuthStateChanged(async u=>{
 loadBoard();
 
 </script>
+
 </body>
 </html>
