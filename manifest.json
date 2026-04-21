@@ -1,12 +1,13 @@
+
 {
   "name": "Earning SaaS PRO",
-  "short_name": "EarningApp",
-  "start_url": "./index.html",
+  "short_name": "Earn",
+  "start_url": "/index.html",
   "display": "standalone",
   "background_color": "#0f172a",
   "theme_color": "#0f172a",
   "orientation": "portrait",
-  "scope": "./",
+  "scope": "/",
   "description": "Earning SaaS web app with wallet, rewards, tasks and referral system.",
   "icons": [
     {
