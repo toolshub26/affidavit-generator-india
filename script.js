@@ -1,5 +1,5 @@
 /* =========================================
-   AGI – ULTRA PRO ENGINE v7.0 🚀
+   AGI – ULTRA PRO ENGINE v9 🚀
    Clean + Stable + No Bugs + Final Build
 ========================================= */
 
@@ -11,18 +11,19 @@ const AGI = {
     domain:location.origin
 };
 
+/* ================= SAFE GET ================= */
+function getVal(id){
+    let el = document.getElementById(id);
+    return el ? el.value : "";
+}
+
 /* ================= INIT ================= */
 (function initAGI(){
 
     let p = localStorage.getItem("agiPremium");
-    let exp = parseInt(localStorage.getItem("agiExpiry"));
+    let exp = parseInt(localStorage.getItem("agiExpiry") || "0");
 
-    if(p==="true" && exp && Date.now()<exp){
-        AGI.premium = true;
-    } else {
-        AGI.premium = false;
-        localStorage.removeItem("agiPremium");
-    }
+    AGI.premium = (p==="true" && exp && Date.now()<exp);
 
     restoreDraft();
     updateUI();
@@ -42,7 +43,6 @@ function activatePremiumManually(){
 
         let expiry = Date.now() + (AGI.premiumDays*86400000);
 
-        AGI.premium = true;
         localStorage.setItem("agiPremium","true");
         localStorage.setItem("agiExpiry",expiry);
 
@@ -80,9 +80,9 @@ function restoreDraft(){
         let val=localStorage.getItem("agi_"+id);
         if(val) el.value=val;
 
-        el.addEventListener("input",()=>{
+        el.oninput = ()=> {
             localStorage.setItem("agi_"+id,el.value);
-        });
+        };
     });
 }
 
@@ -98,14 +98,18 @@ function generateQR(docID){
 
     if(!AGI.premium) return;
 
-    let url = `${AGI.domain}/verify.html?id=${docID}`;
     let box=document.getElementById("qrCodeContainer");
     if(!box) return;
 
     box.innerHTML="";
 
+    if(typeof QRCode === "undefined"){
+        console.warn("QR lib missing");
+        return;
+    }
+
     new QRCode(box,{
-        text:url,
+        text:`${AGI.domain}/verify.html?id=${docID}`,
         width:120,
         height:120
     });
@@ -120,9 +124,12 @@ function saveDoc(docID,data){
 
     history.unshift({
         id:docID,
-        name:data.name,
-        date:data.date
+        name:data.name || "Unknown",
+        date:data.date || "-"
     });
+
+    // limit history (performance fix)
+    history = history.slice(0,20);
 
     localStorage.setItem("agiHistory", JSON.stringify(history));
 }
@@ -159,7 +166,7 @@ function validateRequired(data){
     let req=["name","father","age","address","purpose","place","date"];
 
     for(let k of req){
-        if(!data[k] || data[k].trim()===""){
+        if(!data[k] || String(data[k]).trim()===""){
             alert("Fill all required fields ❗");
             return false;
         }
@@ -171,20 +178,21 @@ function validateRequired(data){
 function generateAffidavit(){
 
     let preview=document.getElementById("previewArea");
+    if(!preview) return;
 
     let data={
-        lang:lang.value,
-        template:template.value,
-        gender:gender.value,
-        name:name.value,
-        father:father.value,
-        age:age.value,
-        address:address.value,
-        purpose:purpose.value,
-        state:state.value,
-        stamp:stamp.value,
-        place:place.value,
-        date:date.value
+        lang:getVal("lang"),
+        template:getVal("template"),
+        gender:getVal("gender"),
+        name:getVal("name"),
+        father:getVal("father"),
+        age:getVal("age"),
+        address:getVal("address"),
+        purpose:getVal("purpose"),
+        state:getVal("state"),
+        stamp:getVal("stamp"),
+        place:getVal("place"),
+        date:getVal("date")
     };
 
     if(!validateRequired(data)) return;
@@ -217,7 +225,7 @@ function generateAffidavit(){
     preview.innerHTML=content;
 
     if(AGI.premium){
-        generateQR(docID);
+        setTimeout(()=>generateQR(docID),100); // fix render bug
     }
 
     saveDoc(docID,data);
@@ -226,7 +234,7 @@ function generateAffidavit(){
 
 /* ================= COPY ================= */
 function copyID(id){
-    navigator.clipboard.writeText(id);
+    navigator.clipboard.writeText(id || "");
     alert("Copied ✔");
 }
 
