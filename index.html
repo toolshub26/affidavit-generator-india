@@ -6,15 +6,68 @@
 
 <title>AGI Affidavit PRO</title>
 
-<!-- ✅ QR CODE -->
+<!-- QR CODE -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <style>
-body{background:#0f172a;color:#fff;font-family:Arial;text-align:center}
-.container{max-width:420px;margin:auto;padding:20px}
-input,select{width:90%;padding:10px;margin:6px;border-radius:6px;border:none}
-button{padding:10px;margin:5px;border:none;border-radius:6px;cursor:pointer}
-.locked{opacity:0.5}
+
+body{
+background:#0f172a;
+color:#fff;
+font-family:Arial;
+text-align:center;
+margin:0;
+padding:20px;
+}
+
+.container{
+max-width:420px;
+margin:auto;
+padding:20px;
+background:#111827;
+border-radius:12px;
+}
+
+input,
+select{
+width:90%;
+padding:12px;
+margin:7px;
+border-radius:8px;
+border:none;
+font-size:16px;
+}
+
+button{
+padding:12px 18px;
+margin:6px;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-size:15px;
+font-weight:bold;
+}
+
+.locked{
+opacity:0.5;
+}
+
+#previewArea{
+background:#fff;
+color:#000;
+padding:20px;
+margin-top:20px;
+border-radius:10px;
+text-align:left;
+line-height:1.8;
+}
+
+#history{
+background:#1e293b;
+padding:10px;
+border-radius:8px;
+}
+
 </style>
 </head>
 
@@ -27,22 +80,48 @@ button{padding:10px;margin:5px;border:none;border-radius:6px;cursor:pointer}
 <div id="premiumStatus"></div>
 
 <input id="name" placeholder="Name">
+
 <input id="father" placeholder="Father Name">
+
 <input id="age" placeholder="Age">
+
 <input id="address" placeholder="Address">
+
 <input id="purpose" placeholder="Purpose">
+
 <input id="place" placeholder="Place">
+
 <input id="date" type="date">
 
 <select id="template">
-<option value="general">Free Template</option>
-<option value="premium">Premium Template</option>
+
+<option value="general">
+Free Template
+</option>
+
+<option value="premium">
+Premium Template
+</option>
+
 </select>
 
-<button onclick="generateAffidavit()">Generate</button>
-<button onclick="downloadPDF()" id="downloadBtn">Download</button>
-<button onclick="unlockPremium()">Buy Premium</button>
-<button onclick="activatePremiumManually()">Enter Code</button>
+<br>
+
+<button onclick="generateAffidavit()">
+Generate
+</button>
+
+<button onclick="downloadPDF()" id="downloadBtn">
+Download
+</button>
+
+<button onclick="unlockPremium()">
+Buy Premium
+</button>
+
+<button onclick="activatePremiumManually()">
+Enter Code
+</button>
 
 <hr>
 
@@ -51,190 +130,435 @@ button{padding:10px;margin:5px;border:none;border-radius:6px;cursor:pointer}
 <hr>
 
 <h3>📜 History</h3>
+
 <div id="history"></div>
 
 </div>
 
-<!-- 🔥 FIREBASE V9 -->
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-// ✅ CONFIG
-const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  projectId: "YOUR_PROJECT",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+<script>
 
 /* =========================================
-   AGI ENGINE FINAL v9 🚀
+   AGI ENGINE FINAL v10 🚀
 ========================================= */
 
 const AGI = {
-    premium:false,
-    premiumCode:"INDIA49",
-    docPrefix:"IND-AFF-",
-    premiumDays:30,
-    domain:location.origin
+
+premium:false,
+
+premiumCode:"INDIA49",
+
+docPrefix:"IND-AFF-",
+
+premiumDays:30,
+
+domain:location.origin
+
 };
 
 /* INIT */
+
 (function(){
-    let p = localStorage.getItem("agiPremium");
-    let exp = parseInt(localStorage.getItem("agiExpiry"));
 
-    AGI.premium = (p==="true" && exp && Date.now()<exp);
+let p = localStorage.getItem("agiPremium");
 
-    restoreDraft();
-    updateUI();
-    loadHistory();
+let exp = parseInt(localStorage.getItem("agiExpiry") || "0");
+
+AGI.premium = (p==="true" && exp && Date.now()<exp);
+
+restoreDraft();
+
+updateUI();
+
+loadHistory();
+
 })();
 
 /* PREMIUM */
-window.unlockPremium = ()=> {
-    window.open("https://rzp.io/l/YOUR_PAYMENT_LINK","_blank");
-};
 
-window.activatePremiumManually = ()=>{
-    let code = prompt("Enter Premium Code:");
-    if(code===AGI.premiumCode){
-        let expiry = Date.now()+(AGI.premiumDays*86400000);
-        localStorage.setItem("agiPremium","true");
-        localStorage.setItem("agiExpiry",expiry);
-        alert("Premium Activated ✔");
-        location.reload();
-    } else alert("Invalid Code ❌");
-};
+function unlockPremium(){
+
+window.open(
+"https://wa.me/919999999999?text=I%20want%20Premium%20Affidavit%20Generator",
+"_blank"
+);
+
+}
+
+function activatePremiumManually(){
+
+let code = prompt("Enter Premium Code:");
+
+if(code===AGI.premiumCode){
+
+let expiry = Date.now() + (AGI.premiumDays*86400000);
+
+localStorage.setItem("agiPremium","true");
+
+localStorage.setItem("agiExpiry",expiry);
+
+alert("Premium Activated ✔");
+
+location.reload();
+
+}else{
+
+alert("Invalid Code ❌");
+
+}
+
+}
 
 /* UI */
-function updateUI(){
-    let badge = document.getElementById("premiumStatus");
-    let btn = document.getElementById("downloadBtn");
 
-    if(AGI.premium){
-        badge.innerHTML="🟢 Premium Active";
-        btn.classList.remove("locked");
-    } else {
-        badge.innerHTML="🔴 Free Mode";
-        btn.classList.add("locked");
-    }
+function updateUI(){
+
+let badge=document.getElementById("premiumStatus");
+
+let btn=document.getElementById("downloadBtn");
+
+if(AGI.premium){
+
+badge.innerHTML="🟢 Premium Active";
+
+btn.classList.remove("locked");
+
+}else{
+
+badge.innerHTML="🔴 Free Mode";
+
+btn.classList.add("locked");
+
+}
+
 }
 
 /* DRAFT */
-const fields=["name","father","age","address","purpose","place","date","template"];
+
+const fields=[
+"name",
+"father",
+"age",
+"address",
+"purpose",
+"place",
+"date",
+"template"
+];
 
 function restoreDraft(){
-    fields.forEach(id=>{
-        let el=document.getElementById(id);
-        if(!el) return;
-        let val=localStorage.getItem("agi_"+id);
-        if(val) el.value=val;
-        el.oninput=()=>localStorage.setItem("agi_"+id,el.value);
-    });
+
+fields.forEach(id=>{
+
+let el=document.getElementById(id);
+
+if(!el) return;
+
+let val=localStorage.getItem("agi_"+id);
+
+if(val) el.value=val;
+
+el.oninput=()=>{
+
+localStorage.setItem("agi_"+id,el.value);
+
+};
+
+});
+
 }
 
 /* DOC ID */
+
 function generateDocID(){
-    let d=new Date().toISOString().slice(0,10).replace(/-/g,"");
-    let r=Math.random().toString(36).substring(2,6).toUpperCase();
-    return `${AGI.docPrefix}${d}-${r}`;
+
+let d=new Date()
+.toISOString()
+.slice(0,10)
+.replace(/-/g,"");
+
+let r=Math.random()
+.toString(36)
+.substring(2,6)
+.toUpperCase();
+
+return `${AGI.docPrefix}${d}-${r}`;
+
 }
 
 /* QR */
+
 function generateQR(id){
-    let box=document.getElementById("qrCodeContainer");
-    if(!box) return;
-    box.innerHTML="";
-    new QRCode(box,{text:`${AGI.domain}/verify.html?id=${id}`,width:120,height:120});
+
+let box=document.getElementById("qrCodeContainer");
+
+if(!box) return;
+
+box.innerHTML="";
+
+new QRCode(box,{
+
+text:`${AGI.domain}/verify.html?id=${id}`,
+
+width:120,
+
+height:120
+
+});
+
 }
 
-/* SAVE (FIREBASE + LOCAL) */
-async function saveDoc(id,data){
-    localStorage.setItem("doc_"+id,JSON.stringify(data));
+/* SAVE */
 
-    let history=JSON.parse(localStorage.getItem("agiHistory")||"[]");
-    history.unshift({id,name:data.name,date:data.date});
-    localStorage.setItem("agiHistory",JSON.stringify(history));
+function saveDoc(id,data){
 
-    // 🔥 FIREBASE SAVE
-    try{
-        await setDoc(doc(db,"affidavits",id),data);
-    }catch(e){}
+localStorage.setItem(
+"doc_"+id,
+JSON.stringify(data)
+);
+
+let history = JSON.parse(
+localStorage.getItem("agiHistory") || "[]"
+);
+
+history.unshift({
+
+id:id,
+
+name:data.name,
+
+date:data.date
+
+});
+
+history = history.slice(0,20);
+
+localStorage.setItem(
+"agiHistory",
+JSON.stringify(history)
+);
+
 }
 
 /* HISTORY */
+
 function loadHistory(){
-    let box=document.getElementById("history");
-    let history=JSON.parse(localStorage.getItem("agiHistory")||"[]");
 
-    if(history.length===0){
-        box.innerHTML="No History";
-        return;
-    }
+let box=document.getElementById("history");
 
-    box.innerHTML=history.slice(0,5).map(i=>`
-        <div>${i.name} (${i.date})<br>ID: ${i.id}</div><hr>
-    `).join("");
+let history=JSON.parse(
+localStorage.getItem("agiHistory") || "[]"
+);
+
+if(history.length===0){
+
+box.innerHTML="No History";
+
+return;
+
+}
+
+box.innerHTML = history
+.slice(0,5)
+.map(i=>`
+
+<div>
+
+${i.name} (${i.date})
+
+<br>
+
+ID: ${i.id}
+
+</div>
+
+<hr>
+
+`)
+.join("");
+
 }
 
 /* VALIDATION */
-function validate(d){
-    return d.name && d.father && d.age && d.address && d.purpose && d.place && d.date;
+
+function validate(data){
+
+return data.name &&
+data.father &&
+data.age &&
+data.address &&
+data.purpose &&
+data.place &&
+data.date;
+
 }
 
 /* MAIN */
-window.generateAffidavit = async ()=>{
 
-    let data={
-        name:name.value,
-        father:father.value,
-        age:age.value,
-        address:address.value,
-        purpose:purpose.value,
-        place:place.value,
-        date:date.value,
-        template:template.value
-    };
+function generateAffidavit(){
 
-    if(!validate(data)) return alert("Fill all fields ❗");
+let data={
 
-    if(!AGI.premium && data.template!=="general")
-        return alert("Premium Template ❌");
+name:document.getElementById("name").value,
 
-    let id=generateDocID();
+father:document.getElementById("father").value,
 
-    let html=AGI.premium?"":"<div style='color:red'>FREE VERSION</div>";
+age:document.getElementById("age").value,
 
-    html+=`
-    <h2>AFFIDAVIT</h2>
-    <p>I ${data.name}, S/o ${data.father}, age ${data.age}</p>
-    <p>${data.address}</p>
-    <p>${data.purpose}</p>
-    <p>${data.place} - ${data.date}</p>
-    `;
+address:document.getElementById("address").value,
 
-    if(AGI.premium){
-        html+=`<p><b>ID:</b> ${id}</p><div id="qrCodeContainer"></div>`;
-    }
+purpose:document.getElementById("purpose").value,
 
-    previewArea.innerHTML=html;
+place:document.getElementById("place").value,
 
-    if(AGI.premium) generateQR(id);
+date:document.getElementById("date").value,
 
-    await saveDoc(id,data);
-    loadHistory();
+template:document.getElementById("template").value
+
 };
+
+if(!validate(data)){
+
+alert("Fill all fields ❗");
+
+return;
+
+}
+
+if(!AGI.premium && data.template!=="general"){
+
+alert("Premium Template ❌");
+
+return;
+
+}
+
+let id=generateDocID();
+
+let html = AGI.premium
+? ""
+: "<div style='color:red;font-weight:bold;'>FREE VERSION</div>";
+
+html += `
+
+<h2 style="text-align:center;">
+AFFIDAVIT
+</h2>
+
+<p>
+I <b>${data.name}</b>,
+S/o <b>${data.father}</b>,
+aged <b>${data.age}</b> years,
+resident of <b>${data.address}</b>.
+</p>
+
+<p>
+Purpose:
+<b>${data.purpose}</b>
+</p>
+
+<p>
+Place:
+${data.place}
+</p>
+
+<p>
+Date:
+${data.date}
+</p>
+
+`;
+
+if(AGI.premium){
+
+html += `
+
+<p>
+<b>ID:</b> ${id}
+</p>
+
+<div id="qrCodeContainer"></div>
+
+`;
+
+}
+
+document.getElementById("previewArea").innerHTML = html;
+
+if(AGI.premium){
+
+generateQR(id);
+
+}
+
+saveDoc(id,data);
+
+loadHistory();
+
+}
 
 /* DOWNLOAD */
-window.downloadPDF = ()=>{
-    if(!AGI.premium) return alert("Premium Required ❌");
-    window.print();
-};
+
+function downloadPDF(){
+
+let area=document.getElementById("previewArea");
+
+if(!area || area.innerHTML.trim()===""){
+
+alert("Generate affidavit first ❗");
+
+return;
+
+}
+
+let win=window.open("","","width=900,height=700");
+
+win.document.write(`
+
+<html>
+
+<head>
+
+<title>Affidavit</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:40px;
+line-height:1.8;
+}
+
+h2{
+text-align:center;
+}
+
+</style>
+
+</head>
+
+<body>
+
+${area.innerHTML}
+
+<script>
+
+window.onload=function(){
+
+window.print();
+
+}
+
+<\/script>
+
+</body>
+
+</html>
+
+`);
+
+win.document.close();
+
+}
 
 </script>
 
