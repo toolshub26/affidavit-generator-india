@@ -517,13 +517,16 @@ INIT
 
 (function(){
 
-let p = localStorage.getItem("agiPremium");
+let p =
+localStorage.getItem("agiPremium");
 
-let exp = parseInt(
+let exp =
+parseInt(
 localStorage.getItem("agiExpiry") || "0"
 );
 
-AGI.premium = (
+AGI.premium =
+(
 p==="true" &&
 Date.now()<exp
 );
@@ -540,16 +543,27 @@ PREMIUM
 
 function unlockPremium(){
 
+alert(
+"Premium payment link not added yet."
+);
+
+/*
+
+ADD YOUR PAYMENT LINK HERE
+
 window.open(
-"https://rzp.io/l/YOUR_PAYMENT_LINK",
+"https://rzp.io/l/yourlink",
 "_blank"
 );
+
+*/
 
 }
 
 function activatePremiumManually(){
 
-let code = prompt("Enter Premium Code");
+let code =
+prompt("Enter Premium Code");
 
 if(code===AGI.premiumCode){
 
@@ -586,7 +600,9 @@ UI
 function updateUI(){
 
 let box =
-document.getElementById("premiumStatus");
+document.getElementById(
+"premiumStatus"
+);
 
 if(AGI.premium){
 
@@ -624,25 +640,31 @@ function restoreDraft(){
 
 fields.forEach(id=>{
 
-let el = document.getElementById(id);
+let el =
+document.getElementById(id);
 
 if(!el) return;
 
 let val =
-localStorage.getItem("agi_"+id);
+localStorage.getItem(
+"agi_"+id
+);
 
 if(val){
 el.value = val;
 }
 
-el.addEventListener("input",()=>{
+el.addEventListener(
+"input",
+()=>{
 
 localStorage.setItem(
 "agi_"+id,
 el.value
 );
 
-});
+}
+);
 
 });
 
@@ -809,8 +831,9 @@ function saveHistory(id,data){
 
 let history =
 JSON.parse(
-localStorage.getItem("agiHistory")
-|| "[]"
+localStorage.getItem(
+"agiHistory"
+) || "[]"
 );
 
 history.unshift({
@@ -834,12 +857,15 @@ JSON.stringify(history)
 function loadHistory(){
 
 let box =
-document.getElementById("history");
+document.getElementById(
+"history"
+);
 
 let history =
 JSON.parse(
-localStorage.getItem("agiHistory")
-|| "[]"
+localStorage.getItem(
+"agiHistory"
+) || "[]"
 );
 
 if(history.length===0){
@@ -874,29 +900,62 @@ MAIN GENERATOR
 
 function generateAffidavit(){
 
+console.log(
+"Generate button clicked"
+);
+
 let data = {
 
-lang:document.getElementById("lang").value,
+lang:
+document.getElementById(
+"lang"
+).value,
 
-purposeType:document.getElementById("purposeType").value,
+purposeType:
+document.getElementById(
+"purposeType"
+).value,
 
-name:document.getElementById("name").value.trim(),
+name:
+document.getElementById(
+"name"
+).value.trim(),
 
-father:document.getElementById("father").value.trim(),
+father:
+document.getElementById(
+"father"
+).value.trim(),
 
-age:document.getElementById("age").value.trim(),
+age:
+document.getElementById(
+"age"
+).value.trim(),
 
-address:document.getElementById("address").value.trim(),
+address:
+document.getElementById(
+"address"
+).value.trim(),
 
-details:document.getElementById("details").value.trim(),
+details:
+document.getElementById(
+"details"
+).value.trim(),
 
-place:document.getElementById("place").value.trim(),
+place:
+document.getElementById(
+"place"
+).value.trim(),
 
-date:document.getElementById("date").value
+date:
+document.getElementById(
+"date"
+).value
 
 };
 
-if(!validateForm(data)) return;
+if(!validateForm(data)){
+return;
+}
 
 let txt =
 LANG[data.lang];
@@ -933,7 +992,9 @@ Verification ID:
 
 }
 
-document.getElementById("previewArea").innerHTML = `
+document.getElementById(
+"previewArea"
+).innerHTML = `
 
 <div class="stamp">
 ₹10
@@ -1039,13 +1100,15 @@ NOTARY PUBLIC
 
 if(AGI.premium){
 
-new QRCode(
-
+let qrBox =
 document.getElementById(
 "qrCodeContainer"
-),
+);
 
-{
+if(qrBox){
+
+new QRCode(qrBox,{
+
 text:
 AGI.domain +
 "/verify.html?id=" +
@@ -1053,15 +1116,20 @@ docID,
 
 width:100,
 height:100
-}
 
-);
+});
+
+}
 
 }
 
 saveHistory(docID,data);
 
 loadHistory();
+
+console.log(
+"Affidavit generated successfully"
+);
 
 }
 
