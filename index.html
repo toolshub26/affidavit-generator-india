@@ -174,17 +174,16 @@ color:white;
 
 .paper{
 width:210mm;
-min-height:297mm;
 background:white;
 margin:auto;
-padding:70px;
+padding:40px;
 box-shadow:0 15px 45px rgba(0,0,0,.15);
 }
 
 .paper-inner{
 border:2px solid #d1d5db;
-min-height:calc(297mm - 140px);
-padding:60px;
+min-height:auto;
+padding:45px;
 position:relative;
 }
 
@@ -194,8 +193,8 @@ position:relative;
 position:absolute;
 top:20px;
 right:20px;
-width:110px;
-height:110px;
+width:90px;
+height:90px;
 border:3px solid #dc2626;
 border-radius:50%;
 color:#dc2626;
@@ -220,7 +219,7 @@ margin-top:25px;
 .doc-sub{
 text-align:center;
 margin-top:10px;
-margin-bottom:50px;
+margin-bottom:40px;
 font-size:14px;
 letter-spacing:2px;
 }
@@ -231,7 +230,7 @@ font-size:18px;
 }
 
 .doc-content p{
-margin-bottom:24px;
+margin-bottom:20px;
 text-align:justify;
 }
 
@@ -240,20 +239,20 @@ padding-left:24px;
 }
 
 .doc-content li{
-margin-bottom:18px;
+margin-bottom:16px;
 }
 
 /* SIGN */
 
 .signatures{
-margin-top:120px;
+margin-top:80px;
 display:flex;
 justify-content:space-between;
-gap:50px;
+gap:40px;
 }
 
 .sign{
-width:240px;
+width:220px;
 text-align:center;
 }
 
@@ -287,7 +286,7 @@ grid-template-columns:1fr;
 
 .paper{
 width:100%;
-padding:20px;
+padding:15px;
 }
 
 .paper-inner{
@@ -302,19 +301,29 @@ font-size:30px;
 font-size:16px;
 }
 
+.signatures{
+margin-top:60px;
+gap:20px;
 }
 
-/* PRINT */
+.sign{
+width:45%;
+}
+
+}
+
+/* PRINT FIX */
 
 @media print{
 
 body{
 background:white;
+zoom:92%;
 }
 
 .sidebar,
 .topbar{
-display:none;
+display:none !important;
 }
 
 .main{
@@ -326,7 +335,23 @@ padding:0;
 .paper{
 width:100%;
 padding:0;
+margin:0;
 box-shadow:none;
+page-break-after:auto;
+}
+
+.paper-inner{
+border:none;
+padding:30px;
+min-height:auto;
+}
+
+.signatures{
+margin-top:50px;
+}
+
+button{
+display:none;
 }
 
 }
@@ -486,9 +511,6 @@ Your professional affidavit preview will appear here.
 </div>
 
 </div>
-
-<!-- IMPORTANT -->
-<!-- YOUR v10 script_js FILE CONNECT HERE -->
 
 <script src="script.js"></script>
 
