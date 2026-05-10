@@ -25,6 +25,35 @@ body{
 background:#edf2f7;
 font-family:'Inter',sans-serif;
 color:#111827;
+transition:.3s;
+}
+
+/* DARK MODE */
+
+.dark-mode{
+background:#020617;
+color:white;
+}
+
+.dark-mode .sidebar,
+.dark-mode .paper,
+.dark-mode .paper-inner{
+background:#111827;
+color:white;
+}
+
+.dark-mode .input,
+.dark-mode .select,
+.dark-mode .textarea{
+background:#1f2937;
+color:white;
+border-color:#374151;
+}
+
+.dark-mode .history-item{
+background:#1f2937;
+color:white;
+border-left:5px solid #3b82f6;
 }
 
 /* TOPBAR */
@@ -113,15 +142,6 @@ font-size:15px;
 transition:.25s;
 }
 
-.input:focus,
-.select:focus,
-.textarea:focus{
-outline:none;
-border-color:#2563eb;
-background:white;
-box-shadow:0 0 0 4px rgba(37,99,235,.1);
-}
-
 .textarea{
 min-height:90px;
 resize:vertical;
@@ -170,6 +190,17 @@ background:#ea580c;
 color:white;
 }
 
+/* EXTRA */
+
+.upload-box{
+margin-top:20px;
+}
+
+#qrBox{
+margin-top:20px;
+text-align:center;
+}
+
 /* PAPER */
 
 .paper{
@@ -184,10 +215,7 @@ box-shadow:0 15px 45px rgba(0,0,0,.15);
 border:2px solid #d1d5db;
 padding:45px;
 position:relative;
-min-height:auto;
 }
-
-/* STAMP */
 
 .stamp{
 position:absolute;
@@ -205,8 +233,6 @@ font-weight:800;
 transform:rotate(-15deg);
 font-size:20px;
 }
-
-/* DOC */
 
 .doc-title{
 text-align:center;
@@ -229,36 +255,8 @@ line-height:2;
 font-size:18px;
 }
 
-.doc-content p{
-margin-bottom:20px;
-text-align:justify;
-}
-
 .doc-content ol{
 padding-left:24px;
-}
-
-.doc-content li{
-margin-bottom:16px;
-}
-
-/* SIGN */
-
-.signatures{
-margin-top:80px;
-display:flex;
-justify-content:space-between;
-gap:40px;
-}
-
-.sign{
-width:220px;
-text-align:center;
-}
-
-.sign-line{
-border-top:2px solid black;
-padding-top:10px;
 }
 
 /* HISTORY */
@@ -293,100 +291,25 @@ padding:15px;
 padding:25px;
 }
 
-.doc-title{
-font-size:30px;
-}
-
-.doc-content{
-font-size:16px;
-}
-
-.signatures{
-margin-top:60px;
-gap:20px;
-}
-
-.sign{
-width:45%;
+.btn-grid{
+grid-template-columns:1fr;
 }
 
 }
 
-/* FINAL PRINT FIX */
+/* PRINT */
 
 @media print{
-
-body{
-background:white !important;
-margin:0 !important;
-padding:0 !important;
-zoom:95%;
-}
 
 .topbar,
 .sidebar{
 display:none !important;
 }
 
-.main{
-display:block !important;
-margin:0 !important;
-padding:0 !important;
-}
-
 .paper{
 width:100% !important;
 padding:0 !important;
-margin:0 !important;
 box-shadow:none !important;
-background:white !important;
-page-break-after:avoid !important;
-break-after:avoid-page !important;
-}
-
-.paper-inner{
-border:2px solid #d1d5db !important;
-padding:30px !important;
-min-height:auto !important;
-page-break-inside:avoid !important;
-break-inside:avoid-page !important;
-}
-
-.doc-title{
-font-size:34px !important;
-margin-top:10px !important;
-}
-
-.doc-sub{
-margin-bottom:25px !important;
-}
-
-.doc-content{
-font-size:15px !important;
-line-height:1.7 !important;
-}
-
-.doc-content p,
-.doc-content li{
-margin-bottom:12px !important;
-}
-
-.signatures{
-margin-top:45px !important;
-page-break-inside:avoid !important;
-break-inside:avoid-page !important;
-}
-
-.stamp{
-width:80px !important;
-height:80px !important;
-font-size:16px !important;
-top:15px !important;
-right:15px !important;
-}
-
-button{
-display:none !important;
 }
 
 }
@@ -396,8 +319,6 @@ display:none !important;
 </head>
 
 <body>
-
-<!-- TOPBAR -->
 
 <div class="topbar">
 
@@ -416,11 +337,7 @@ display:none !important;
 
 </div>
 
-<!-- MAIN -->
-
 <div class="main">
-
-<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -461,22 +378,22 @@ Generate Legal Affidavit
 </select>
 
 <label class="label">Full Name</label>
-<input class="input" id="name" placeholder="Enter full name">
+<input class="input" id="name">
 
 <label class="label">Father / Parent Name</label>
-<input class="input" id="father" placeholder="Enter parent name">
+<input class="input" id="father">
 
 <label class="label">Age</label>
-<input class="input" id="age" type="number" placeholder="Enter age">
+<input class="input" id="age" type="number">
 
 <label class="label">Address</label>
-<textarea class="textarea" id="address" placeholder="Enter address"></textarea>
+<textarea class="textarea" id="address"></textarea>
 
 <label class="label">Additional Details</label>
-<textarea class="textarea" id="details" placeholder="Optional additional details"></textarea>
+<textarea class="textarea" id="details"></textarea>
 
 <label class="label">Place</label>
-<input class="input" id="place" placeholder="Enter place">
+<input class="input" id="place">
 
 <label class="label">Date</label>
 <input type="date" class="input" id="date">
@@ -496,10 +413,43 @@ Enter Code
 </button>
 
 <button class="btn orange" onclick="unlockPremium()">
-Buy Premium
+Unlock PRO 🚀
+</button>
+
+<button class="btn primary" onclick="aiDraft()">
+AI Draft
+</button>
+
+<button class="btn green" onclick="generateQRCode()">
+Generate QR
+</button>
+
+<button class="btn blue" onclick="shareWhatsApp()">
+WhatsApp
+</button>
+
+<button class="btn orange" onclick="toggleDarkMode()">
+Dark Mode
 </button>
 
 </div>
+
+<div class="upload-box">
+
+<label class="label">
+Upload Signature
+</label>
+
+<input
+class="input"
+type="file"
+id="signatureUpload"
+accept="image/*"
+>
+
+</div>
+
+<div id="qrBox"></div>
 
 <div class="history">
 
@@ -514,8 +464,6 @@ No documents yet.
 </div>
 
 </div>
-
-<!-- PAPER -->
 
 <div class="paper">
 
@@ -548,8 +496,10 @@ Your professional affidavit preview will appear here.
 </div>
 
 <script src="script.js"></script>
+
 <script>
-console.log("AGI Loaded Successfully");
+console.log("AGI ULTRA PRO Loaded 🚀");
 </script>
+
 </body>
 </html>
