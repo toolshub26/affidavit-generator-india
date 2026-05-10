@@ -5,11 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AGI Legal Suite PRO</title>
+<title>AGI ULTRA PRO v15 🚀</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="description"
+content="AGI ULTRA PRO v15 - AI Legal Affidavit Generator">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap"
+rel="stylesheet">
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
@@ -21,6 +26,10 @@ padding:0;
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 background:#edf2f7;
 font-family:'Inter',sans-serif;
@@ -28,7 +37,9 @@ color:#111827;
 transition:.3s;
 }
 
-/* DARK MODE */
+/* =========================================
+   DARK MODE
+========================================= */
 
 .dark-mode{
 background:#020617;
@@ -56,10 +67,24 @@ color:white;
 border-left:5px solid #3b82f6;
 }
 
-/* TOPBAR */
+.dark-mode .doc-content,
+.dark-mode .doc-title,
+.dark-mode .doc-sub{
+color:white;
+}
+
+/* =========================================
+   TOPBAR
+========================================= */
 
 .topbar{
-background:linear-gradient(135deg,#0f172a,#111827,#1e293b);
+background:
+linear-gradient(
+135deg,
+#0f172a,
+#111827,
+#1e293b
+);
 color:white;
 padding:25px;
 box-shadow:0 5px 25px rgba(0,0,0,.2);
@@ -93,7 +118,9 @@ border-radius:14px;
 font-weight:700;
 }
 
-/* MAIN */
+/* =========================================
+   MAIN
+========================================= */
 
 .main{
 max-width:1500px;
@@ -104,7 +131,9 @@ gap:30px;
 padding:0 20px;
 }
 
-/* SIDEBAR */
+/* =========================================
+   SIDEBAR
+========================================= */
 
 .sidebar{
 background:white;
@@ -142,12 +171,23 @@ font-size:15px;
 transition:.25s;
 }
 
+.input:focus,
+.select:focus,
+.textarea:focus{
+outline:none;
+border-color:#2563eb;
+background:white;
+box-shadow:0 0 0 4px rgba(37,99,235,.1);
+}
+
 .textarea{
 min-height:90px;
 resize:vertical;
 }
 
-/* BUTTONS */
+/* =========================================
+   BUTTONS
+========================================= */
 
 .btn-grid{
 display:grid;
@@ -190,7 +230,9 @@ background:#ea580c;
 color:white;
 }
 
-/* EXTRA */
+/* =========================================
+   EXTRA
+========================================= */
 
 .upload-box{
 margin-top:20px;
@@ -201,7 +243,9 @@ margin-top:20px;
 text-align:center;
 }
 
-/* PAPER */
+/* =========================================
+   PAPER
+========================================= */
 
 .paper{
 width:210mm;
@@ -209,13 +253,19 @@ background:white;
 margin:auto;
 padding:40px;
 box-shadow:0 15px 45px rgba(0,0,0,.15);
+border-radius:20px;
 }
 
 .paper-inner{
 border:2px solid #d1d5db;
 padding:45px;
 position:relative;
+border-radius:16px;
 }
+
+/* =========================================
+   STAMP
+========================================= */
 
 .stamp{
 position:absolute;
@@ -233,6 +283,10 @@ font-weight:800;
 transform:rotate(-15deg);
 font-size:20px;
 }
+
+/* =========================================
+   DOCUMENT
+========================================= */
 
 .doc-title{
 text-align:center;
@@ -255,11 +309,22 @@ line-height:2;
 font-size:18px;
 }
 
+.doc-content p{
+margin-bottom:20px;
+text-align:justify;
+}
+
 .doc-content ol{
 padding-left:24px;
 }
 
-/* HISTORY */
+.doc-content li{
+margin-bottom:16px;
+}
+
+/* =========================================
+   HISTORY
+========================================= */
 
 .history{
 margin-top:35px;
@@ -274,7 +339,9 @@ margin-bottom:10px;
 font-size:14px;
 }
 
-/* MOBILE */
+/* =========================================
+   MOBILE
+========================================= */
 
 @media(max-width:1100px){
 
@@ -291,25 +358,55 @@ padding:15px;
 padding:25px;
 }
 
+.doc-title{
+font-size:30px;
+}
+
+.doc-content{
+font-size:16px;
+}
+
 .btn-grid{
 grid-template-columns:1fr;
 }
 
 }
 
-/* PRINT */
+/* =========================================
+   PRINT
+========================================= */
 
 @media print{
+
+body{
+background:white !important;
+}
 
 .topbar,
 .sidebar{
 display:none !important;
 }
 
+.main{
+display:block !important;
+margin:0 !important;
+padding:0 !important;
+}
+
 .paper{
 width:100% !important;
 padding:0 !important;
+margin:0 !important;
 box-shadow:none !important;
+border-radius:0 !important;
+}
+
+.paper-inner{
+border-radius:0 !important;
+}
+
+button{
+display:none !important;
 }
 
 }
@@ -320,24 +417,40 @@ box-shadow:none !important;
 
 <body>
 
+<!-- TOPBAR -->
+
 <div class="topbar">
 
 <div class="top-inner">
 
 <div class="logo">
-<h1>⚖️ AGI LEGAL SUITE</h1>
-<p>Global AI Legal Document Generator</p>
+
+<h1>
+⚖️ AGI ULTRA PRO v15
+</h1>
+
+<p>
+AI Legal Affidavit Generator
+</p>
+
 </div>
 
-<div class="badge" id="premiumStatus">
+<div class="badge"
+id="premiumStatus">
+
 🔴 Free Version
-</div>
 
 </div>
 
 </div>
+
+</div>
+
+<!-- MAIN -->
 
 <div class="main">
+
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -345,9 +458,12 @@ box-shadow:none !important;
 Generate Legal Affidavit
 </div>
 
-<label class="label">Language</label>
+<label class="label">
+Language
+</label>
 
-<select class="select" id="lang">
+<select class="select"
+id="lang">
 
 <option>English</option>
 <option>Urdu</option>
@@ -357,9 +473,12 @@ Generate Legal Affidavit
 
 </select>
 
-<label class="label">Affidavit Purpose</label>
+<label class="label">
+Affidavit Purpose
+</label>
 
-<select class="select" id="purposeType">
+<select class="select"
+id="purposeType">
 
 <option>Name Change</option>
 <option>Address Proof</option>
@@ -377,67 +496,127 @@ Generate Legal Affidavit
 
 </select>
 
-<label class="label">Full Name</label>
-<input class="input" id="name">
+<label class="label">
+Full Name
+</label>
 
-<label class="label">Father / Parent Name</label>
-<input class="input" id="father">
+<input class="input"
+id="name">
 
-<label class="label">Age</label>
-<input class="input" id="age" type="number">
+<label class="label">
+Father / Parent Name
+</label>
 
-<label class="label">Address</label>
-<textarea class="textarea" id="address"></textarea>
+<input class="input"
+id="father">
 
-<label class="label">Additional Details</label>
-<textarea class="textarea" id="details"></textarea>
+<label class="label">
+Age
+</label>
 
-<label class="label">Place</label>
-<input class="input" id="place">
+<input class="input"
+id="age"
+type="number">
 
-<label class="label">Date</label>
-<input type="date" class="input" id="date">
+<label class="label">
+Address
+</label>
+
+<textarea class="textarea"
+id="address"></textarea>
+
+<label class="label">
+Additional Details
+</label>
+
+<textarea class="textarea"
+id="details"></textarea>
+
+<label class="label">
+Place
+</label>
+
+<input class="input"
+id="place">
+
+<label class="label">
+Date
+</label>
+
+<input type="date"
+class="input"
+id="date">
+
+<!-- BUTTONS -->
 
 <div class="btn-grid">
 
-<button class="btn primary" onclick="generateAffidavit()">
+<button class="btn primary"
+onclick="generateAffidavit()">
+
 Generate
+
 </button>
 
-<button class="btn green" onclick="downloadPDF()">
+<button class="btn green"
+onclick="downloadPDF()">
+
 Print PDF
+
 </button>
 
-<button class="btn blue" onclick="activatePremiumManually()">
+<button class="btn blue"
+onclick="activatePremiumManually()">
+
 Enter Code
+
 </button>
 
-<button class="btn orange" onclick="unlockPremium()">
+<button class="btn orange"
+onclick="unlockPremium()">
+
 Unlock PRO 🚀
+
 </button>
 
-<button class="btn primary" onclick="aiDraft()">
+<button class="btn primary"
+onclick="aiDraft()">
+
 AI Draft
+
 </button>
 
-<button class="btn green" onclick="generateQRCode()">
+<button class="btn green"
+onclick="generateQRCode()">
+
 Generate QR
+
 </button>
 
-<button class="btn blue" onclick="shareWhatsApp()">
+<button class="btn blue"
+onclick="shareWhatsApp()">
+
 WhatsApp
+
 </button>
 
-<button class="btn orange" onclick="toggleDarkMode()">
+<button class="btn orange"
+onclick="toggleDarkMode()">
+
 Dark Mode
+
 </button>
 
 </div>
 
+<!-- SIGNATURE -->
+
 <div class="upload-box">
 
 <label class="label">
+
 Upload Signature
+
 </label>
 
 <input
@@ -449,42 +628,62 @@ accept="image/*"
 
 </div>
 
+<!-- QR -->
+
 <div id="qrBox"></div>
+
+<!-- HISTORY -->
 
 <div class="history">
 
 <div class="title">
+
 Recent Documents
+
 </div>
 
 <div id="history">
+
 No documents yet.
-</div>
 
 </div>
 
 </div>
+
+</div>
+
+<!-- PAPER -->
 
 <div class="paper">
 
-<div class="paper-inner" id="previewArea">
+<div class="paper-inner"
+id="previewArea">
 
 <div class="stamp">
+
 ₹10
+
 </div>
 
 <div class="doc-title">
+
 AFFIDAVIT
+
 </div>
 
 <div class="doc-sub">
+
 BEFORE THE NOTARY PUBLIC
+
 </div>
 
 <div class="doc-content">
 
 <p>
-Your professional affidavit preview will appear here.
+
+Your professional affidavit preview
+will appear here.
+
 </p>
 
 </div>
@@ -498,7 +697,11 @@ Your professional affidavit preview will appear here.
 <script src="script.js"></script>
 
 <script>
-console.log("AGI ULTRA PRO Loaded 🚀");
+
+console.log(
+"AGI ULTRA PRO v15 Loaded 🚀"
+);
+
 </script>
 
 </body>
