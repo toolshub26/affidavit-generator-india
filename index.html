@@ -1,14 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AGI ULTRA PRO v15 🚀</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+AGI ULTRA PRO v16 AI 🚀
+</title>
 
 <meta name="description"
-content="AGI ULTRA PRO v15 - AI Legal Affidavit Generator">
+content="AGI ULTRA PRO v16 AI - Ultimate Legal AI SaaS">
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -16,631 +21,499 @@ href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap"
 rel="stylesheet">
 
+<link rel="stylesheet"
+href="style.css">
+
+<!-- QR -->
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
-<style>
+<!-- REAL PDF -->
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-html{
-scroll-behavior:smooth;
-}
+<!-- SIGNATURE PAD -->
 
-body{
-background:#edf2f7;
-font-family:'Inter',sans-serif;
-color:#111827;
-transition:.3s;
-}
-
-/* =========================================
-   DARK MODE
-========================================= */
-
-.dark-mode{
-background:#020617;
-color:white;
-}
-
-.dark-mode .sidebar,
-.dark-mode .paper,
-.dark-mode .paper-inner{
-background:#111827;
-color:white;
-}
-
-.dark-mode .input,
-.dark-mode .select,
-.dark-mode .textarea{
-background:#1f2937;
-color:white;
-border-color:#374151;
-}
-
-.dark-mode .history-item{
-background:#1f2937;
-color:white;
-border-left:5px solid #3b82f6;
-}
-
-.dark-mode .doc-content,
-.dark-mode .doc-title,
-.dark-mode .doc-sub{
-color:white;
-}
-
-/* =========================================
-   TOPBAR
-========================================= */
-
-.topbar{
-background:
-linear-gradient(
-135deg,
-#0f172a,
-#111827,
-#1e293b
-);
-color:white;
-padding:25px;
-box-shadow:0 5px 25px rgba(0,0,0,.2);
-}
-
-.top-inner{
-max-width:1500px;
-margin:auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:20px;
-}
-
-.logo h1{
-font-size:34px;
-font-weight:800;
-}
-
-.logo p{
-opacity:.8;
-margin-top:6px;
-}
-
-.badge{
-background:rgba(255,255,255,.08);
-border:1px solid rgba(255,255,255,.1);
-padding:12px 18px;
-border-radius:14px;
-font-weight:700;
-}
-
-/* =========================================
-   MAIN
-========================================= */
-
-.main{
-max-width:1500px;
-margin:30px auto;
-display:grid;
-grid-template-columns:380px 1fr;
-gap:30px;
-padding:0 20px;
-}
-
-/* =========================================
-   SIDEBAR
-========================================= */
-
-.sidebar{
-background:white;
-border-radius:24px;
-padding:28px;
-box-shadow:0 10px 35px rgba(0,0,0,.08);
-height:fit-content;
-position:sticky;
-top:20px;
-}
-
-.title{
-font-size:22px;
-font-weight:800;
-margin-bottom:20px;
-}
-
-.label{
-display:block;
-margin-top:18px;
-margin-bottom:8px;
-font-size:14px;
-font-weight:700;
-}
-
-.input,
-.select,
-.textarea{
-width:100%;
-border:1px solid #d1d5db;
-background:#f9fafb;
-border-radius:14px;
-padding:14px;
-font-size:15px;
-transition:.25s;
-}
-
-.input:focus,
-.select:focus,
-.textarea:focus{
-outline:none;
-border-color:#2563eb;
-background:white;
-box-shadow:0 0 0 4px rgba(37,99,235,.1);
-}
-
-.textarea{
-min-height:90px;
-resize:vertical;
-}
-
-/* =========================================
-   BUTTONS
-========================================= */
-
-.btn-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px;
-margin-top:25px;
-}
-
-.btn{
-border:none;
-padding:14px;
-border-radius:14px;
-cursor:pointer;
-font-weight:700;
-transition:.25s;
-font-size:15px;
-}
-
-.btn:hover{
-transform:translateY(-2px);
-}
-
-.primary{
-background:#111827;
-color:white;
-}
-
-.green{
-background:#059669;
-color:white;
-}
-
-.blue{
-background:#2563eb;
-color:white;
-}
-
-.orange{
-background:#ea580c;
-color:white;
-}
-
-/* =========================================
-   EXTRA
-========================================= */
-
-.upload-box{
-margin-top:20px;
-}
-
-#qrBox{
-margin-top:20px;
-text-align:center;
-}
-
-/* =========================================
-   PAPER
-========================================= */
-
-.paper{
-width:210mm;
-background:white;
-margin:auto;
-padding:40px;
-box-shadow:0 15px 45px rgba(0,0,0,.15);
-border-radius:20px;
-}
-
-.paper-inner{
-border:2px solid #d1d5db;
-padding:45px;
-position:relative;
-border-radius:16px;
-}
-
-/* =========================================
-   STAMP
-========================================= */
-
-.stamp{
-position:absolute;
-top:20px;
-right:20px;
-width:90px;
-height:90px;
-border:3px solid #dc2626;
-border-radius:50%;
-color:#dc2626;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:800;
-transform:rotate(-15deg);
-font-size:20px;
-}
-
-/* =========================================
-   DOCUMENT
-========================================= */
-
-.doc-title{
-text-align:center;
-font-size:42px;
-letter-spacing:3px;
-font-family:'Cormorant Garamond',serif;
-margin-top:25px;
-}
-
-.doc-sub{
-text-align:center;
-margin-top:10px;
-margin-bottom:40px;
-font-size:14px;
-letter-spacing:2px;
-}
-
-.doc-content{
-line-height:2;
-font-size:18px;
-}
-
-.doc-content p{
-margin-bottom:20px;
-text-align:justify;
-}
-
-.doc-content ol{
-padding-left:24px;
-}
-
-.doc-content li{
-margin-bottom:16px;
-}
-
-/* =========================================
-   HISTORY
-========================================= */
-
-.history{
-margin-top:35px;
-}
-
-.history-item{
-background:#f3f4f6;
-border-left:5px solid #111827;
-border-radius:12px;
-padding:12px;
-margin-bottom:10px;
-font-size:14px;
-}
-
-/* =========================================
-   MOBILE
-========================================= */
-
-@media(max-width:1100px){
-
-.main{
-grid-template-columns:1fr;
-}
-
-.paper{
-width:100%;
-padding:15px;
-}
-
-.paper-inner{
-padding:25px;
-}
-
-.doc-title{
-font-size:30px;
-}
-
-.doc-content{
-font-size:16px;
-}
-
-.btn-grid{
-grid-template-columns:1fr;
-}
-
-}
-
-/* =========================================
-   PRINT
-========================================= */
-
-@media print{
-
-body{
-background:white !important;
-}
-
-.topbar,
-.sidebar{
-display:none !important;
-}
-
-.main{
-display:block !important;
-margin:0 !important;
-padding:0 !important;
-}
-
-.paper{
-width:100% !important;
-padding:0 !important;
-margin:0 !important;
-box-shadow:none !important;
-border-radius:0 !important;
-}
-
-.paper-inner{
-border-radius:0 !important;
-}
-
-button{
-display:none !important;
-}
-
-}
-
-</style>
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 </head>
 
 <body>
 
-<!-- TOPBAR -->
+<!-- =========================================
+TOP HEADER
+========================================= -->
 
-<div class="topbar">
-
-<div class="top-inner">
-
-<div class="logo">
+<header>
 
 <h1>
-⚖️ AGI ULTRA PRO v15
+⚖️ AGI ULTRA PRO v16 AI
 </h1>
 
-<p>
-AI Legal Affidavit Generator
+<p class="tagline">
+Ultimate Multilingual Legal AI SaaS Platform
 </p>
 
-</div>
+<br>
 
-<div class="badge"
-id="premiumStatus">
+<div id="premiumStatus"
+class="premium-active">
 
 🔴 Free Version
 
 </div>
 
-</div>
+</header>
 
-</div>
+<!-- =========================================
+MAIN CONTAINER
+========================================= -->
 
-<!-- MAIN -->
+<div class="container">
 
-<div class="main">
+<!-- =========================================
+FORM SECTION
+========================================= -->
 
-<!-- SIDEBAR -->
+<div class="form-section ai-glow">
 
-<div class="sidebar">
+<h2>
+Generate Affidavit
+</h2>
 
-<div class="title">
-Generate Legal Affidavit
-</div>
+<!-- =========================================
+AI ASSISTANT
+========================================= -->
 
-<label class="label">
+<label>
+AI Quick Prompt
+</label>
+
+<textarea
+id="aiPrompt"
+placeholder="Example: I lost my marksheet"></textarea>
+
+<button
+class="btn-purple"
+onclick="generateAIQuickAffidavit()">
+
+⚡ AI Auto Generate
+
+</button>
+
+<!-- =========================================
+VOICE INPUT
+========================================= -->
+
+<button
+class="btn-blue"
+onclick="startVoiceInput()">
+
+🎤 Voice Input
+
+</button>
+
+<!-- =========================================
+LANGUAGE
+========================================= -->
+
+<label>
 Language
 </label>
 
-<select class="select"
-id="lang">
+<select id="lang">
 
 <option>English</option>
+
 <option>Urdu</option>
+
 <option>Hindi</option>
+
 <option>Arabic</option>
+
 <option>French</option>
 
 </select>
 
-<label class="label">
+<!-- =========================================
+COUNTRY
+========================================= -->
+
+<label>
+Country Format
+</label>
+
+<select id="countryFormat">
+
+<option>India</option>
+
+<option>Pakistan</option>
+
+<option>UAE</option>
+
+<option>Saudi Arabia</option>
+
+<option>United Kingdom</option>
+
+<option>United States</option>
+
+</select>
+
+<!-- =========================================
+PURPOSE
+========================================= -->
+
+<label>
 Affidavit Purpose
 </label>
 
-<select class="select"
-id="purposeType">
+<select id="purposeType">
 
 <option>Name Change</option>
+
 <option>Address Proof</option>
+
 <option>Birth Affidavit</option>
+
 <option>Income Proof</option>
+
 <option>Marriage Affidavit</option>
+
 <option>Single Status</option>
+
 <option>Nationality</option>
+
 <option>Gap Certificate</option>
+
 <option>Property Declaration</option>
+
 <option>Bank Verification</option>
+
 <option>Lost Document</option>
+
 <option>Vehicle Ownership</option>
+
+<option>Embassy Affidavit</option>
+
+<option>Visa Affidavit</option>
+
 <option>Custom Purpose</option>
 
 </select>
 
-<label class="label">
+<!-- =========================================
+NAME
+========================================= -->
+
+<label>
 Full Name
 </label>
 
-<input class="input"
-id="name">
+<input
+type="text"
+id="name"
+placeholder="Enter full name">
 
-<label class="label">
+<!-- =========================================
+FATHER
+========================================= -->
+
+<label>
 Father / Parent Name
 </label>
 
-<input class="input"
-id="father">
+<input
+type="text"
+id="father"
+placeholder="Enter parent name">
 
-<label class="label">
+<!-- =========================================
+AGE
+========================================= -->
+
+<label>
 Age
 </label>
 
-<input class="input"
+<input
+type="number"
 id="age"
-type="number">
+placeholder="Enter age">
 
-<label class="label">
+<!-- =========================================
+ADDRESS
+========================================= -->
+
+<label>
 Address
 </label>
 
-<textarea class="textarea"
-id="address"></textarea>
+<textarea
+id="address"
+placeholder="Enter address"></textarea>
 
-<label class="label">
+<!-- =========================================
+DETAILS
+========================================= -->
+
+<label>
 Additional Details
 </label>
 
-<textarea class="textarea"
-id="details"></textarea>
+<textarea
+id="details"
+placeholder="Optional additional details"></textarea>
 
-<label class="label">
+<!-- =========================================
+TONE
+========================================= -->
+
+<label>
+Legal Tone
+</label>
+
+<select id="tone">
+
+<option>Formal</option>
+
+<option>Court Style</option>
+
+<option>Embassy Style</option>
+
+<option>Simple</option>
+
+</select>
+
+<!-- =========================================
+STAMP
+========================================= -->
+
+<label>
+Stamp Value
+</label>
+
+<select id="stampValue">
+
+<option>₹10</option>
+
+<option>₹20</option>
+
+<option>₹50</option>
+
+<option>₹100</option>
+
+</select>
+
+<!-- =========================================
+PLACE
+========================================= -->
+
+<label>
 Place
 </label>
 
-<input class="input"
-id="place">
+<input
+type="text"
+id="place"
+placeholder="Enter place">
 
-<label class="label">
+<!-- =========================================
+DATE
+========================================= -->
+
+<label>
 Date
 </label>
 
-<input type="date"
-class="input"
+<input
+type="date"
 id="date">
 
-<!-- BUTTONS -->
+<!-- =========================================
+SIGNATURE UPLOAD
+========================================= -->
 
-<div class="btn-grid">
+<label>
+Upload Signature
+</label>
 
-<button class="btn primary"
+<input
+type="file"
+id="signatureUpload"
+accept="image/*">
+
+<!-- =========================================
+DIGITAL SIGNATURE PAD
+========================================= -->
+
+<label>
+Digital Signature Pad
+</label>
+
+<canvas
+id="signaturePad"
+width="300"
+height="150"
+style="
+border:2px solid #d1d5db;
+border-radius:14px;
+background:white;
+width:100%;
+">
+</canvas>
+
+<button
+class="btn-orange"
+onclick="clearSignaturePad()">
+
+Clear Signature
+
+</button>
+
+<!-- =========================================
+OCR UPLOAD
+========================================= -->
+
+<label>
+Scan Aadhaar / Passport
+</label>
+
+<input
+type="file"
+id="ocrUpload"
+accept="image/*,.pdf">
+
+<!-- =========================================
+BUTTONS
+========================================= -->
+
+<div class="button-group">
+
+<button
 onclick="generateAffidavit()">
 
 Generate
 
 </button>
 
-<button class="btn green"
+<button
+class="btn-green"
 onclick="downloadPDF()">
 
-Print PDF
+Download PDF
 
 </button>
 
-<button class="btn blue"
+<button
+class="btn-blue"
 onclick="activatePremiumManually()">
 
 Enter Code
 
 </button>
 
-<button class="btn orange"
+<button
+class="btn-orange"
 onclick="unlockPremium()">
 
 Unlock PRO 🚀
 
 </button>
 
-<button class="btn primary"
+<button
+class="btn-purple"
 onclick="aiDraft()">
 
 AI Draft
 
 </button>
 
-<button class="btn green"
+<button
+class="btn-green"
 onclick="generateQRCode()">
 
 Generate QR
 
 </button>
 
-<button class="btn blue"
+<button
+class="btn-blue"
 onclick="shareWhatsApp()">
 
 WhatsApp
 
 </button>
 
-<button class="btn orange"
+<button
+class="btn-orange"
 onclick="toggleDarkMode()">
 
 Dark Mode
 
 </button>
 
+<button
+class="btn-purple"
+onclick="emailPDF()">
+
+Email PDF
+
+</button>
+
+<button
+class="btn-green"
+onclick="verifyDocument()">
+
+Verify QR
+
+</button>
+
+<button
+class="btn-blue"
+onclick="openLegalAI()">
+
+Legal AI
+
+</button>
+
+<button
+class="btn-orange"
+onclick="bookNotary()">
+
+Book Notary
+
+</button>
+
 </div>
 
-<!-- SIGNATURE -->
+<!-- =========================================
+AI STATUS
+========================================= -->
 
-<div class="upload-box">
-
-<label class="label">
-
-Upload Signature
-
-</label>
-
-<input
-class="input"
-type="file"
-id="signatureUpload"
-accept="image/*"
->
-
+<div id="aiStatus"
+style="
+margin-top:20px;
+font-size:14px;
+font-weight:700;
+color:#2563eb;
+">
 </div>
 
-<!-- QR -->
+<!-- =========================================
+QR BOX
+========================================= -->
 
 <div id="qrBox"></div>
 
-<!-- HISTORY -->
+<!-- =========================================
+HISTORY
+========================================= -->
 
-<div class="history">
+<div class="history-box">
 
-<div class="title">
-
+<h3>
 Recent Documents
-
-</div>
+</h3>
 
 <div id="history">
 
@@ -650,59 +523,192 @@ No documents yet.
 
 </div>
 
-</div>
+<!-- =========================================
+ANALYTICS
+========================================= -->
 
-<!-- PAPER -->
+<div class="history-box">
 
-<div class="paper">
-
-<div class="paper-inner"
-id="previewArea">
-
-<div class="stamp">
-
-₹10
-
-</div>
-
-<div class="doc-title">
-
-AFFIDAVIT
-
-</div>
-
-<div class="doc-sub">
-
-BEFORE THE NOTARY PUBLIC
-
-</div>
-
-<div class="doc-content">
+<h3>
+Analytics
+</h3>
 
 <p>
+Generated Docs:
+<span id="totalDocs">
+0
+</span>
+</p>
 
-Your professional affidavit preview
-will appear here.
-
+<p>
+Premium Users:
+<span id="premiumUsers">
+0
+</span>
 </p>
 
 </div>
 
 </div>
 
+<!-- =========================================
+PREVIEW SECTION
+========================================= -->
+
+<div class="preview-section">
+
+<!-- WATERMARK -->
+
+<div class="watermark">
+AGI ULTRA PRO
+</div>
+
+<!-- DOCUMENT -->
+
+<div
+class="document-preview"
+id="previewArea">
+
+<!-- DOC ID -->
+
+<div
+style="
+position:absolute;
+top:20px;
+left:20px;
+font-size:12px;
+color:#6b7280;
+">
+
+IND-AFF-2026
+
+</div>
+
+<!-- STAMP -->
+
+<div class="stamp">
+₹10
+</div>
+
+<!-- MEEZAN -->
+
+<div class="meezan-logo">
+
+⚖️ MEEZAN LEGAL SERVICES
+
+</div>
+
+<!-- TITLE -->
+
+<div class="title">
+AFFIDAVIT
+</div>
+
+<!-- SUBTITLE -->
+
+<div class="subtitle">
+BEFORE THE NOTARY PUBLIC
+</div>
+
+<!-- NOTARY -->
+
+<div class="notary-seal">
+
+NOTARY VERIFIED
+
+</div>
+
+<!-- CONTENT -->
+
+<p>
+Your professional affidavit preview
+will appear here.
+</p>
+
+<!-- QR -->
+
+<div id="qrCodeContainer"></div>
+
+<!-- FOOTER -->
+
+<div class="doc-id">
+
+Powered by
+AGI ULTRA PRO v16 AI
+
 </div>
 
 </div>
+
+</div>
+
+</div>
+
+<!-- =========================================
+LEGAL AI CHAT
+========================================= -->
+
+<div
+id="legalAiBox"
+style="
+display:none;
+position:fixed;
+bottom:20px;
+right:20px;
+width:320px;
+background:white;
+padding:20px;
+border-radius:18px;
+box-shadow:0 10px 30px rgba(0,0,0,.15);
+z-index:9999;
+">
+
+<h3>
+⚖️ Legal AI Assistant
+</h3>
+
+<textarea
+id="legalQuestion"
+placeholder="Ask legal AI..."
+style="
+width:100%;
+height:100px;
+margin-top:10px;
+">
+</textarea>
+
+<button
+style="margin-top:10px;"
+onclick="askLegalAI()">
+
+Ask AI
+
+</button>
+
+<div
+id="legalAIResponse"
+style="
+margin-top:15px;
+font-size:14px;
+">
+</div>
+
+</div>
+
+<!-- =========================================
+SCRIPTS
+========================================= -->
 
 <script src="script.js"></script>
 
 <script>
 
 console.log(
-"AGI ULTRA PRO v15 Loaded 🚀"
+"AGI ULTRA PRO v16 AI Loaded 🚀"
 );
 
 </script>
 
 </body>
+
 </html>
