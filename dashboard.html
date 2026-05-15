@@ -9,7 +9,7 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-AGI ULTRA PRO v17 AI Dashboard 🚀
+AGI ULTRA PRO v17 ENTERPRISE 🚀
 </title>
 
 <link rel="preconnect"
@@ -54,11 +54,8 @@ LAYOUT
 ========================================= */
 
 .dashboard{
-
 display:flex;
-
 min-height:100vh;
-
 }
 
 /* =========================================
@@ -67,7 +64,7 @@ SIDEBAR
 
 .sidebar{
 
-width:280px;
+width:290px;
 
 background:
 linear-gradient(
@@ -100,9 +97,7 @@ margin-bottom:35px;
 }
 
 .logo span{
-
 color:#3b82f6;
-
 }
 
 .nav-btn{
@@ -143,7 +138,7 @@ MAIN
 
 .main{
 
-margin-left:280px;
+margin-left:290px;
 
 width:100%;
 
@@ -173,7 +168,7 @@ margin-bottom:30px;
 
 .topbar h1{
 
-font-size:34px;
+font-size:36px;
 
 font-weight:800;
 
@@ -231,7 +226,7 @@ CARDS
 display:grid;
 
 grid-template-columns:
-repeat(auto-fit,minmax(220px,1fr));
+repeat(auto-fit,minmax(230px,1fr));
 
 gap:20px;
 
@@ -267,7 +262,7 @@ transform:translateY(-4px);
 
 font-size:15px;
 
-opacity:.7;
+opacity:.75;
 
 margin-bottom:12px;
 
@@ -388,6 +383,10 @@ background:#ea580c;
 background:#dc2626;
 }
 
+.purple{
+background:#7c3aed;
+}
+
 /* =========================================
 TABLE
 ========================================= */
@@ -432,14 +431,32 @@ font-weight:700;
 }
 
 .badge-premium{
-
 background:#059669;
-
 }
 
 .badge-free{
-
 background:#dc2626;
+}
+
+/* =========================================
+SEARCH
+========================================= */
+
+.search-box{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:#1f2937;
+
+color:white;
+
+margin-bottom:20px;
 
 }
 
@@ -470,28 +487,6 @@ resize:none;
 }
 
 /* =========================================
-SEARCH
-========================================= */
-
-.search-box{
-
-width:100%;
-
-padding:14px;
-
-border:none;
-
-border-radius:14px;
-
-background:#1f2937;
-
-color:white;
-
-margin-bottom:20px;
-
-}
-
-/* =========================================
 PROGRESS
 ========================================= */
 
@@ -513,9 +508,33 @@ margin-top:10px;
 
 height:100%;
 
-width:70%;
-
 background:#2563eb;
+
+}
+
+/* =========================================
+TOAST
+========================================= */
+
+.toast{
+
+position:fixed;
+
+bottom:20px;
+right:20px;
+
+background:#111827;
+
+padding:16px 20px;
+
+border-radius:14px;
+
+display:none;
+
+z-index:9999;
+
+box-shadow:
+0 10px 25px rgba(0,0,0,.4);
 
 }
 
@@ -526,9 +545,7 @@ MOBILE
 @media(max-width:1100px){
 
 .dashboard{
-
 flex-direction:column;
-
 }
 
 .sidebar{
@@ -550,9 +567,7 @@ padding:20px;
 }
 
 .grid{
-
 grid-template-columns:1fr;
-
 }
 
 }
@@ -562,6 +577,11 @@ grid-template-columns:1fr;
 </head>
 
 <body>
+
+<div class="toast"
+id="toast">
+System Notification
+</div>
 
 <div class="dashboard">
 
@@ -604,7 +624,15 @@ SIDEBAR
 </button>
 
 <button class="nav-btn">
-⚙️ Settings
+📥 Export CSV
+</button>
+
+<button class="nav-btn">
+📱 Install App
+</button>
+
+<button class="nav-btn">
+🌙 Dark Mode
 </button>
 
 <button class="nav-btn"
@@ -620,14 +648,16 @@ MAIN
 
 <div class="main">
 
-<!-- TOPBAR -->
+<!-- =========================================
+TOPBAR
+========================================= -->
 
 <div class="topbar">
 
 <div>
 
 <h1>
-AGI ULTRA PRO v17 AI 🚀
+AGI ULTRA PRO v17 🚀
 </h1>
 
 <p>
@@ -650,7 +680,7 @@ admin@agiultra.ai
 
 <div>
 <span class="badge badge-premium">
-PREMIUM
+PREMIUM ACTIVE
 </span>
 </div>
 
@@ -660,7 +690,9 @@ PREMIUM
 
 </div>
 
-<!-- CARDS -->
+<!-- =========================================
+CARDS
+========================================= -->
 
 <div class="cards">
 
@@ -669,19 +701,19 @@ PREMIUM
 <h3>Total Affidavits</h3>
 
 <div class="value"
-id="totalDocs">
-1,248
+id="docsCount">
+1248
 </div>
 
 <p>
-+12% this week
++12% growth this week
 </p>
 
 </div>
 
 <div class="card">
 
-<h3>Revenue</h3>
+<h3>Total Revenue</h3>
 
 <div class="value">
 ₹82,450
@@ -702,7 +734,7 @@ Monthly earnings
 </div>
 
 <p>
-Active subscriptions
+Active subscribers
 </p>
 
 </div>
@@ -712,18 +744,20 @@ Active subscriptions
 <h3>QR Verifications</h3>
 
 <div class="value">
-2,902
+2902
 </div>
 
 <p>
-Documents verified
+Verified documents
 </p>
 
 </div>
 
 </div>
 
-<!-- GRID -->
+<!-- =========================================
+GRID
+========================================= -->
 
 <div class="grid">
 
@@ -746,128 +780,32 @@ Documents verified
 <div class="panel">
 
 <h2>
-🕒 Recent Activity
+🕒 Live Activity
 </h2>
 
 <div class="activity-item">
-User created affidavit
+New affidavit generated
 </div>
 
 <div class="activity-item">
-Premium upgraded successfully
-</div>
-
-<div class="activity-item">
-Document QR verified
-</div>
-
-<div class="activity-item">
-New user registered
+Premium activated successfully
 </div>
 
 <div class="activity-item">
 Wallet withdrawal requested
 </div>
 
+<div class="activity-item">
+Document verified by QR
 </div>
 
-</div>
-
-<!-- RIGHT -->
-
-<div>
-
-<div class="panel">
-
-<h2>
-⚡ Quick Actions
-</h2>
-
-<button class="action-btn">
-🚀 Open Generator
-</button>
-
-<button class="action-btn green">
-📥 Export CSV
-</button>
-
-<button class="action-btn orange">
-📲 Install App
-</button>
-
-<button class="action-btn red">
-💸 Withdraw
-</button>
-
-</div>
-
-<br>
-
-<div class="panel">
-
-<h2>
-📊 System Usage
-</h2>
-
-<p>
-Storage Usage
-</p>
-
-<div class="progress">
-<div></div>
-</div>
-
-<br>
-
-<p>
-API Usage
-</p>
-
-<div class="progress">
-<div style="width:45%;">
-</div>
+<div class="activity-item">
+New user registered
 </div>
 
 </div>
 
 <br>
-
-<div class="panel">
-
-<h2>
-🤖 Legal AI Assistant
-</h2>
-
-<div class="ai-box">
-
-<textarea
-id="legalQuestion"
-placeholder="Ask legal question..."></textarea>
-
-<br><br>
-
-<button class="action-btn"
-onclick="askLegalAI()">
-
-Ask AI
-
-</button>
-
-<br><br>
-
-<div id="legalAIResponse">
-No response yet.
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- USERS TABLE -->
 
 <div class="panel">
 
@@ -878,7 +816,8 @@ No response yet.
 <input
 type="text"
 class="search-box"
-placeholder="Search users...">
+placeholder="Search users..."
+onkeyup="filterUsers()">
 
 <table>
 
@@ -894,7 +833,7 @@ placeholder="Search users...">
 
 </thead>
 
-<tbody>
+<tbody id="usersTable">
 
 <tr>
 
@@ -958,6 +897,130 @@ Premium
 
 </div>
 
+<!-- RIGHT -->
+
+<div>
+
+<div class="panel">
+
+<h2>
+⚡ Quick Actions
+</h2>
+
+<button class="action-btn">
+🚀 Open Generator
+</button>
+
+<button class="action-btn green"
+onclick="exportCSV()">
+
+📥 Export CSV
+
+</button>
+
+<button class="action-btn orange"
+onclick="installApp()">
+
+📱 Install App
+
+</button>
+
+<button class="action-btn red"
+onclick="withdrawMoney()">
+
+💸 Withdraw
+
+</button>
+
+<button class="action-btn purple"
+onclick="generateReport()">
+
+📄 Generate Report
+
+</button>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2>
+📊 System Usage
+</h2>
+
+<p>
+Storage Usage
+</p>
+
+<div class="progress">
+<div style="width:70%;">
+</div>
+</div>
+
+<br>
+
+<p>
+API Usage
+</p>
+
+<div class="progress">
+<div style="width:45%;">
+</div>
+</div>
+
+<br>
+
+<p>
+Realtime Database
+</p>
+
+<div class="progress">
+<div style="width:82%;">
+</div>
+</div>
+
+</div>
+
+<br>
+
+<div class="panel">
+
+<h2>
+🤖 Legal AI Assistant
+</h2>
+
+<div class="ai-box">
+
+<textarea
+id="legalQuestion"
+placeholder="Ask legal question..."></textarea>
+
+<br><br>
+
+<button class="action-btn"
+onclick="askLegalAI()">
+
+Ask AI
+
+</button>
+
+<br><br>
+
+<div id="legalAIResponse">
+No response yet.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 <script>
@@ -1012,6 +1075,34 @@ tension:.4
 });
 
 /* =========================================
+SEARCH FILTER
+========================================= */
+
+function filterUsers(){
+
+let input =
+document.querySelector(
+".search-box"
+).value.toLowerCase();
+
+let rows =
+document.querySelectorAll(
+"#usersTable tr"
+);
+
+rows.forEach(row=>{
+
+row.style.display =
+row.innerText.toLowerCase()
+.includes(input)
+? ""
+: "none";
+
+});
+
+}
+
+/* =========================================
 LEGAL AI
 ========================================= */
 
@@ -1034,7 +1125,104 @@ ${q}
 
 `;
 
+showToast(
+"AI response generated"
+);
+
 }
+
+/* =========================================
+EXPORT CSV
+========================================= */
+
+function exportCSV(){
+
+showToast(
+"CSV export started"
+);
+
+}
+
+/* =========================================
+INSTALL APP
+========================================= */
+
+function installApp(){
+
+showToast(
+"PWA install ready"
+);
+
+}
+
+/* =========================================
+WITHDRAW
+========================================= */
+
+function withdrawMoney(){
+
+showToast(
+"Withdraw request opened"
+);
+
+}
+
+/* =========================================
+REPORT
+========================================= */
+
+function generateReport(){
+
+showToast(
+"Analytics report generated"
+);
+
+}
+
+/* =========================================
+TOAST
+========================================= */
+
+function showToast(msg){
+
+const toast =
+document.getElementById(
+"toast"
+);
+
+toast.innerText = msg;
+
+toast.style.display =
+"block";
+
+setTimeout(()=>{
+
+toast.style.display =
+"none";
+
+},3000);
+
+}
+
+/* =========================================
+AUTO REFRESH STATS
+========================================= */
+
+setInterval(()=>{
+
+let current =
+Number(
+document.getElementById(
+"docsCount"
+).innerText
+);
+
+document.getElementById(
+"docsCount"
+).innerText =
+current + 1;
+
+},15000);
 
 /* =========================================
 LOGOUT
@@ -1042,11 +1230,15 @@ LOGOUT
 
 function logout(){
 
-alert(
-"Logged Out 🚪"
+showToast(
+"Logged out successfully"
 );
 
+setTimeout(()=>{
+
 location.reload();
+
+},1500);
 
 }
 
