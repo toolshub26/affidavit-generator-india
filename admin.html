@@ -9,7 +9,7 @@
 content="width=device-width, initial-scale=1.0">
 
 <title>
-AGI ULTRA PRO v16 AI - ADMIN SaaS 🚀
+AGI ULTRA PRO v17 ADMIN PANEL 🚀
 </title>
 
 <link rel="preconnect"
@@ -23,7 +23,7 @@ rel="stylesheet">
 <style>
 
 /* =========================================
-GLOBAL
+RESET
 ========================================= */
 
 *{
@@ -33,10 +33,20 @@ box-sizing:border-box;
 }
 
 body{
-background:#0f172a;
+
 font-family:"Inter",sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a
+);
+
 color:white;
+
 overflow-x:hidden;
+
 }
 
 /* =========================================
@@ -44,8 +54,11 @@ LAYOUT
 ========================================= */
 
 .dashboard{
+
 display:flex;
+
 min-height:100vh;
+
 }
 
 /* =========================================
@@ -63,7 +76,7 @@ linear-gradient(
 #020617
 );
 
-padding:25px;
+padding:24px;
 
 position:fixed;
 
@@ -73,31 +86,36 @@ overflow:auto;
 
 border-right:
 1px solid rgba(255,255,255,.08);
+
 }
 
 .logo{
 
 font-size:28px;
+
 font-weight:800;
 
 margin-bottom:35px;
+
 }
 
 .logo span{
+
 color:#3b82f6;
+
 }
 
 .nav-btn{
 
 width:100%;
 
-padding:14px;
-
-margin-bottom:12px;
+padding:15px;
 
 border:none;
 
-border-radius:14px;
+margin-bottom:12px;
+
+border-radius:16px;
 
 background:#1f2937;
 
@@ -108,11 +126,15 @@ font-weight:700;
 cursor:pointer;
 
 transition:.25s;
+
 }
 
 .nav-btn:hover{
+
 background:#2563eb;
+
 transform:translateY(-2px);
+
 }
 
 /* =========================================
@@ -126,6 +148,7 @@ margin-left:280px;
 padding:30px;
 
 width:100%;
+
 }
 
 /* =========================================
@@ -145,23 +168,32 @@ flex-wrap:wrap;
 gap:20px;
 
 margin-bottom:30px;
+
 }
 
 .topbar h1{
+
 font-size:36px;
+
 font-weight:800;
+
 }
 
 .topbar p{
+
 opacity:.7;
+
 margin-top:6px;
+
 }
 
-/* =========================================
-ADMIN BADGE
-========================================= */
-
 .admin-badge{
+
+padding:12px 18px;
+
+border-radius:30px;
+
+font-weight:700;
 
 background:
 linear-gradient(
@@ -170,11 +202,6 @@ linear-gradient(
 #ef4444
 );
 
-padding:10px 18px;
-
-border-radius:30px;
-
-font-weight:700;
 }
 
 /* =========================================
@@ -191,6 +218,7 @@ repeat(auto-fit,minmax(220px,1fr));
 gap:20px;
 
 margin-bottom:30px;
+
 }
 
 .card{
@@ -202,27 +230,37 @@ backdrop-filter:blur(12px);
 
 padding:24px;
 
-border-radius:22px;
+border-radius:24px;
 
 border:
 1px solid rgba(255,255,255,.08);
 
 transition:.25s;
+
 }
 
 .card:hover{
+
 transform:translateY(-4px);
+
 }
 
 .card h3{
+
 font-size:15px;
-opacity:.8;
+
+opacity:.75;
+
 margin-bottom:12px;
+
 }
 
 .card .value{
+
 font-size:34px;
+
 font-weight:800;
+
 }
 
 /* =========================================
@@ -239,6 +277,7 @@ grid-template-columns:
 gap:25px;
 
 margin-bottom:30px;
+
 }
 
 /* =========================================
@@ -252,15 +291,37 @@ rgba(255,255,255,.05);
 
 padding:25px;
 
-border-radius:22px;
+border-radius:24px;
 
 border:
 1px solid rgba(255,255,255,.08);
+
 }
 
 .panel h2{
+
 margin-bottom:20px;
+
 font-size:22px;
+
+}
+
+/* =========================================
+ACTIVITY
+========================================= */
+
+.activity-item{
+
+padding:14px;
+
+background:#111827;
+
+border-radius:14px;
+
+margin-bottom:12px;
+
+font-size:14px;
+
 }
 
 /* =========================================
@@ -282,6 +343,7 @@ background:#1f2937;
 color:white;
 
 margin-bottom:20px;
+
 }
 
 /* =========================================
@@ -289,16 +351,24 @@ TABLE
 ========================================= */
 
 table{
+
 width:100%;
+
 border-collapse:collapse;
+
 }
 
 th,td{
+
 padding:14px;
+
 text-align:left;
+
 border-bottom:
 1px solid rgba(255,255,255,.08);
+
 font-size:14px;
+
 }
 
 /* =========================================
@@ -316,6 +386,7 @@ border-radius:30px;
 font-size:12px;
 
 font-weight:700;
+
 }
 
 .green{
@@ -344,7 +415,7 @@ padding:10px 14px;
 
 border:none;
 
-border-radius:10px;
+border-radius:12px;
 
 color:white;
 
@@ -355,28 +426,15 @@ cursor:pointer;
 margin:4px;
 
 transition:.25s;
+
 }
 
 .action-btn:hover{
+
 transform:translateY(-2px);
+
 opacity:.92;
-}
 
-/* =========================================
-ACTIVITY
-========================================= */
-
-.activity-item{
-
-padding:14px;
-
-background:#111827;
-
-border-radius:14px;
-
-margin-bottom:12px;
-
-font-size:14px;
 }
 
 /* =========================================
@@ -391,14 +449,15 @@ padding:20px;
 
 background:#111827;
 
-border-radius:18px;
+border-radius:20px;
+
 }
 
 .ai-box textarea{
 
 width:100%;
 
-height:100px;
+height:120px;
 
 padding:14px;
 
@@ -413,6 +472,7 @@ color:white;
 resize:none;
 
 margin-top:15px;
+
 }
 
 /* =========================================
@@ -422,21 +482,33 @@ MOBILE
 @media(max-width:1100px){
 
 .dashboard{
+
 flex-direction:column;
+
 }
 
 .sidebar{
+
 position:relative;
+
 width:100%;
+
 height:auto;
+
 }
 
 .main{
+
 margin-left:0;
+
+padding:20px;
+
 }
 
 .grid{
+
 grid-template-columns:1fr;
+
 }
 
 }
@@ -530,7 +602,7 @@ SUPER ADMIN
 <h3>Total Users</h3>
 <div class="value"
 id="totalUsers">
-0
+1,248
 </div>
 </div>
 
@@ -538,7 +610,7 @@ id="totalUsers">
 <h3>Premium Users</h3>
 <div class="value"
 id="premiumUsers">
-0
+328
 </div>
 </div>
 
@@ -546,7 +618,7 @@ id="premiumUsers">
 <h3>Withdraw Requests</h3>
 <div class="value"
 id="totalWithdraw">
-0
+42
 </div>
 </div>
 
@@ -554,7 +626,7 @@ id="totalWithdraw">
 <h3>Total Revenue</h3>
 <div class="value"
 id="totalRevenue">
-₹0
+₹82,450
 </div>
 </div>
 
@@ -598,6 +670,10 @@ Withdraw approved
 
 <div class="activity-item">
 New affidavit generated
+</div>
+
+<div class="activity-item">
+New user registered
 </div>
 
 </div>
@@ -683,7 +759,7 @@ No response yet.
 
 </div>
 
-<!-- USERS -->
+<!-- USERS TABLE -->
 
 <div class="panel">
 
@@ -694,8 +770,8 @@ No response yet.
 <input
 class="search"
 id="search"
-placeholder="Search UID..."
-oninput="filterUsers()">
+placeholder="Search users..."
+onkeyup="filterUsers()">
 
 <table>
 
@@ -715,10 +791,63 @@ oninput="filterUsers()">
 <tbody id="usersTable">
 
 <tr>
-<td>Loading...</td>
-<td>--</td>
-<td>--</td>
-<td>--</td>
+
+<td>
+user1@gmail.com
+</td>
+
+<td>
+₹1500
+</td>
+
+<td>
+<span class="badge green">
+Premium
+</span>
+</td>
+
+<td>
+
+<button class="action-btn blue">
+Premium
+</button>
+
+<button class="action-btn red">
+Delete
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+user2@gmail.com
+</td>
+
+<td>
+₹0
+</td>
+
+<td>
+<span class="badge red">
+Free
+</span>
+</td>
+
+<td>
+
+<button class="action-btn blue">
+Premium
+</button>
+
+<button class="action-btn red">
+Delete
+</button>
+
+</td>
+
 </tr>
 
 </tbody>
@@ -739,457 +868,35 @@ oninput="filterUsers()">
 
 <div id="withdrawals">
 
-Loading...
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-<!-- =========================================
-FIREBASE
-========================================= -->
-
-<script type="module">
-
-import { initializeApp }
-from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-
-import {
-
-getAuth,
-onAuthStateChanged,
-signOut
-
-}
-from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-
-import {
-
-getFirestore,
-collection,
-doc,
-onSnapshot,
-query,
-where,
-updateDoc,
-increment,
-deleteDoc,
-getDocs
-
-}
-from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-/* =========================================
-CONFIG
-========================================= */
-
-const firebaseConfig = {
-
-apiKey:"AIzaSyC_1bkBNGAoGviGt1-a1f27h9VDj4hr3oA",
-authDomain:"affidavittool.firebaseapp.com",
-projectId:"affidavittool",
-storageBucket:"affidavittool.appspot.com",
-messagingSenderId:"108525725649",
-appId:"1:108525725649:web:2c3cab440860c81e6de2f0"
-
-};
-
-const app =
-initializeApp(firebaseConfig);
-
-const auth =
-getAuth(app);
-
-const db =
-getFirestore(app);
-
-/* =========================================
-ADMIN UID
-========================================= */
-
-const ADMIN_UID =
-"PUT_YOUR_UID_HERE";
-
-/* =========================================
-SECURITY
-========================================= */
-
-onAuthStateChanged(auth,user=>{
-
-if(!user){
-
-location.href =
-"index.html";
-
-return;
-
-}
-
-if(user.uid !== ADMIN_UID){
-
-alert(
-"Access Denied ❌"
-);
-
-location.href =
-"index.html";
-
-return;
-
-}
-
-loadUsers();
-loadWithdraws();
-loadChart();
-
-});
-
-/* =========================================
-USERS
-========================================= */
-
-let allUsers = [];
-
-function loadUsers(){
-
-onSnapshot(
-collection(db,"users"),
-(snapshot)=>{
-
-let html = "";
-
-let premiumCount = 0;
-
-let revenue = 0;
-
-allUsers = [];
-
-document.getElementById(
-"totalUsers"
-).innerText =
-snapshot.size;
-
-snapshot.forEach(docSnap=>{
-
-let d =
-docSnap.data();
-
-allUsers.push({
-id:docSnap.id,
-...d
-});
-
-if(d.premium){
-premiumCount++;
-}
-
-revenue +=
-Number(d.wallet || 0);
-
-html += `
-
-<tr>
-
-<td>
-${d.email || "N/A"}
-</td>
-
-<td>
-₹${d.wallet || 0}
-</td>
-
-<td>
-
-<span class="badge ${d.premium ? "green":"red"}">
-
-${d.premium ? "Premium":"Free"}
-
-</span>
-
-</td>
-
-<td>
-
-<button
-class="action-btn blue"
-onclick="makePremium('${docSnap.id}')">
-
-Premium
-
-</button>
-
-<button
-class="action-btn red"
-onclick="deleteUser('${docSnap.id}')">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-});
-
-document.getElementById(
-"usersTable"
-).innerHTML = html;
-
-document.getElementById(
-"premiumUsers"
-).innerText =
-premiumCount;
-
-document.getElementById(
-"totalRevenue"
-).innerText =
-"₹" + revenue;
-
-}
-);
-
-}
-
-/* =========================================
-FILTER
-========================================= */
-
-window.filterUsers = function(){
-
-let val =
-document.getElementById(
-"search"
-).value.toLowerCase();
-
-let html = "";
-
-allUsers.forEach(u=>{
-
-if(
-u.id.toLowerCase()
-.includes(val)
-){
-
-html += `
-
-<tr>
-
-<td>
-${u.email || "N/A"}
-</td>
-
-<td>
-₹${u.wallet || 0}
-</td>
-
-<td>
-
-<span class="badge ${u.premium ? "green":"red"}">
-
-${u.premium ? "Premium":"Free"}
-
-</span>
-
-</td>
-
-<td>
-
-<button
-class="action-btn blue">
-
-Premium
-
-</button>
-
-<button
-class="action-btn red">
-
-Delete
-
-</button>
-
-</td>
-
-</tr>
-
-`;
-
-}
-
-});
-
-document.getElementById(
-"usersTable"
-).innerHTML = html;
-
-};
-
-/* =========================================
-PREMIUM
-========================================= */
-
-window.makePremium =
-async function(uid){
-
-await updateDoc(
-doc(db,"users",uid),
-{
-premium:true
-}
-);
-
-alert(
-"Premium Activated ✅"
-);
-
-};
-
-/* =========================================
-DELETE USER
-========================================= */
-
-window.deleteUser =
-async function(uid){
-
-if(
-!confirm(
-"Delete user?"
-)
-)return;
-
-await deleteDoc(
-doc(db,"users",uid)
-);
-
-alert(
-"User Deleted ❌"
-);
-
-};
-
-/* =========================================
-WITHDRAWS
-========================================= */
-
-function loadWithdraws(){
-
-const q =
-query(
-collection(db,"withdrawals"),
-where("status","==","pending")
-);
-
-onSnapshot(q,snapshot=>{
-
-let html = "";
-
-document.getElementById(
-"totalWithdraw"
-).innerText =
-snapshot.size;
-
-snapshot.forEach(docSnap=>{
-
-let d =
-docSnap.data();
-
-html += `
-
 <div class="activity-item">
 
-👤 ${d.email || d.uid}<br><br>
+👤 user@gmail.com<br><br>
 
-💸 ₹${d.amount}<br><br>
+💸 ₹500<br><br>
 
-<button
-class="action-btn green"
-onclick="approveWithdraw('${docSnap.id}','${d.uid}',${d.amount})">
-
+<button class="action-btn green">
 Approve
-
 </button>
 
-<button
-class="action-btn red"
-onclick="rejectWithdraw('${docSnap.id}')">
-
+<button class="action-btn red">
 Reject
-
 </button>
 
 </div>
 
-`;
+</div>
 
-});
+</div>
 
-document.getElementById(
-"withdrawals"
-).innerHTML = html;
+</div>
 
-});
+</div>
 
-}
-
-/* =========================================
-APPROVE
-========================================= */
-
-window.approveWithdraw =
-async function(id,uid,amount){
-
-await updateDoc(
-doc(db,"users",uid),
-{
-wallet:increment(-amount)
-}
-);
-
-await updateDoc(
-doc(db,"withdrawals",id),
-{
-status:"approved"
-}
-);
-
-alert(
-"Approved ✅"
-);
-
-};
-
-/* =========================================
-REJECT
-========================================= */
-
-window.rejectWithdraw =
-async function(id){
-
-await updateDoc(
-doc(db,"withdrawals",id),
-{
-status:"rejected"
-}
-);
-
-alert(
-"Rejected ❌"
-);
-
-};
+<script>
 
 /* =========================================
 CHART
 ========================================= */
-
-function loadChart(){
 
 const ctx =
 document.getElementById(
@@ -1234,14 +941,39 @@ borderWidth:2
 
 });
 
+/* =========================================
+FILTER USERS
+========================================= */
+
+function filterUsers(){
+
+const value =
+document.getElementById(
+"search"
+).value.toLowerCase();
+
+const rows =
+document.querySelectorAll(
+"#usersTable tr"
+);
+
+rows.forEach(row=>{
+
+row.style.display =
+row.innerText.toLowerCase()
+.includes(value)
+? ""
+: "none";
+
+});
+
 }
 
 /* =========================================
 AI
 ========================================= */
 
-window.askAdminAI =
-function(){
+function askAdminAI(){
 
 let q =
 document.getElementById(
@@ -1261,59 +993,57 @@ ${q}
 
 `;
 
-};
+}
 
 /* =========================================
 QUICK ACTIONS
 ========================================= */
 
-window.exportUsers =
-function(){
+function exportUsers(){
 
 alert(
 "CSV Export Started 📥"
 );
 
-};
+}
 
-window.refreshDashboard =
-function(){
+function refreshDashboard(){
 
 location.reload();
 
-};
+}
 
-window.openPremium =
-function(){
+function openPremium(){
 
-location.href =
-"premium.html";
+alert(
+"Opening Premium Panel ⭐"
+);
 
-};
+}
 
-window.clearLogs =
-function(){
+function clearLogs(){
 
 document.getElementById(
 "activityBox"
 ).innerHTML =
-"Logs Cleared";
 
-};
+"Logs Cleared ✅";
+
+}
 
 /* =========================================
 LOGOUT
 ========================================= */
 
-window.logout =
-function(){
+function logout(){
 
-signOut(auth);
+alert(
+"Logged Out 🚪"
+);
 
-location.href =
-"index.html";
+location.reload();
 
-};
+}
 
 </script>
 
