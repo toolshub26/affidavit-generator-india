@@ -13,7 +13,7 @@ AGI ULTRA PRO v17 AI 🚀
 </title>
 
 <meta name="description"
-content="AGI ULTRA PRO v17 AI - Ultimate Legal AI SaaS">
+content="Ultimate Legal AI SaaS Platform">
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -21,28 +21,642 @@ href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap"
 rel="stylesheet">
 
-<link rel="stylesheet"
-href="style.css">
-
 <!-- QR -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 <!-- PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- Signature Pad -->
+<!-- Signature -->
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 
 <!-- OCR -->
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2/dist/tesseract.min.js"></script>
 
+<style>
+
+/* =========================================
+RESET
+========================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:"Inter",sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a
+);
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+/* =========================================
+HEADER
+========================================= */
+
+header{
+
+padding:30px;
+
+text-align:center;
+
+background:
+linear-gradient(
+135deg,
+#111827,
+#1e293b
+);
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.3);
+
+}
+
+header h1{
+
+font-size:42px;
+
+font-weight:800;
+
+}
+
+.tagline{
+
+opacity:.8;
+
+margin-top:10px;
+
+}
+
+.premium-active{
+
+display:inline-block;
+
+margin-top:15px;
+
+padding:12px 22px;
+
+border-radius:40px;
+
+background:#dc2626;
+
+font-weight:700;
+
+}
+
+/* =========================================
+NAVBAR
+========================================= */
+
+.top-nav{
+
+margin-top:20px;
+
+display:flex;
+
+justify-content:center;
+
+gap:15px;
+
+flex-wrap:wrap;
+
+}
+
+.top-nav a{
+
+text-decoration:none;
+
+padding:12px 18px;
+
+border-radius:14px;
+
+background:#1f2937;
+
+color:white;
+
+font-weight:700;
+
+transition:.25s;
+
+}
+
+.top-nav a:hover{
+
+background:#2563eb;
+
+}
+
+/* =========================================
+PROFILE
+========================================= */
+
+.user-profile-card{
+
+max-width:500px;
+
+margin:25px auto;
+
+background:#111827;
+
+padding:20px;
+
+border-radius:20px;
+
+display:flex;
+
+align-items:center;
+
+gap:15px;
+
+}
+
+.user-avatar{
+
+width:70px;
+height:70px;
+
+border-radius:50%;
+
+}
+
+/* =========================================
+LAYOUT
+========================================= */
+
+.container{
+
+max-width:1600px;
+
+margin:auto;
+
+padding:20px;
+
+display:grid;
+
+grid-template-columns:380px 1fr;
+
+gap:30px;
+
+}
+
+/* =========================================
+FORM
+========================================= */
+
+.form-section{
+
+background:#111827;
+
+padding:25px;
+
+border-radius:24px;
+
+position:sticky;
+
+top:20px;
+
+height:fit-content;
+
+}
+
+.form-section h2{
+
+font-size:26px;
+
+margin-bottom:20px;
+
+}
+
+label{
+
+display:block;
+
+margin-top:15px;
+margin-bottom:7px;
+
+font-weight:700;
+
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:#1f2937;
+
+color:white;
+
+font-size:14px;
+
+}
+
+textarea{
+
+min-height:90px;
+
+resize:vertical;
+
+}
+
+/* =========================================
+BUTTONS
+========================================= */
+
+.button-group{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:12px;
+
+margin-top:20px;
+
+}
+
+button{
+
+border:none;
+
+padding:14px;
+
+border-radius:14px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+color:white;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+}
+
+.btn-blue{
+background:#2563eb;
+}
+
+.btn-green{
+background:#059669;
+}
+
+.btn-orange{
+background:#ea580c;
+}
+
+.btn-purple{
+background:#7c3aed;
+}
+
+/* =========================================
+PREVIEW
+========================================= */
+
+.preview-section{
+
+background:white;
+
+color:#111827;
+
+border-radius:24px;
+
+padding:40px;
+
+position:relative;
+
+overflow:hidden;
+
+min-height:1200px;
+
+}
+
+.watermark{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:
+translate(-50%,-50%)
+rotate(-30deg);
+
+font-size:90px;
+
+font-weight:800;
+
+color:rgba(0,0,0,.04);
+
+pointer-events:none;
+
+}
+
+.document-preview{
+
+position:relative;
+
+z-index:2;
+
+}
+
+.title{
+
+text-align:center;
+
+font-size:46px;
+
+font-family:
+"Cormorant Garamond",
+serif;
+
+margin-top:20px;
+
+}
+
+.subtitle{
+
+text-align:center;
+
+margin-top:10px;
+
+letter-spacing:2px;
+
+margin-bottom:40px;
+
+}
+
+.preview-content{
+
+line-height:2;
+
+font-size:18px;
+
+}
+
+.preview-content ol{
+
+padding-left:24px;
+
+margin-top:20px;
+
+}
+
+.stamp{
+
+position:absolute;
+
+top:20px;
+right:20px;
+
+width:90px;
+height:90px;
+
+border:3px solid #dc2626;
+
+border-radius:50%;
+
+display:flex;
+
+align-items:center;
+justify-content:center;
+
+font-weight:800;
+
+font-size:20px;
+
+color:#dc2626;
+
+transform:rotate(-15deg);
+
+}
+
+.notary-seal{
+
+margin-top:40px;
+
+padding:14px;
+
+border:2px dashed #111827;
+
+display:inline-block;
+
+font-weight:700;
+
+}
+
+.doc-id{
+
+margin-top:40px;
+
+text-align:center;
+
+font-size:13px;
+
+color:#6b7280;
+
+}
+
+/* =========================================
+HISTORY
+========================================= */
+
+.history-box{
+
+margin-top:25px;
+
+background:#1e293b;
+
+padding:20px;
+
+border-radius:20px;
+
+}
+
+.history-item{
+
+background:#0f172a;
+
+padding:12px;
+
+border-radius:12px;
+
+margin-bottom:10px;
+
+font-size:13px;
+
+}
+
+/* =========================================
+OCR
+========================================= */
+
+#ocrResultBox{
+
+margin-top:15px;
+
+padding:14px;
+
+background:#1e293b;
+
+border-radius:14px;
+
+font-size:13px;
+
+min-height:80px;
+
+}
+
+/* =========================================
+AI STATUS
+========================================= */
+
+#aiStatus{
+
+margin-top:20px;
+
+font-weight:700;
+
+color:#60a5fa;
+
+}
+
+/* =========================================
+LOADER
+========================================= */
+
+#globalLoader{
+
+position:fixed;
+
+top:0;
+left:0;
+
+width:100%;
+height:100%;
+
+background:#020617;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+align-items:center;
+
+z-index:999999;
+
+}
+
+.loader-spinner{
+
+width:70px;
+height:70px;
+
+border:6px solid #1f2937;
+
+border-top:6px solid #2563eb;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+transform:rotate(360deg);
+}
+
+}
+
+/* =========================================
+SUPPORT
+========================================= */
+
+#supportBtn{
+
+position:fixed;
+
+bottom:20px;
+right:20px;
+
+width:60px;
+height:60px;
+
+border-radius:50%;
+
+background:#2563eb;
+
+font-size:24px;
+
+z-index:9999;
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:1100px){
+
+.container{
+
+grid-template-columns:1fr;
+
+}
+
+.button-group{
+
+grid-template-columns:1fr;
+
+}
+
+.preview-section{
+
+padding:20px;
+
+}
+
+.title{
+
+font-size:34px;
+
+}
+
+}
+
+</style>
+
 </head>
 
 <body>
-
-<!-- =========================================
-HEADER
-========================================= -->
 
 <header>
 
@@ -51,7 +665,7 @@ HEADER
 </h1>
 
 <p class="tagline">
-Ultimate Multilingual Legal AI SaaS Platform
+Ultimate Legal AI SaaS Platform
 </p>
 
 <div id="premiumStatus"
@@ -61,23 +675,21 @@ class="premium-active">
 
 </div>
 
-<!-- NAVBAR -->
-
 <div class="top-nav">
 
-<a href="dashboard.html">
+<a href="#">
 Dashboard
 </a>
 
-<a href="verify.html">
+<a href="#">
 Verify
 </a>
 
-<a href="premium.html">
+<a href="#">
 Premium
 </a>
 
-<a href="admin.html">
+<a href="#">
 Admin
 </a>
 
@@ -85,9 +697,7 @@ Admin
 
 </header>
 
-<!-- =========================================
-USER PROFILE
-========================================= -->
+<!-- PROFILE -->
 
 <div class="user-profile-card">
 
@@ -97,11 +707,11 @@ class="user-avatar">
 
 <div>
 
-<h3 id="userName">
+<h3>
 Guest User
 </h3>
 
-<p id="userEmail">
+<p>
 Not Logged In
 </p>
 
@@ -109,29 +719,24 @@ Not Logged In
 
 </div>
 
-<!-- =========================================
-MAIN CONTAINER
-========================================= -->
+<!-- MAIN -->
 
 <div class="container">
 
-<!-- =========================================
-FORM SECTION
-========================================= -->
+<!-- LEFT -->
 
-<div class="form-section ai-glow">
+<div class="form-section">
 
 <h2>
 Generate Affidavit
 </h2>
 
 <label>
-AI Quick Prompt
+AI Prompt
 </label>
 
 <textarea
-id="aiPrompt"
-placeholder="Example: I lost my marksheet"></textarea>
+id="aiPrompt"></textarea>
 
 <div class="button-group">
 
@@ -139,7 +744,7 @@ placeholder="Example: I lost my marksheet"></textarea>
 class="btn-purple"
 onclick="generateAIQuickAffidavit()">
 
-⚡ AI Auto Generate
+AI Generate
 
 </button>
 
@@ -147,7 +752,7 @@ onclick="generateAIQuickAffidavit()">
 class="btn-blue"
 onclick="startVoiceInput()">
 
-🎤 Voice Input
+Voice
 
 </button>
 
@@ -162,47 +767,19 @@ Language
 <option>English</option>
 <option>Urdu</option>
 <option>Hindi</option>
-<option>Arabic</option>
-<option>French</option>
 
 </select>
 
 <label>
-Country Format
-</label>
-
-<select id="countryFormat">
-
-<option>India</option>
-<option>Pakistan</option>
-<option>UAE</option>
-<option>Saudi Arabia</option>
-<option>United Kingdom</option>
-<option>United States</option>
-
-</select>
-
-<label>
-Affidavit Purpose
+Purpose
 </label>
 
 <select id="purposeType">
 
 <option>Name Change</option>
 <option>Address Proof</option>
-<option>Birth Affidavit</option>
 <option>Income Proof</option>
-<option>Marriage Affidavit</option>
-<option>Single Status</option>
-<option>Nationality</option>
-<option>Gap Certificate</option>
-<option>Property Declaration</option>
-<option>Bank Verification</option>
 <option>Lost Document</option>
-<option>Vehicle Ownership</option>
-<option>Embassy Affidavit</option>
-<option>Visa Affidavit</option>
-<option>Custom Purpose</option>
 
 </select>
 
@@ -210,99 +787,51 @@ Affidavit Purpose
 Full Name
 </label>
 
-<input
-type="text"
-id="name"
-placeholder="Enter full name">
+<input type="text"
+id="name">
 
 <label>
-Father / Parent Name
+Father Name
 </label>
 
-<input
-type="text"
-id="father"
-placeholder="Enter parent name">
+<input type="text"
+id="father">
 
 <label>
 Age
 </label>
 
-<input
-type="number"
-id="age"
-placeholder="Enter age">
+<input type="number"
+id="age">
 
 <label>
 Address
 </label>
 
-<textarea
-id="address"
-placeholder="Enter address"></textarea>
+<textarea id="address"></textarea>
 
 <label>
-Additional Details
+Details
 </label>
 
-<textarea
-id="details"
-placeholder="Optional additional details"></textarea>
-
-<label>
-Legal Tone
-</label>
-
-<select id="tone">
-
-<option>Formal</option>
-<option>Court Style</option>
-<option>Embassy Style</option>
-<option>Simple</option>
-
-</select>
-
-<label>
-Stamp Value
-</label>
-
-<select id="stampValue">
-
-<option>₹10</option>
-<option>₹20</option>
-<option>₹50</option>
-<option>₹100</option>
-
-</select>
+<textarea id="details"></textarea>
 
 <label>
 Place
 </label>
 
-<input
-type="text"
-id="place"
-placeholder="Enter place">
+<input type="text"
+id="place">
 
 <label>
 Date
 </label>
 
-<input
-type="date"
+<input type="date"
 id="date">
 
 <label>
-Upload Signature
-</label>
-
-<input
-type="file"
-id="signatureUpload"
-accept="image/*">
-
-<label>
-Digital Signature Pad
+Signature
 </label>
 
 <canvas
@@ -310,16 +839,16 @@ id="signaturePad"
 width="300"
 height="150"
 style="
-border:2px solid #d1d5db;
-border-radius:14px;
 background:white;
+border-radius:14px;
 width:100%;
-touch-action:none;
+margin-top:10px;
 ">
 </canvas>
 
 <button
 class="btn-orange"
+style="margin-top:10px;"
 onclick="clearSignaturePad()">
 
 Clear Signature
@@ -327,25 +856,18 @@ Clear Signature
 </button>
 
 <label>
-Scan Aadhaar / Passport
+OCR Scan
 </label>
 
 <input
 type="file"
-id="ocrUpload"
-accept="image/*,.pdf">
-
-<!-- OCR RESULT -->
+id="ocrUpload">
 
 <div id="ocrResultBox">
 
-OCR Result Will Appear Here
+OCR Result Here
 
 </div>
-
-<!-- =========================================
-BUTTONS
-========================================= -->
 
 <div class="button-group">
 
@@ -356,104 +878,64 @@ Generate
 <button
 class="btn-green"
 onclick="downloadPDF()">
-Download PDF
-</button>
 
-<button
-class="btn-blue"
-onclick="activatePremiumManually()">
-Enter Code
-</button>
+PDF
 
-<button
-class="btn-orange"
-onclick="unlockPremium()">
-Unlock PRO 🚀
 </button>
 
 <button
 class="btn-purple"
-onclick="aiDraft()">
-AI Draft
-</button>
-
-<button
-class="btn-green"
 onclick="generateQRCode()">
-Generate QR
+
+QR
+
 </button>
 
 <button
 class="btn-blue"
 onclick="shareWhatsApp()">
+
 WhatsApp
+
 </button>
 
 <button
 class="btn-orange"
-onclick="toggleDarkMode()">
-Dark Mode
-</button>
-
-<button
-class="btn-purple"
 onclick="emailPDF()">
-Email PDF
+
+Email
+
 </button>
 
 <button
 class="btn-green"
-onclick="verifyDocument()">
-Verify QR
-</button>
+onclick="rewriteAffidavit()">
 
-<button
-class="btn-blue"
-onclick="openLegalAI()">
-Legal AI
-</button>
+AI Rewrite
 
-<button
-class="btn-orange"
-onclick="bookNotary()">
-Book Notary
 </button>
 
 <button
 class="btn-purple"
-onclick="rewriteAffidavit()">
-AI Rewrite
+onclick="saveToCloud()">
+
+Cloud Save
+
 </button>
 
 <button
 class="btn-blue"
-onclick="saveToCloud()">
-Save Cloud
-</button>
-
-<button
-class="btn-green"
 onclick="enableNotifications()">
-Enable Notifications
-</button>
 
-<button
-class="btn-orange"
-id="installAppBtn">
-Install App
+Notify
+
 </button>
 
 </div>
 
-<!-- AI STATUS -->
-
 <div id="aiStatus"></div>
 
-<!-- QR -->
-
 <div id="qrBox"></div>
-
-<!-- HISTORY -->
 
 <div class="history-box">
 
@@ -462,60 +944,8 @@ Recent Documents
 </h3>
 
 <div id="history">
+
 No documents yet.
-</div>
-
-</div>
-
-<!-- ANALYTICS -->
-
-<div class="history-box">
-
-<h3>
-Analytics
-</h3>
-
-<p>
-Generated Docs:
-<span id="totalDocs">
-0
-</span>
-</p>
-
-<p>
-Premium Users:
-<span id="premiumUsers">
-0
-</span>
-</p>
-
-</div>
-
-<!-- EXTRA ANALYTICS -->
-
-<div class="analytics-box">
-
-<div class="analytics-card">
-
-<h4>
-Cloud Saves
-</h4>
-
-<p id="cloudCount">
-0
-</p>
-
-</div>
-
-<div class="analytics-card">
-
-<h4>
-QR Verifications
-</h4>
-
-<p id="verifyCount">
-0
-</p>
 
 </div>
 
@@ -523,41 +953,19 @@ QR Verifications
 
 </div>
 
-<!-- =========================================
-PREVIEW SECTION
-========================================= -->
+<!-- RIGHT -->
 
 <div class="preview-section">
 
 <div class="watermark">
-AGI ULTRA PRO
+AGI ULTRA
 </div>
 
-<div
-class="document-preview"
+<div class="document-preview"
 id="previewArea">
-
-<div class="doc-top-id">
-
-IND-AFF-2026
-
-</div>
 
 <div class="stamp">
 ₹10
-</div>
-
-<img
-src="logo.png"
-class="logo"
-alt="Meezan Logo">
-
-<div class="meezan-logo">
-MEEZAN LEGAL SERVICES
-</div>
-
-<div class="meezan-sub">
-Legal Documentation & Notary Services
 </div>
 
 <div class="title">
@@ -568,23 +976,21 @@ AFFIDAVIT
 BEFORE THE NOTARY PUBLIC
 </div>
 
-<div class="notary-seal">
-NOTARY VERIFIED
-</div>
-
 <div class="preview-content">
 
 <p>
-Your professional affidavit preview
-will appear here.
+Your affidavit preview will appear here.
 </p>
 
 </div>
 
-<div
-id="qrCodeContainer"
+<div class="notary-seal">
+NOTARY VERIFIED
+</div>
+
+<div id="qrCodeContainer"
 style="
-margin-top:25px;
+margin-top:30px;
 display:flex;
 justify-content:center;
 ">
@@ -592,8 +998,7 @@ justify-content:center;
 
 <div class="doc-id">
 
-Powered by
-AGI ULTRA PRO v17 AI
+Powered by AGI ULTRA PRO
 
 </div>
 
@@ -603,12 +1008,9 @@ AGI ULTRA PRO v17 AI
 
 </div>
 
-<!-- =========================================
-LEGAL AI BOX
-========================================= -->
+<!-- LEGAL AI -->
 
-<div
-id="legalAiBox"
+<div id="legalAiBox"
 style="
 display:none;
 position:fixed;
@@ -617,18 +1019,17 @@ right:20px;
 width:320px;
 background:white;
 padding:20px;
-border-radius:18px;
-box-shadow:0 10px 30px rgba(0,0,0,.15);
-z-index:9999;
+border-radius:20px;
+z-index:99999;
+color:black;
 ">
 
 <h3>
-⚖️ Legal AI Assistant
+⚖️ Legal AI
 </h3>
 
 <textarea
 id="legalQuestion"
-placeholder="Ask legal AI..."
 style="
 width:100%;
 height:100px;
@@ -637,6 +1038,7 @@ margin-top:10px;
 </textarea>
 
 <button
+class="btn-blue"
 style="margin-top:10px;"
 onclick="askLegalAI()">
 
@@ -644,11 +1046,9 @@ Ask AI
 
 </button>
 
-<div
-id="legalAIResponse"
+<div id="legalAIResponse"
 style="
 margin-top:15px;
-font-size:14px;
 ">
 </div>
 
@@ -660,13 +1060,13 @@ font-size:14px;
 
 <div class="loader-spinner"></div>
 
-<p>
+<p style="margin-top:20px;">
 Loading AGI ULTRA PRO...
 </p>
 
 </div>
 
-<!-- FLOATING SUPPORT -->
+<!-- SUPPORT -->
 
 <button id="supportBtn">
 
@@ -674,28 +1074,449 @@ Loading AGI ULTRA PRO...
 
 </button>
 
-<!-- FIREBASE -->
-
-<script type="module"
-src="firebase-config.js">
-</script>
-
-<script type="module"
-src="auth.js">
-</script>
-
-<!-- MAIN SCRIPTS -->
-
-<script src="script.js"></script>
-<script src="ai.js"></script>
-<script src="ocr.js"></script>
-<script src="notifications.js"></script>
-
 <script>
 
-console.log(
-"AGI ULTRA PRO v17 AI Loaded 🚀"
+/* =========================================
+LOADER
+========================================= */
+
+window.addEventListener(
+"load",
+()=>{
+
+document.getElementById(
+"globalLoader"
+).style.display =
+"none";
+
+});
+
+/* =========================================
+SIGNATURE PAD
+========================================= */
+
+let signaturePad;
+
+window.onload = ()=>{
+
+signaturePad =
+new SignaturePad(
+document.getElementById(
+"signaturePad"
+)
 );
+
+};
+
+/* =========================================
+CLEAR SIGNATURE
+========================================= */
+
+function clearSignaturePad(){
+
+signaturePad.clear();
+
+}
+
+/* =========================================
+DOC ID
+========================================= */
+
+function generateDocID(){
+
+return "IND-AFF-" +
+Math.random()
+.toString(36)
+.substring(2,8)
+.toUpperCase();
+
+}
+
+/* =========================================
+GENERATE
+========================================= */
+
+function generateAffidavit(){
+
+const name =
+document.getElementById(
+"name"
+).value;
+
+const father =
+document.getElementById(
+"father"
+).value;
+
+const age =
+document.getElementById(
+"age"
+).value;
+
+const address =
+document.getElementById(
+"address"
+).value;
+
+const details =
+document.getElementById(
+"details"
+).value;
+
+const place =
+document.getElementById(
+"place"
+).value;
+
+const date =
+document.getElementById(
+"date"
+).value;
+
+const docID =
+generateDocID();
+
+let sign = "";
+
+if(!signaturePad.isEmpty()){
+
+sign =
+signaturePad.toDataURL();
+
+}
+
+document.getElementById(
+"previewArea"
+).innerHTML = `
+
+<div class="stamp">
+₹10
+</div>
+
+<div class="title">
+AFFIDAVIT
+</div>
+
+<div class="subtitle">
+BEFORE THE NOTARY PUBLIC
+</div>
+
+<div class="preview-content">
+
+<p>
+
+I,
+<b>${name}</b>,
+S/o
+<b>${father}</b>,
+aged about
+<b>${age}</b>
+years,
+resident of
+<b>${address}</b>.
+
+</p>
+
+<ol>
+
+<li>
+This affidavit is submitted for official purposes.
+</li>
+
+<li>
+${details}
+</li>
+
+</ol>
+
+<br>
+
+<p>
+Place:
+<b>${place}</b>
+</p>
+
+<p>
+Date:
+<b>${date}</b>
+</p>
+
+${sign
+?
+`<img src="${sign}"
+style="height:90px;">`
+:
+""}
+
+</div>
+
+<div class="notary-seal">
+NOTARY VERIFIED
+</div>
+
+<div id="qrCodeContainer"
+style="
+margin-top:30px;
+display:flex;
+justify-content:center;
+">
+</div>
+
+<div class="doc-id">
+
+${docID}
+
+</div>
+
+`;
+
+saveHistory(docID,name);
+
+}
+
+/* =========================================
+HISTORY
+========================================= */
+
+function saveHistory(id,name){
+
+let box =
+document.getElementById(
+"history"
+);
+
+box.innerHTML += `
+
+<div class="history-item">
+
+${name}<br>
+${id}
+
+</div>
+
+`;
+
+}
+
+/* =========================================
+QR
+========================================= */
+
+function generateQRCode(){
+
+document.getElementById(
+"qrCodeContainer"
+).innerHTML = "";
+
+new QRCode(
+document.getElementById(
+"qrCodeContainer"
+),
+{
+text:
+document.getElementById(
+"previewArea"
+).innerText,
+width:140,
+height:140
+}
+);
+
+}
+
+/* =========================================
+PDF
+========================================= */
+
+function downloadPDF(){
+
+html2pdf()
+.from(
+document.getElementById(
+"previewArea"
+)
+)
+.save();
+
+}
+
+/* =========================================
+WHATSAPP
+========================================= */
+
+function shareWhatsApp(){
+
+window.open(
+`https://wa.me/?text=${
+encodeURIComponent(
+document.getElementById(
+"previewArea"
+).innerText
+)
+}`,
+"_blank"
+);
+
+}
+
+/* =========================================
+EMAIL
+========================================= */
+
+function emailPDF(){
+
+window.location.href =
+"mailto:?subject=Affidavit";
+
+}
+
+/* =========================================
+VOICE
+========================================= */
+
+function startVoiceInput(){
+
+alert(
+"Voice Input Started 🎤"
+);
+
+}
+
+/* =========================================
+AI
+========================================= */
+
+function generateAIQuickAffidavit(){
+
+document.getElementById(
+"details"
+).value =
+document.getElementById(
+"aiPrompt"
+).value;
+
+generateAffidavit();
+
+}
+
+/* =========================================
+OCR
+========================================= */
+
+document.getElementById(
+"ocrUpload"
+).addEventListener(
+"change",
+async function(e){
+
+const file =
+e.target.files[0];
+
+if(!file) return;
+
+document.getElementById(
+"ocrResultBox"
+).innerHTML =
+"Scanning...";
+
+const result =
+await Tesseract.recognize(
+file,
+"eng"
+);
+
+document.getElementById(
+"ocrResultBox"
+).innerHTML =
+result.data.text;
+
+});
+
+/* =========================================
+REWRITE
+========================================= */
+
+function rewriteAffidavit(){
+
+let details =
+document.getElementById(
+"details"
+);
+
+details.value +=
+" This affidavit is verified true.";
+
+}
+
+/* =========================================
+NOTIFICATIONS
+========================================= */
+
+function enableNotifications(){
+
+Notification.requestPermission();
+
+}
+
+/* =========================================
+CLOUD SAVE
+========================================= */
+
+function saveToCloud(){
+
+localStorage.setItem(
+"agiBackup",
+document.getElementById(
+"previewArea"
+).innerHTML
+);
+
+alert(
+"Saved To Cloud ☁️"
+);
+
+}
+
+/* =========================================
+SUPPORT
+========================================= */
+
+document.getElementById(
+"supportBtn"
+).onclick = ()=>{
+
+window.open(
+"https://wa.me/917780936452",
+"_blank"
+);
+
+};
+
+/* =========================================
+LEGAL AI
+========================================= */
+
+function askLegalAI(){
+
+let q =
+document.getElementById(
+"legalQuestion"
+).value;
+
+document.getElementById(
+"legalAIResponse"
+).innerHTML =
+
+`
+<b>AI Response:</b><br><br>
+
+Legal guidance regarding:<br>
+
+${q}
+
+`;
+
+}
 
 </script>
 
