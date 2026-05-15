@@ -1,53 +1,211 @@
 {
   "name": "AGI ULTRA PRO v17 AI",
   "short_name": "AGI PRO",
+  "lang": "en",
+  "dir": "ltr",
+
+  "id": "/",
+
   "start_url": "./index.html",
+  "scope": "./",
+
   "display": "standalone",
+  "display_override": [
+    "window-controls-overlay",
+    "standalone",
+    "minimal-ui",
+    "browser"
+  ],
+
+  "orientation": "portrait",
+
   "background_color": "#020617",
   "theme_color": "#0f172a",
-  "orientation": "portrait",
-  "scope": "./",
-  "description": "AGI ULTRA PRO v17 AI - Ultimate Legal SaaS Platform with Affidavit Generator, Legal AI, QR Verification, Wallet, Rewards and Admin Dashboard.",
+
+  "description": "AGI ULTRA PRO v17 AI - Enterprise Legal SaaS Platform with Affidavit Generator, AI Drafting, OCR Scanner, QR Verification, Wallet, Rewards, Premium Dashboard, Admin Panel and Legal AI Assistant.",
+
+  "categories": [
+    "business",
+    "productivity",
+    "utilities",
+    "finance",
+    "legal"
+  ],
+
+  "screenshots": [
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "AGI ULTRA PRO Dashboard"
+    },
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "720x1280",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mobile Affidavit Generator"
+    }
+  ],
+
+  "shortcuts": [
+
+    {
+      "name": "Generate Affidavit",
+      "short_name": "Generate",
+      "description": "Open affidavit generator instantly",
+      "url": "./index.html#generate",
+      "icons": [
+        {
+          "src": "shortcut-generate.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+
+    {
+      "name": "Legal AI Assistant",
+      "short_name": "Legal AI",
+      "description": "Ask legal questions using AI",
+      "url": "./index.html#legalai",
+      "icons": [
+        {
+          "src": "shortcut-ai.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+
+    {
+      "name": "Admin Dashboard",
+      "short_name": "Admin",
+      "description": "Open enterprise admin panel",
+      "url": "./admin.html",
+      "icons": [
+        {
+          "src": "shortcut-admin.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+
+    {
+      "name": "Verify QR",
+      "short_name": "Verify",
+      "description": "Verify affidavit QR code",
+      "url": "./verify.html",
+      "icons": [
+        {
+          "src": "shortcut-verify.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+
+  ],
+
   "icons": [
+
     {
       "src": "icon-72.png",
       "sizes": "72x72",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
+
     {
       "src": "icon-96.png",
       "sizes": "96x96",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
+
     {
       "src": "icon-128.png",
       "sizes": "128x128",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
+
     {
       "src": "icon-144.png",
       "sizes": "144x144",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
+
     {
       "src": "icon-152.png",
       "sizes": "152x152",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
+
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
     },
+
     {
       "src": "icon-384.png",
       "sizes": "384x384",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
+
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+
+  ],
+
+  "related_applications": [],
+
+  "prefer_related_applications": false,
+
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+
+  "edge_side_panel": {
+    "preferred_width": 420
+  },
+
+  "handle_links": "preferred",
+
+  "protocol_handlers": [
+    {
+      "protocol": "web+agi",
+      "url": "./index.html?open=%s"
+    }
+  ],
+
+  "file_handlers": [
+    {
+      "action": "./index.html",
+      "accept": {
+        "application/pdf": [
+          ".pdf"
+        ],
+        "image/png": [
+          ".png"
+        ],
+        "image/jpeg": [
+          ".jpg",
+          ".jpeg"
+        ]
+      }
     }
   ]
+
 }
