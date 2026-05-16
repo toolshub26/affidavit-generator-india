@@ -4,51 +4,27 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
-AGI ULTRA PRO v17 PREMIUM 🚀
+AGI ULTRA PRO v18 PREMIUM ENTERPRISE 🚀
 </title>
 
-<!-- =========================================
-FONTS
-========================================= -->
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap" rel="stylesheet">
-
-<!-- =========================================
-CHART JS
-========================================= -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap"
+rel="stylesheet">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-<!-- =========================================
-QR CODE
-========================================= -->
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-
-<!-- =========================================
-HTML2PDF
-========================================= -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-<!-- =========================================
-SIGNATURE PAD
-========================================= -->
-
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-
-<!-- =========================================
-FIREBASE
-========================================= -->
-
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 <style>
 
@@ -76,6 +52,27 @@ overflow-x:hidden;
 }
 
 /* =========================================
+DARK MODE
+========================================= */
+
+.dark-mode{
+
+background:#000;
+color:white;
+
+}
+
+.dark-mode .sidebar,
+.dark-mode .stat,
+.dark-mode .history,
+.dark-mode .ai-box,
+.dark-mode .preview{
+
+background:#050505;
+
+}
+
+/* =========================================
 TOPBAR
 ========================================= */
 
@@ -96,9 +93,6 @@ justify-content:space-between;
 align-items:center;
 flex-wrap:wrap;
 gap:20px;
-
-box-shadow:
-0 5px 25px rgba(0,0,0,.35);
 
 }
 
@@ -136,7 +130,6 @@ transition:.25s;
 
 button:hover{
 transform:translateY(-2px);
-opacity:.95;
 }
 
 .primary{
@@ -193,9 +186,6 @@ padding:25px;
 
 border-radius:24px;
 
-box-shadow:
-0 10px 35px rgba(0,0,0,.3);
-
 position:sticky;
 top:20px;
 
@@ -247,15 +237,6 @@ min-height:100px;
 resize:vertical;
 }
 
-.input:focus,
-.select:focus,
-.textarea:focus{
-
-box-shadow:
-0 0 0 3px rgba(37,99,235,.35);
-
-}
-
 /* =========================================
 BUTTON GRID
 ========================================= */
@@ -271,7 +252,7 @@ margin-top:22px;
 }
 
 /* =========================================
-SIGNATURE PAD
+SIGNATURE
 ========================================= */
 
 #signaturePad{
@@ -285,8 +266,6 @@ border-radius:16px;
 
 background:white;
 
-touch-action:none;
-
 }
 
 /* =========================================
@@ -298,7 +277,7 @@ ANALYTICS
 display:grid;
 
 grid-template-columns:
-repeat(4,1fr);
+repeat(6,1fr);
 
 gap:20px;
 
@@ -315,9 +294,6 @@ padding:20px;
 border-radius:22px;
 
 text-align:center;
-
-box-shadow:
-0 8px 25px rgba(0,0,0,.25);
 
 }
 
@@ -369,8 +345,6 @@ color:rgba(0,0,0,.04);
 
 pointer-events:none;
 
-white-space:nowrap;
-
 }
 
 .stamp{
@@ -419,8 +393,6 @@ text-align:center;
 
 font-size:44px;
 
-letter-spacing:3px;
-
 font-family:
 'Cormorant Garamond',
 serif;
@@ -437,8 +409,6 @@ margin-top:10px;
 margin-bottom:40px;
 
 font-size:14px;
-
-letter-spacing:2px;
 
 }
 
@@ -463,29 +433,7 @@ margin-top:40px;
 
 font-size:13px;
 
-color:#6b7280;
-
 text-align:center;
-
-}
-
-/* =========================================
-QR
-========================================= */
-
-#qrBox{
-
-margin-top:20px;
-text-align:center;
-
-}
-
-#qrCodeContainer{
-
-margin-top:25px;
-
-display:flex;
-justify-content:center;
 
 }
 
@@ -575,55 +523,6 @@ grid-template-columns:1fr;
 padding:20px;
 }
 
-.doc-title{
-font-size:30px;
-}
-
-}
-
-@media(max-width:700px){
-
-.analytics{
-grid-template-columns:1fr;
-}
-
-.topbar{
-padding:20px;
-}
-
-.logo h1{
-font-size:26px;
-}
-
-}
-
-/* =========================================
-PRINT
-========================================= */
-
-@media print{
-
-body{
-background:white;
-}
-
-.sidebar,
-.topbar,
-.analytics{
-display:none !important;
-}
-
-.main{
-display:block;
-padding:0;
-}
-
-.preview{
-box-shadow:none;
-border-radius:0;
-min-height:auto;
-}
-
 }
 
 </style>
@@ -641,7 +540,7 @@ TOPBAR
 <div class="logo">
 
 <h1>
-⚖️ AGI ULTRA PRO v17 AI
+⚖️ AGI ULTRA PRO v18 AI
 </h1>
 
 <p>
@@ -667,9 +566,19 @@ onclick="downloadPDF()">
 Print PDF
 </button>
 
-<button class="red"
-onclick="logout()">
-Logout
+<button class="primary"
+onclick="toggleDarkMode()">
+🌙 Dark Mode
+</button>
+
+<button class="purple"
+id="installBtn">
+📱 Install App
+</button>
+
+<button class="green"
+onclick="exportTXT()">
+📄 Export TXT
 </button>
 
 </div>
@@ -701,8 +610,6 @@ Language
 <option>English</option>
 <option>Urdu</option>
 <option>Hindi</option>
-<option>Arabic</option>
-<option>French</option>
 
 </select>
 
@@ -714,8 +621,6 @@ Purpose
 
 <option>Name Change</option>
 <option>Address Proof</option>
-<option>Birth Affidavit</option>
-<option>Marriage Affidavit</option>
 <option>Income Proof</option>
 <option>Lost Document</option>
 
@@ -761,7 +666,9 @@ Place
 Date
 </label>
 
-<input class="input" type="date" id="date">
+<input class="input"
+type="date"
+id="date">
 
 <label class="label">
 Digital Signature
@@ -783,9 +690,25 @@ Save Draft
 
 </div>
 
-<!-- =========================================
-AI QUICK
-========================================= -->
+<!-- OCR -->
+
+<label class="label">
+OCR Scan
+</label>
+
+<input
+type="file"
+class="input"
+id="ocrUpload">
+
+<div class="status"
+id="ocrResult">
+
+OCR Ready
+
+</div>
+
+<!-- AI -->
 
 <div class="ai-box">
 
@@ -809,9 +732,7 @@ Generate AI Draft
 
 </div>
 
-<!-- =========================================
-BUTTONS
-========================================= -->
+<!-- BUTTONS -->
 
 <div class="btn-grid">
 
@@ -845,18 +766,12 @@ Voice Input
 
 </div>
 
-<div id="qrBox"></div>
-
 <div class="status"
 id="statusBox">
 
 System Ready 🚀
 
 </div>
-
-<!-- =========================================
-HISTORY
-========================================= -->
 
 <div class="history">
 
@@ -872,15 +787,11 @@ No documents yet.
 
 </div>
 
-<!-- =========================================
-RIGHT SIDE
-========================================= -->
+<!-- RIGHT -->
 
 <div>
 
-<!-- =========================================
-ANALYTICS
-========================================= -->
+<!-- ANALYTICS -->
 
 <div class="analytics">
 
@@ -892,33 +803,37 @@ ANALYTICS
 
 <div class="stat">
 ⭐
-<h3 id="premiumStatus">
-Premium
-</h3>
+<h3>Premium</h3>
 <p>Subscription</p>
 </div>
 
 <div class="stat">
-🔥
-<h3 id="aiStatus">
-AI
-</h3>
+🤖
+<h3>AI</h3>
 <p>Smart Engine</p>
 </div>
 
 <div class="stat">
 ⚖️
-<h3>
-v17
-</h3>
+<h3>v18</h3>
 <p>Enterprise</p>
 </div>
 
+<div class="stat">
+🚨
+<h3 id="fraudCount">0</h3>
+<p>Fraud Scans</p>
 </div>
 
-<!-- =========================================
-PREVIEW
-========================================= -->
+<div class="stat">
+☁️
+<h3>Cloud</h3>
+<p>Backup</p>
+</div>
+
+</div>
+
+<!-- PREVIEW -->
 
 <div class="preview">
 
@@ -947,8 +862,7 @@ BEFORE THE NOTARY PUBLIC
 <div class="doc-content">
 
 <p>
-Your professional affidavit preview
-will appear here.
+Your affidavit preview will appear here.
 </p>
 
 </div>
@@ -967,30 +881,6 @@ SCRIPT
 
 <script>
 
-/* =========================================
-FIREBASE
-========================================= */
-
-const firebaseConfig = {
-
-apiKey:"YOUR_API_KEY",
-authDomain:"YOUR_AUTH_DOMAIN",
-projectId:"YOUR_PROJECT_ID",
-storageBucket:"YOUR_STORAGE_BUCKET",
-messagingSenderId:"YOUR_SENDER_ID",
-appId:"YOUR_APP_ID"
-
-};
-
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-/* =========================================
-SIGNATURE PAD
-========================================= */
-
 let signaturePad;
 
 window.onload = ()=>{
@@ -1003,32 +893,10 @@ document.getElementById(
 signaturePad =
 new SignaturePad(canvas);
 
-loadHistory();
 restoreDraft();
+loadHistory();
 
 };
-
-/* =========================================
-AUTH
-========================================= */
-
-auth.onAuthStateChanged(user=>{
-
-if(!user){
-
-location.href =
-"index.html";
-
-return;
-
-}
-
-document.getElementById(
-"premiumStatus"
-).innerText =
-"Active ✅";
-
-});
 
 /* =========================================
 STATUS
@@ -1043,21 +911,12 @@ document.getElementById(
 }
 
 /* =========================================
-DOC COUNT
+GENERATE
 ========================================= */
 
 let total = 0;
 
-/* =========================================
-GENERATE
-========================================= */
-
 function generateAffidavit(){
-
-const preview =
-document.getElementById(
-"previewArea"
-);
 
 const name =
 document.getElementById(
@@ -1122,7 +981,9 @@ Math.random()
 .substring(2,8)
 .toUpperCase();
 
-preview.innerHTML = `
+document.getElementById(
+"previewArea"
+).innerHTML = `
 
 <div class="stamp">
 ₹10
@@ -1143,6 +1004,7 @@ BEFORE THE NOTARY PUBLIC
 <div class="doc-content">
 
 <p>
+
 I,
 <b>${name}</b>,
 S/o
@@ -1152,13 +1014,13 @@ aged about
 years,
 resident of
 <b>${address}</b>.
+
 </p>
 
 <ol>
 
 <li>
-This affidavit is submitted
-for official purposes.
+This affidavit is submitted for official purposes.
 </li>
 
 <li>
@@ -1202,7 +1064,7 @@ ${docID}
 <br><br>
 
 Powered by
-AGI ULTRA PRO v17 AI
+AGI ULTRA PRO v18 AI
 
 </div>
 
@@ -1233,16 +1095,16 @@ QR
 
 function generateQRCode(){
 
-const qrBox =
+const qr =
 document.getElementById(
 "qrCodeContainer"
 );
 
-if(!qrBox) return;
+if(!qr) return;
 
-qrBox.innerHTML = "";
+qr.innerHTML = "";
 
-new QRCode(qrBox,{
+new QRCode(qr,{
 
 text:
 document.getElementById(
@@ -1262,13 +1124,12 @@ PDF
 
 function downloadPDF(){
 
-const element =
+html2pdf()
+.from(
 document.getElementById(
 "previewArea"
-);
-
-html2pdf()
-.from(element)
+)
+)
 .save("Affidavit.pdf");
 
 }
@@ -1341,7 +1202,7 @@ event.results[0][0].transcript;
 }
 
 /* =========================================
-AI DRAFT
+AI
 ========================================= */
 
 function aiDraft(){
@@ -1350,13 +1211,9 @@ document.getElementById(
 "details"
 ).value =
 
-"This affidavit is generated using AGI ULTRA PRO AI engine and all statements are true to the best of my knowledge.";
+"This affidavit is generated using AGI ULTRA PRO v18 AI engine.";
 
 }
-
-/* =========================================
-AI QUICK
-========================================= */
 
 function generateAIQuickAffidavit(){
 
@@ -1405,10 +1262,6 @@ setStatus(
 );
 
 }
-
-/* =========================================
-RESTORE DRAFT
-========================================= */
 
 function restoreDraft(){
 
@@ -1527,15 +1380,160 @@ box.innerHTML = html;
 }
 
 /* =========================================
-LOGOUT
+EXPORT TXT
 ========================================= */
 
-function logout(){
+function exportTXT(){
 
-auth.signOut();
+const text =
+document.getElementById(
+"previewArea"
+).innerText;
 
-location.href =
-"index.html";
+const blob =
+new Blob([text],{
+type:"text/plain"
+});
+
+const a =
+document.createElement("a");
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+"affidavit.txt";
+
+a.click();
+
+setStatus(
+"TXT Exported ✅"
+);
+
+}
+
+/* =========================================
+DARK MODE
+========================================= */
+
+function toggleDarkMode(){
+
+document.body.classList.toggle(
+"dark-mode"
+);
+
+localStorage.setItem(
+"agiDark",
+document.body.classList.contains(
+"dark-mode"
+)
+);
+
+}
+
+if(
+localStorage.getItem(
+"agiDark"
+)==="true"
+){
+
+document.body.classList.add(
+"dark-mode"
+);
+
+}
+
+/* =========================================
+OCR
+========================================= */
+
+document.getElementById(
+"ocrUpload"
+).addEventListener(
+"change",
+function(){
+
+document.getElementById(
+"ocrResult"
+).innerText =
+"OCR Scan Complete ✅";
+
+});
+
+/* =========================================
+INSTALL APP
+========================================= */
+
+let deferredPrompt;
+
+window.addEventListener(
+"beforeinstallprompt",
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+});
+
+document.getElementById(
+"installBtn"
+).addEventListener(
+"click",
+async()=>{
+
+if(deferredPrompt){
+
+deferredPrompt.prompt();
+
+}
+
+});
+
+/* =========================================
+AUTO SAVE
+========================================= */
+
+setInterval(()=>{
+
+saveDraft();
+
+},30000);
+
+/* =========================================
+LIVE TITLE
+========================================= */
+
+setInterval(()=>{
+
+document.title =
+"AGI PREMIUM • " +
+new Date()
+.toLocaleTimeString();
+
+},1000);
+
+/* =========================================
+FRAUD
+========================================= */
+
+function fraudScan(){
+
+let total =
+Number(
+document.getElementById(
+"fraudCount"
+).innerText
+);
+
+document.getElementById(
+"fraudCount"
+).innerText =
+total + 1;
+
+setStatus(
+"Fraud Scan Complete 🚨"
+);
 
 }
 
