@@ -1,25 +1,562 @@
 <!DOCTYPE html>
-<html>
-<body style="font-family:Arial;text-align:center">
+<html lang="en">
 
-<h2>🔍 Document Verification</h2>
-<div id="result">Checking...</div>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+AGI ULTRA PRO v18 VERIFY 🚀
+</title>
+
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* =========================================
+RESET
+========================================= */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:"Inter",sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a
+);
+
+min-height:100vh;
+
+display:flex;
+justify-content:center;
+align-items:center;
+
+padding:20px;
+
+color:white;
+
+overflow-x:hidden;
+
+}
+
+/* =========================================
+VERIFY BOX
+========================================= */
+
+.verify-box{
+
+width:100%;
+max-width:700px;
+
+background:
+rgba(255,255,255,.05);
+
+backdrop-filter:blur(12px);
+
+padding:40px;
+
+border-radius:28px;
+
+border:
+1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 15px 45px rgba(0,0,0,.35);
+
+text-align:center;
+
+animation:fadeIn .5s ease;
+
+}
+
+/* =========================================
+LOGO
+========================================= */
+
+.logo{
+
+font-size:34px;
+font-weight:800;
+
+margin-bottom:10px;
+
+}
+
+.logo span{
+color:#3b82f6;
+}
+
+/* =========================================
+TITLE
+========================================= */
+
+h2{
+
+font-size:28px;
+
+margin-bottom:25px;
+
+}
+
+/* =========================================
+RESULT
+========================================= */
+
+#result{
+
+margin-top:20px;
+
+padding:25px;
+
+border-radius:20px;
+
+background:#111827;
+
+font-size:16px;
+
+line-height:1.8;
+
+word-break:break-word;
+
+}
+
+/* =========================================
+STATUS
+========================================= */
+
+.success{
+
+color:#10b981;
+font-size:30px;
+font-weight:800;
+
+margin-bottom:15px;
+
+}
+
+.failed{
+
+color:#ef4444;
+font-size:30px;
+font-weight:800;
+
+margin-bottom:15px;
+
+}
+
+/* =========================================
+DOC CARD
+========================================= */
+
+.doc-card{
+
+margin-top:20px;
+
+background:#1f2937;
+
+padding:20px;
+
+border-radius:18px;
+
+text-align:left;
+
+}
+
+.doc-card p{
+
+margin-bottom:12px;
+
+font-size:15px;
+
+}
+
+/* =========================================
+BADGE
+========================================= */
+
+.badge{
+
+display:inline-block;
+
+padding:10px 18px;
+
+border-radius:999px;
+
+font-size:13px;
+
+font-weight:700;
+
+margin-top:20px;
+
+}
+
+.valid{
+background:#059669;
+}
+
+.invalid{
+background:#dc2626;
+}
+
+/* =========================================
+BUTTONS
+========================================= */
+
+.actions{
+
+margin-top:25px;
+
+display:flex;
+gap:14px;
+justify-content:center;
+flex-wrap:wrap;
+
+}
+
+button{
+
+padding:14px 18px;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:700;
+
+cursor:pointer;
+
+font-size:14px;
+
+transition:.25s;
+
+}
+
+button:hover{
+
+transform:translateY(-2px);
+
+}
+
+.primary{
+background:#2563eb;
+color:white;
+}
+
+.green{
+background:#059669;
+color:white;
+}
+
+.red{
+background:#dc2626;
+color:white;
+}
+
+/* =========================================
+FOOTER
+========================================= */
+
+.footer{
+
+margin-top:30px;
+
+font-size:13px;
+
+opacity:.7;
+
+}
+
+/* =========================================
+ANIMATION
+========================================= */
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media(max-width:700px){
+
+.verify-box{
+
+padding:25px;
+
+}
+
+h2{
+
+font-size:22px;
+
+}
+
+.logo{
+
+font-size:28px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="verify-box">
+
+<div class="logo">
+⚖️ <span>AGI VERIFY</span>
+</div>
+
+<h2>
+🔍 Document Verification System
+</h2>
+
+<div id="result">
+
+Checking document...
+
+</div>
+
+<div class="actions">
+
+<button class="primary"
+onclick="goHome()">
+
+🏠 Home
+
+</button>
+
+<button class="green"
+onclick="printPage()">
+
+🖨 Print
+
+</button>
+
+<button class="red"
+onclick="scanAgain()">
+
+🔄 Verify Again
+
+</button>
+
+</div>
+
+<div class="footer">
+
+AGI ULTRA PRO v18 AI 🚀
+
+</div>
+
+</div>
 
 <script>
 
-let id=new URLSearchParams(location.search).get("id");
-let data=localStorage.getItem("doc_"+id);
+/* =========================================
+GET DOC ID
+========================================= */
+
+const id =
+new URLSearchParams(
+location.search
+).get("id");
+
+/* =========================================
+RESULT BOX
+========================================= */
+
+const result =
+document.getElementById(
+"result"
+);
+
+/* =========================================
+VERIFY
+========================================= */
+
+function verifyDocument(){
+
+if(!id){
+
+result.innerHTML = `
+
+<div class="failed">
+❌ INVALID REQUEST
+</div>
+
+<p>
+No document ID provided.
+</p>
+
+<div class="badge invalid">
+INVALID
+</div>
+
+`;
+
+return;
+
+}
+
+let data =
+localStorage.getItem(
+"doc_" + id
+);
 
 if(data){
- let d=JSON.parse(data);
- document.getElementById("result").innerHTML=
- `<h3 style="color:green">✔ Verified</h3>
-  <p>${d.name}</p>
-  <p>${d.date}</p>`;
+
+let d =
+JSON.parse(data);
+
+result.innerHTML = `
+
+<div class="success">
+✔ VERIFIED
+</div>
+
+<p>
+This affidavit is valid and verified successfully.
+</p>
+
+<div class="doc-card">
+
+<p>
+<b>Document ID:</b>
+${id}
+</p>
+
+<p>
+<b>Name:</b>
+${d.name || "N/A"}
+</p>
+
+<p>
+<b>Date:</b>
+${d.date || "N/A"}
+</p>
+
+<p>
+<b>Purpose:</b>
+${d.purpose || "Official Affidavit"}
+</p>
+
+<p>
+<b>Status:</b>
+Verified Successfully
+</p>
+
+</div>
+
+<div class="badge valid">
+AUTHENTIC DOCUMENT
+</div>
+
+`;
+
 }else{
- document.getElementById("result").innerHTML=
- `<h3 style="color:red">❌ Invalid</h3>`;
+
+result.innerHTML = `
+
+<div class="failed">
+❌ DOCUMENT NOT FOUND
+</div>
+
+<p>
+This affidavit could not be verified.
+</p>
+
+<div class="doc-card">
+
+<p>
+Possible reasons:
+</p>
+
+<p>
+• Invalid QR Code</p>
+<p>
+• Deleted document</p>
+<p>
+• Expired verification</p>
+
+</div>
+
+<div class="badge invalid">
+INVALID DOCUMENT
+</div>
+
+`;
+
 }
+
+}
+
+/* =========================================
+HOME
+========================================= */
+
+function goHome(){
+
+location.href =
+"index.html";
+
+}
+
+/* =========================================
+PRINT
+========================================= */
+
+function printPage(){
+
+window.print();
+
+}
+
+/* =========================================
+VERIFY AGAIN
+========================================= */
+
+function scanAgain(){
+
+location.reload();
+
+}
+
+/* =========================================
+AUTO VERIFY
+========================================= */
+
+verifyDocument();
 
 </script>
 
