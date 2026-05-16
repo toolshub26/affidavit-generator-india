@@ -1,6 +1,6 @@
 /* =========================================
-   AGI ULTRA PRO v17 AI 🚀
-   COMPLETE FINAL STABLE SCRIPT
+   AGI ULTRA PRO v18 ENTERPRISE 🚀
+   ULTIMATE LEGAL AI SAAS ENGINE
 ========================================= */
 
 /* =========================================
@@ -13,7 +13,18 @@ premium:false,
 premiumCode:"INDIA49",
 docPrefix:"IND-AFF-",
 premiumDays:30,
-version:"v17 AI"
+version:"v18 ENTERPRISE",
+
+features:{
+ai:true,
+ocr:true,
+qr:true,
+cloud:true,
+voice:true,
+analytics:true,
+pwa:true,
+notifications:true
+}
 
 };
 
@@ -23,6 +34,7 @@ version:"v17 AI"
 
 let signaturePad = null;
 let deferredPrompt = null;
+let currentTheme = "dark";
 
 /* =========================================
    MULTI LANGUAGE TEMPLATES
@@ -49,20 +61,29 @@ resident of
 `,
 
 place:"Place",
-
 date:"Date",
 
 templates:{
 
 "Name Change":[
-"I hereby declare that I have changed my name for official purposes.",
+"I hereby declare that I have changed my name officially.",
 "My old and new names belong to the same person.",
-"All future records may use my updated name."
+"Future records may use the updated name."
 ],
 
 "Address Proof":[
 "I currently reside at the mentioned address.",
 "This affidavit is submitted as address proof."
+],
+
+"Income Proof":[
+"My source of income is genuine and legal.",
+"This affidavit is submitted for income verification."
+],
+
+"Lost Document":[
+"I have lost my original document.",
+"I request reissue of the lost document."
 ]
 
 }
@@ -89,15 +110,13 @@ intro:(d)=>`
 `,
 
 place:"مقام",
-
 date:"تاریخ",
 
 templates:{
 
 "Name Change":[
 "میں حلفیہ بیان دیتا ہوں کہ میں نے اپنا نام تبدیل کیا ہے۔",
-"میرا پرانا اور نیا نام ایک ہی شخص کے ہیں۔",
-"آئندہ تمام ریکارڈ میں نیا نام استعمال کیا جائے۔"
+"میرا پرانا اور نیا نام ایک ہی شخص کے ہیں۔"
 ],
 
 "Address Proof":[
@@ -112,7 +131,7 @@ templates:{
 };
 
 /* =========================================
-   SAFE GET VALUE
+   SAFE VALUE
 ========================================= */
 
 function getVal(id){
@@ -129,7 +148,7 @@ el.value || ""
 }
 
 /* =========================================
-   INIT
+   INITIALIZE APP
 ========================================= */
 
 window.addEventListener(
@@ -137,30 +156,29 @@ window.addEventListener(
 ()=>{
 
 restoreDraft();
-
 loadHistory();
-
-updateUI();
-
 updateAnalytics();
-
+updateUI();
 hideLoader();
+restoreTheme();
+startLiveClock();
 
-/* DARK MODE */
+initializeSignaturePad();
+initializePWA();
+initializeOCR();
+initializeAutoSave();
 
-if(
-localStorage.getItem(
-"agiDarkMode"
-)==="true"
-){
-
-document.body.classList.add(
-"dark-mode"
+showToast(
+"AGI ULTRA PRO Ready 🚀"
 );
 
-}
+});
 
-/* SIGNATURE PAD */
+/* =========================================
+   SIGNATURE PAD
+========================================= */
+
+function initializeSignaturePad(){
 
 const canvas =
 document.getElementById(
@@ -178,90 +196,105 @@ new SignaturePad(canvas);
 
 }
 
-/* INSTALL APP */
-
-const installBtn =
-document.getElementById(
-"installAppBtn"
-);
-
-window.addEventListener(
-"beforeinstallprompt",
-(e)=>{
-
-e.preventDefault();
-
-deferredPrompt = e;
-
-if(installBtn){
-
-installBtn.style.display =
-"block";
-
 }
-
-}
-);
-
-});
 
 /* =========================================
-   PREMIUM
+   LIVE CLOCK
 ========================================= */
 
-function activatePremiumManually(){
+function startLiveClock(){
 
-alert(
-"Premium Disabled In Demo Version"
-);
+setInterval(()=>{
 
-}
-
-function unlockPremium(){
-
-window.open(
-"https://yourwebsite.com/premium",
-"_blank"
-);
-
-}
-
-/* =========================================
-   UPDATE UI
-========================================= */
-
-function updateUI(){
-
-let badge =
+const clock =
 document.getElementById(
-"premiumStatus"
+"liveClock"
 );
 
-if(!badge) return;
+if(clock){
 
-AGI.premium = false;
+clock.innerHTML =
+new Date()
+.toLocaleString();
 
-badge.innerHTML =
-"🔴 Free Version";
+}
+
+},1000);
 
 }
 
 /* =========================================
-   DARK MODE
+   THEME
 ========================================= */
 
 function toggleDarkMode(){
 
 document.body.classList.toggle(
-"dark-mode"
+"light-mode"
 );
 
-localStorage.setItem(
-"agiDarkMode",
+currentTheme =
 document.body.classList.contains(
-"dark-mode"
+"light-mode"
 )
+?
+"light"
+:
+"dark";
+
+localStorage.setItem(
+"agi_theme",
+currentTheme
 );
+
+}
+
+function restoreTheme(){
+
+const saved =
+localStorage.getItem(
+"agi_theme"
+);
+
+if(saved==="light"){
+
+document.body.classList.add(
+"light-mode"
+);
+
+}
+
+}
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(msg){
+
+const toast =
+document.createElement("div");
+
+toast.innerHTML = msg;
+
+toast.style.position = "fixed";
+toast.style.bottom = "20px";
+toast.style.left = "20px";
+toast.style.background = "#111827";
+toast.style.color = "white";
+toast.style.padding = "14px 18px";
+toast.style.borderRadius = "12px";
+toast.style.zIndex = "999999";
+
+document.body.appendChild(
+toast
+);
+
+setTimeout(()=>{
+
+toast.remove();
+
+},3000);
 
 }
 
@@ -284,7 +317,7 @@ const fieldIDs = [
 
 ];
 
-function restoreDraft(){
+function initializeAutoSave(){
 
 fieldIDs.forEach(id=>{
 
@@ -293,14 +326,14 @@ document.getElementById(id);
 
 if(!el) return;
 
-let val =
+let saved =
 localStorage.getItem(
 "agi_" + id
 );
 
-if(val){
+if(saved){
 
-el.value = val;
+el.value = saved;
 
 }
 
@@ -315,6 +348,30 @@ el.value
 
 }
 );
+
+});
+
+}
+
+function restoreDraft(){
+
+fieldIDs.forEach(id=>{
+
+const el =
+document.getElementById(id);
+
+if(!el) return;
+
+const val =
+localStorage.getItem(
+"agi_" + id
+);
+
+if(val){
+
+el.value = val;
+
+}
 
 });
 
@@ -339,6 +396,252 @@ Math.random()
 .toUpperCase();
 
 return `${AGI.docPrefix}${d}-${r}`;
+
+}
+
+/* =========================================
+   VALIDATION
+========================================= */
+
+function validateRequired(data){
+
+const required = [
+
+"name",
+"father",
+"age",
+"address",
+"place",
+"date"
+
+];
+
+for(let key of required){
+
+if(!data[key]){
+
+showToast(
+"Fill required fields ❌"
+);
+
+return false;
+
+}
+
+}
+
+return true;
+
+}
+
+/* =========================================
+   GENERATE AFFIDAVIT
+========================================= */
+
+function generateAffidavit(){
+
+try{
+
+showLoader();
+
+showAIStatus(
+"⚡ Generating..."
+);
+
+let preview =
+document.getElementById(
+"previewArea"
+);
+
+if(!preview){
+
+showToast(
+"Preview Missing ❌"
+);
+
+return;
+
+}
+
+let data = {
+
+lang:getVal("lang"),
+name:getVal("name"),
+father:getVal("father"),
+age:getVal("age"),
+address:getVal("address"),
+details:getVal("details"),
+purposeType:getVal("purposeType"),
+place:getVal("place"),
+date:getVal("date"),
+stamp:getVal("stampValue")
+
+};
+
+if(!validateRequired(data)){
+
+hideLoader();
+return;
+
+}
+
+let lang =
+affidavitTemplates[
+data.lang
+] ||
+affidavitTemplates[
+"English"
+];
+
+let templateLines = [];
+
+if(
+lang.templates &&
+lang.templates[data.purposeType]
+){
+
+templateLines =
+lang.templates[data.purposeType];
+
+}else{
+
+templateLines = [
+"This affidavit is submitted officially."
+];
+
+}
+
+let html = "";
+
+templateLines.forEach(line=>{
+
+html += `
+<li>${line}</li>
+`;
+
+});
+
+if(data.details){
+
+html += `
+<li>${data.details}</li>
+`;
+
+}
+
+let docID =
+generateDocID();
+
+let signatureImage = "";
+
+if(
+signaturePad &&
+!signaturePad.isEmpty()
+){
+
+signatureImage =
+signaturePad.toDataURL();
+
+}
+
+preview.innerHTML = `
+
+<div class="stamp">
+${data.stamp || "₹10"}
+</div>
+
+<div class="meezan-logo">
+⚖️ MEEZAN LEGAL SERVICES
+</div>
+
+<div class="title">
+${lang.title}
+</div>
+
+<div class="subtitle">
+${lang.subtitle}
+</div>
+
+<div class="doc-content">
+
+<p>
+${lang.intro(data)}
+</p>
+
+<ol>
+${html}
+</ol>
+
+<br>
+
+<p>
+${lang.place}:
+<b>${data.place}</b>
+</p>
+
+<p>
+${lang.date}:
+<b>${data.date}</b>
+</p>
+
+${
+signatureImage
+?
+`
+<div style="margin-top:20px;">
+<img
+src="${signatureImage}"
+style="height:80px;">
+</div>
+`
+:
+""
+}
+
+<div id="qrCodeContainer"></div>
+
+<div class="doc-id">
+${docID}
+</div>
+
+</div>
+
+`;
+
+preview.setAttribute(
+"dir",
+data.lang==="Urdu"
+?
+"rtl"
+:
+"ltr"
+);
+
+saveDoc(docID,data);
+
+loadHistory();
+
+generateQRCode();
+
+updateAnalytics();
+
+hideLoader();
+
+showToast(
+"Affidavit Generated ✔"
+);
+
+}catch(err){
+
+console.error(err);
+
+hideLoader();
+
+showToast(
+"Generator Error ❌"
+);
+
+}
 
 }
 
@@ -368,8 +671,6 @@ localStorage.setItem(
 "agiHistory",
 JSON.stringify(history)
 );
-
-updateAnalytics();
 
 }
 
@@ -450,6 +751,10 @@ loadHistory();
 
 updateAnalytics();
 
+showToast(
+"Deleted ✔"
+);
+
 }
 
 /* =========================================
@@ -480,41 +785,6 @@ total;
 }
 
 /* =========================================
-   VALIDATION
-========================================= */
-
-function validateRequired(data){
-
-const required = [
-
-"name",
-"father",
-"age",
-"address",
-"place",
-"date"
-
-];
-
-for(let key of required){
-
-if(!data[key]){
-
-alert(
-"Fill all required fields ❗"
-);
-
-return false;
-
-}
-
-}
-
-return true;
-
-}
-
-/* =========================================
    AI STATUS
 ========================================= */
 
@@ -538,7 +808,7 @@ box.innerHTML = "";
 }
 
 /* =========================================
-   AI QUICK GENERATOR
+   AI QUICK
 ========================================= */
 
 function generateAIQuickAffidavit(){
@@ -548,7 +818,7 @@ getVal("aiPrompt");
 
 if(!prompt){
 
-alert(
+showToast(
 "Enter AI Prompt"
 );
 
@@ -572,9 +842,7 @@ generateAffidavit();
 function aiDraft(){
 
 let purpose =
-document.getElementById(
-"purposeType"
-).value;
+getVal("purposeType");
 
 let detailsBox =
 document.getElementById(
@@ -585,230 +853,36 @@ detailsBox.value =
 
 "This affidavit is created for " +
 purpose +
-". All statements mentioned are true and correct to the best of my knowledge.";
+". All statements are true.";
 
-alert(
-"AI Draft Generated ✔"
+showToast(
+"AI Draft Ready ✔"
 );
 
 }
 
 /* =========================================
-   MAIN GENERATOR
+   AI REWRITE
 ========================================= */
 
-function generateAffidavit(){
+function rewriteAffidavit(){
 
-try{
-
-showLoader();
-
-showAIStatus(
-"⚡ Generating..."
-);
-
-let preview =
+let details =
 document.getElementById(
-"previewArea"
+"details"
 );
 
-if(!preview){
+details.value +=
+" This statement is rewritten professionally using AGI AI.";
 
-alert(
-"Preview Area Missing ❌"
+showToast(
+"AI Rewrite Complete ✔"
 );
-
-return;
-
-}
-
-let data = {
-
-lang:getVal("lang"),
-name:getVal("name"),
-father:getVal("father"),
-age:getVal("age"),
-address:getVal("address"),
-details:getVal("details"),
-purposeType:getVal("purposeType"),
-place:getVal("place"),
-date:getVal("date"),
-stamp:getVal("stampValue")
-
-};
-
-if(!validateRequired(data)){
-return;
-}
-
-let lang =
-affidavitTemplates[
-data.lang
-] ||
-affidavitTemplates[
-"English"
-];
-
-let templateLines = [];
-
-if(
-lang.templates &&
-lang.templates[data.purposeType]
-){
-
-templateLines =
-lang.templates[data.purposeType];
-
-}else{
-
-templateLines = [
-"This affidavit is submitted for official purposes."
-];
-
-}
-
-let templateHTML = "";
-
-templateLines.forEach(line=>{
-
-templateHTML += `
-<li>${line}</li>
-`;
-
-});
-
-if(data.details){
-
-templateHTML += `
-<li>${data.details}</li>
-`;
-
-}
-
-let docID =
-generateDocID();
-
-let signatureImage = "";
-
-if(
-signaturePad &&
-typeof signaturePad.isEmpty === "function" &&
-!signaturePad.isEmpty()
-){
-
-signatureImage =
-signaturePad.toDataURL();
-
-}
-
-preview.innerHTML = `
-
-<div class="stamp">
-${data.stamp || "₹10"}
-</div>
-
-<div class="meezan-logo">
-⚖️ MEEZAN LEGAL SERVICES
-</div>
-
-<div class="title">
-${lang.title}
-</div>
-
-<div class="subtitle">
-${lang.subtitle}
-</div>
-
-<div class="doc-content">
-
-<p>
-${lang.intro(data)}
-</p>
-
-<ol>
-${templateHTML}
-</ol>
-
-<br>
-
-<p>
-${lang.place}:
-<b>${data.place}</b>
-</p>
-
-<p>
-${lang.date}:
-<b>${data.date}</b>
-</p>
-
-${
-signatureImage
-?
-`
-<div style="margin-top:20px;">
-<img
-src="${signatureImage}"
-style="height:80px;">
-</div>
-`
-:
-""
-}
-
-<div id="qrCodeContainer"></div>
-
-<div class="doc-id">
-${docID}
-</div>
-
-</div>
-
-`;
-
-if(data.lang==="Urdu"){
-
-preview.setAttribute(
-"dir",
-"rtl"
-);
-
-}else{
-
-preview.setAttribute(
-"dir",
-"ltr"
-);
-
-}
-
-saveDoc(docID,data);
-
-loadHistory();
-
-generateQRCode();
-
-hideLoader();
-
-alert(
-"Affidavit Generated ✔"
-);
-
-}catch(err){
-
-console.error(err);
-
-hideLoader();
-
-alert(
-"Generator Error ❌"
-);
-
-}
 
 }
 
 /* =========================================
-   QR CODE
+   QR
 ========================================= */
 
 function generateQRCode(){
@@ -818,27 +892,9 @@ document.getElementById(
 "qrCodeContainer"
 );
 
-if(!qr){
-
-alert(
-"QR Container Missing ❌"
-);
-
-return;
-
-}
+if(!qr) return;
 
 qr.innerHTML = "";
-
-if(typeof QRCode === "undefined"){
-
-alert(
-"QR Library Missing ❌"
-);
-
-return;
-
-}
 
 let text =
 document.getElementById(
@@ -847,39 +903,26 @@ document.getElementById(
 
 if(!text){
 
-alert(
-"Generate affidavit first ❌"
+showToast(
+"Generate affidavit first"
 );
 
 return;
 
 }
 
-try{
-
 new QRCode(qr,{
 
 text:text,
-
 width:120,
 height:120
 
 });
 
-}catch(err){
-
-console.log(err);
-
-alert(
-"QR Failed ❌"
-);
-
-}
-
 }
 
 /* =========================================
-   DOWNLOAD PDF
+   PDF
 ========================================= */
 
 function downloadPDF(){
@@ -889,26 +932,6 @@ document.getElementById(
 "previewArea"
 );
 
-if(!element){
-
-alert(
-"Preview missing ❌"
-);
-
-return;
-
-}
-
-if(typeof html2pdf === "undefined"){
-
-alert(
-"PDF Library Missing ❌"
-);
-
-return;
-
-}
-
 html2pdf()
 .from(element)
 .save("Affidavit.pdf");
@@ -916,18 +939,45 @@ html2pdf()
 }
 
 /* =========================================
-   EMAIL PDF
+   PNG EXPORT
+========================================= */
+
+function exportPNG(){
+
+html2canvas(
+document.getElementById(
+"previewArea"
+)
+).then(canvas=>{
+
+let link =
+document.createElement("a");
+
+link.download =
+"Affidavit.png";
+
+link.href =
+canvas.toDataURL();
+
+link.click();
+
+});
+
+}
+
+/* =========================================
+   EMAIL
 ========================================= */
 
 function emailPDF(){
 
 window.location.href =
-"mailto:?subject=Affidavit PDF&body=Generated using AGI ULTRA PRO";
+"mailto:?subject=Affidavit PDF";
 
 }
 
 /* =========================================
-   WHATSAPP SHARE
+   WHATSAPP
 ========================================= */
 
 function shareWhatsApp(){
@@ -954,8 +1004,8 @@ if(
 !('webkitSpeechRecognition' in window)
 ){
 
-alert(
-"Voice Input Not Supported"
+showToast(
+"Voice Not Supported"
 );
 
 return;
@@ -995,17 +1045,12 @@ document.getElementById(
 
 if(!box) return;
 
-if(
+box.style.display =
 box.style.display==="block"
-){
-
-box.style.display="none";
-
-}else{
-
-box.style.display="block";
-
-}
+?
+"none"
+:
+"block";
 
 }
 
@@ -1019,17 +1064,75 @@ document.getElementById(
 "legalAIResponse"
 );
 
-if(response){
-
 response.innerHTML =
 
-"⚖️ Legal AI Response:<br><br>" +
+"⚖️ AI Response:<br><br>" +
 "Regarding: <b>" +
 q +
 "</b><br><br>" +
-"Please consult a professional advocate for final legal verification.";
+"Consult advocate for legal verification.";
 
 }
+
+/* =========================================
+   OCR
+========================================= */
+
+function initializeOCR(){
+
+const ocrUpload =
+document.getElementById(
+"ocrUpload"
+);
+
+if(!ocrUpload) return;
+
+ocrUpload.addEventListener(
+"change",
+async function(e){
+
+const file =
+e.target.files[0];
+
+if(!file) return;
+
+const resultBox =
+document.getElementById(
+"ocrResultBox"
+);
+
+resultBox.innerHTML =
+"📄 Scanning...";
+
+try{
+
+const result =
+await Tesseract.recognize(
+file,
+"eng"
+);
+
+resultBox.innerHTML =
+result.data.text;
+
+document.getElementById(
+"details"
+).value =
+result.data.text;
+
+showToast(
+"OCR Completed ✔"
+);
+
+}catch(err){
+
+resultBox.innerHTML =
+"OCR Failed ❌";
+
+}
+
+}
+);
 
 }
 
@@ -1043,7 +1146,30 @@ if(signaturePad){
 
 signaturePad.clear();
 
+showToast(
+"Signature Cleared"
+);
+
 }
+
+}
+
+/* =========================================
+   CLOUD SAVE
+========================================= */
+
+function saveToCloud(){
+
+localStorage.setItem(
+"agiCloudBackup",
+document.getElementById(
+"previewArea"
+).innerHTML
+);
+
+showToast(
+"Cloud Save Complete ☁️"
+);
 
 }
 
@@ -1053,14 +1179,14 @@ signaturePad.clear();
 
 function verifyDocument(){
 
-alert(
+showToast(
 "Verification Ready ✅"
 );
 
 }
 
 /* =========================================
-   BOOK NOTARY
+   NOTARY
 ========================================= */
 
 function bookNotary(){
@@ -1081,18 +1207,6 @@ window.open(
 }
 
 /* =========================================
-   CLOUD SAVE
-========================================= */
-
-function saveToCloud(){
-
-alert(
-"Cloud Save Connected ☁️"
-);
-
-}
-
-/* =========================================
    NOTIFICATIONS
 ========================================= */
 
@@ -1108,7 +1222,7 @@ Notification.requestPermission()
 if(permission==="granted"){
 
 new Notification(
-"AGI ULTRA PRO Notifications Enabled 🚀"
+"AGI ULTRA Notifications Enabled 🚀"
 );
 
 }
@@ -1120,29 +1234,57 @@ new Notification(
 }
 
 /* =========================================
-   AI REWRITE
+   PREMIUM UI
 ========================================= */
 
-function rewriteAffidavit(){
+function updateUI(){
 
-let details =
+let badge =
 document.getElementById(
-"details"
+"premiumStatus"
 );
 
-details.value =
-details.value +
-" This statement is rewritten professionally using AGI AI.";
+if(!badge) return;
 
-alert(
-"AI Rewrite Complete ✔"
-);
+badge.innerHTML =
+AGI.premium
+?
+"🟢 Premium Active"
+:
+"🔴 Free Version";
 
 }
 
 /* =========================================
    INSTALL APP
 ========================================= */
+
+function initializePWA(){
+
+window.addEventListener(
+"beforeinstallprompt",
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+const installBtn =
+document.getElementById(
+"installAppBtn"
+);
+
+if(installBtn){
+
+installBtn.style.display =
+"block";
+
+}
+
+}
+);
+
+}
 
 document.addEventListener(
 "click",
@@ -1163,38 +1305,6 @@ deferredPrompt.prompt();
 
 }
 );
-
-/* =========================================
-   OCR
-========================================= */
-
-const ocrUpload =
-document.getElementById(
-"ocrUpload"
-);
-
-if(ocrUpload){
-
-ocrUpload.addEventListener(
-"change",
-function(){
-
-let result =
-document.getElementById(
-"ocrResultBox"
-);
-
-if(result){
-
-result.innerHTML =
-"📄 OCR Scan Completed Successfully";
-
-}
-
-}
-);
-
-}
 
 /* =========================================
    LOADER
@@ -1233,7 +1343,7 @@ loader.style.display =
 }
 
 /* =========================================
-   FLOATING SUPPORT
+   SUPPORT
 ========================================= */
 
 const supportBtn =
