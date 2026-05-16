@@ -1,15 +1,30 @@
+<!-- =========================================
+AGI ULTRA PRO v18 ENTERPRISE 🚀
+COMPLETE ADVANCED INDEX.HTML
+========================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>AGI ULTRA PRO v18 ENTERPRISE 🚀</title>
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+AGI ULTRA PRO v18 ENTERPRISE 🚀
+</title>
+
+<meta name="theme-color"
+content="#020617">
 
 <meta name="description"
 content="Enterprise AI Legal SaaS Platform">
+
+<link rel="manifest"
+href="manifest.json">
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -34,6 +49,10 @@ rel="stylesheet">
 
 <style>
 
+/* =========================================
+RESET
+========================================= */
+
 *{
 margin:0;
 padding:0;
@@ -56,7 +75,9 @@ overflow-x:hidden;
 
 }
 
-/* HEADER */
+/* =========================================
+HEADER
+========================================= */
 
 header{
 
@@ -105,7 +126,9 @@ font-weight:700;
 
 }
 
-/* NAV */
+/* =========================================
+TOP NAV
+========================================= */
 
 .top-nav{
 
@@ -142,7 +165,9 @@ background:#2563eb;
 
 }
 
-/* PROFILE */
+/* =========================================
+PROFILE
+========================================= */
 
 .user-profile-card{
 
@@ -171,7 +196,9 @@ border-radius:50%;
 
 }
 
-/* LAYOUT */
+/* =========================================
+LAYOUT
+========================================= */
 
 .container{
 
@@ -189,7 +216,9 @@ gap:30px;
 
 }
 
-/* FORM */
+/* =========================================
+FORM
+========================================= */
 
 .form-section{
 
@@ -253,7 +282,9 @@ resize:vertical;
 
 }
 
-/* BUTTONS */
+/* =========================================
+BUTTONS
+========================================= */
 
 .button-group{
 
@@ -307,7 +338,36 @@ background:#ea580c;
 background:#7c3aed;
 }
 
-/* PREVIEW */
+.btn-red{
+background:#dc2626;
+}
+
+/* =========================================
+MAIN GENERATE BUTTON
+========================================= */
+
+.main-generate{
+
+margin-top:20px;
+
+width:100%;
+
+padding:18px;
+
+font-size:18px;
+
+background:
+linear-gradient(
+135deg,
+#2563eb,
+#7c3aed
+);
+
+}
+
+/* =========================================
+PREVIEW
+========================================= */
 
 .preview-section{
 
@@ -441,7 +501,9 @@ color:#6b7280;
 
 }
 
-/* HISTORY */
+/* =========================================
+HISTORY
+========================================= */
 
 .history-box{
 
@@ -469,7 +531,9 @@ font-size:13px;
 
 }
 
-/* OCR */
+/* =========================================
+OCR
+========================================= */
 
 #ocrResultBox{
 
@@ -487,7 +551,9 @@ font-size:13px;
 
 }
 
-/* AI STATUS */
+/* =========================================
+STATUS
+========================================= */
 
 #aiStatus{
 
@@ -499,7 +565,9 @@ color:#60a5fa;
 
 }
 
-/* LIGHT MODE */
+/* =========================================
+LIGHT MODE
+========================================= */
 
 .light-mode{
 
@@ -518,7 +586,9 @@ color:#111827;
 
 }
 
-/* MOBILE */
+/* =========================================
+MOBILE
+========================================= */
 
 @media(max-width:1100px){
 
@@ -557,19 +627,42 @@ Enterprise Legal AI SaaS Platform
 </p>
 
 <div class="premium-active">
-🟢 Premium Enterprise
+🟢 Premium Enterprise Active
 </div>
+
+<!-- =========================================
+WORKING NAVIGATION
+========================================= -->
 
 <div class="top-nav">
 
-<a href="#">Dashboard</a>
-<a href="#">Verify</a>
-<a href="#">Premium</a>
-<a href="#">Admin</a>
+<a href="index.html">
+Dashboard
+</a>
+
+<a href="verify.html">
+Verify
+</a>
+
+<a href="premium.html">
+Premium
+</a>
+
+<a href="admin.html">
+Admin
+</a>
+
+<a href="login.html">
+Login
+</a>
 
 </div>
 
 </header>
+
+<!-- =========================================
+PROFILE
+========================================= -->
 
 <div class="user-profile-card">
 
@@ -591,9 +684,15 @@ AI Legal Member
 
 </div>
 
+<!-- =========================================
+MAIN CONTAINER
+========================================= -->
+
 <div class="container">
 
-<!-- LEFT -->
+<!-- =========================================
+LEFT SIDE
+========================================= -->
 
 <div class="form-section">
 
@@ -601,7 +700,11 @@ AI Legal Member
 Generate Affidavit
 </h2>
 
-<label>AI Prompt</label>
+<!-- AI -->
+
+<label>
+AI Prompt
+</label>
 
 <textarea id="aiPrompt"></textarea>
 
@@ -625,49 +728,95 @@ Voice
 
 </div>
 
-<label>Language</label>
+<!-- LANGUAGE -->
+
+<label>
+Language
+</label>
 
 <select id="lang">
 
 <option>English</option>
 <option>Urdu</option>
 <option>Hindi</option>
+<option>Arabic</option>
+<option>Spanish</option>
+<option>Chinese</option>
 
 </select>
 
-<label>Purpose</label>
+<!-- PURPOSE -->
+
+<label>
+Purpose
+</label>
 
 <select id="purposeType">
 
 <option>Name Change</option>
 <option>Address Proof</option>
+<option>Birth Affidavit</option>
+<option>Marriage Affidavit</option>
 <option>Income Proof</option>
 <option>Lost Document</option>
+<option>Nationality</option>
+<option>Property Declaration</option>
+<option>Gap Certificate</option>
+<option>Vehicle Ownership</option>
+<option>Identity Declaration</option>
+<option>Legal Heir</option>
+<option>One And Same Person</option>
+<option>Pension Affidavit</option>
 
 </select>
 
-<label>Full Name</label>
+<label>
+Full Name
+</label>
+
 <input type="text" id="name">
 
-<label>Father Name</label>
+<label>
+Father Name
+</label>
+
 <input type="text" id="father">
 
-<label>Age</label>
+<label>
+Age
+</label>
+
 <input type="number" id="age">
 
-<label>Address</label>
+<label>
+Address
+</label>
+
 <textarea id="address"></textarea>
 
-<label>Details</label>
+<label>
+Details
+</label>
+
 <textarea id="details"></textarea>
 
-<label>Place</label>
+<label>
+Place
+</label>
+
 <input type="text" id="place">
 
-<label>Date</label>
+<label>
+Date
+</label>
+
 <input type="date" id="date">
 
-<label>Signature</label>
+<!-- SIGN -->
+
+<label>
+Signature
+</label>
 
 <canvas
 id="signaturePad"
@@ -690,7 +839,11 @@ Clear Signature
 
 </button>
 
-<label>OCR Scan</label>
+<!-- OCR -->
+
+<label>
+OCR Scan
+</label>
 
 <input type="file" id="ocrUpload">
 
@@ -698,18 +851,19 @@ Clear Signature
 OCR Result Here
 </div>
 
-<input
-type="text"
-placeholder="Search History"
-id="searchHistory"
-onkeyup="searchHistory()"
-style="margin-top:15px;">
+<!-- MAIN GENERATE -->
+
+<button
+class="main-generate"
+onclick="generateAffidavit()">
+
+🚀 GENERATE AFFIDAVIT
+
+</button>
+
+<!-- EXTRA ACTIONS -->
 
 <div class="button-group">
-
-<button onclick="generateAffidavit()">
-Generate
-</button>
 
 <button
 class="btn-green"
@@ -767,6 +921,14 @@ Theme
 
 </button>
 
+<button
+class="btn-red"
+onclick="window.print()">
+
+Print
+
+</button>
+
 </div>
 
 <div id="aiStatus">
@@ -776,6 +938,8 @@ Theme
 <div id="liveClock"
 style="margin-top:10px;">
 </div>
+
+<!-- HISTORY -->
 
 <div class="history-box">
 
@@ -793,7 +957,9 @@ No documents yet.
 
 </div>
 
-<!-- RIGHT -->
+<!-- =========================================
+RIGHT SIDE
+========================================= -->
 
 <div class="preview-section">
 
@@ -847,6 +1013,10 @@ Powered by AGI ULTRA PRO
 
 </div>
 
+<!-- =========================================
+FOOTER
+========================================= -->
+
 <footer
 style="
 text-align:center;
@@ -858,9 +1028,27 @@ AGI ULTRA PRO v18 ENTERPRISE © 2026
 
 </footer>
 
+<!-- =========================================
+SCRIPT
+========================================= -->
+
 <script>
 
-/* SIGNATURE */
+/* =========================================
+SERVICE WORKER
+========================================= */
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker.register(
+"sw.js"
+);
+
+}
+
+/* =========================================
+SIGNATURE
+========================================= */
 
 let signaturePad;
 
@@ -877,7 +1065,9 @@ document.getElementById(
 
 });
 
-/* CLOCK */
+/* =========================================
+CLOCK
+========================================= */
 
 setInterval(()=>{
 
@@ -889,7 +1079,9 @@ new Date()
 
 },1000);
 
-/* DOC ID */
+/* =========================================
+DOC ID
+========================================= */
 
 function generateDocID(){
 
@@ -901,7 +1093,9 @@ Math.random()
 
 }
 
-/* GENERATE */
+/* =========================================
+GENERATE
+========================================= */
 
 function generateAffidavit(){
 
@@ -940,6 +1134,11 @@ document.getElementById(
 "date"
 ).value;
 
+const purpose =
+document.getElementById(
+"purposeType"
+).value;
+
 if(
 !name ||
 !father ||
@@ -965,6 +1164,17 @@ sign =
 signaturePad.toDataURL();
 
 }
+
+/* SAVE VERIFY DATA */
+
+localStorage.setItem(
+"doc_"+docID,
+JSON.stringify({
+name:name,
+date:date,
+purpose:purpose
+})
+);
 
 document.getElementById(
 "previewArea"
@@ -1001,7 +1211,8 @@ resident of
 <ol>
 
 <li>
-This affidavit is submitted for official purposes.
+This affidavit is submitted for
+${purpose}.
 </li>
 
 <li>
@@ -1051,11 +1262,13 @@ ${docID}
 
 saveHistory(docID,name);
 
-generateQRCode();
+generateQRCode(docID);
 
 }
 
-/* HISTORY */
+/* =========================================
+HISTORY
+========================================= */
 
 function saveHistory(id,name){
 
@@ -1077,38 +1290,11 @@ ${id}
 
 }
 
-/* SEARCH */
+/* =========================================
+QR
+========================================= */
 
-function searchHistory(){
-
-let input =
-document.getElementById(
-"searchHistory"
-).value.toLowerCase();
-
-let items =
-document.querySelectorAll(
-".history-item"
-);
-
-items.forEach(item=>{
-
-item.style.display =
-item.innerText
-.toLowerCase()
-.includes(input)
-?
-"block"
-:
-"none";
-
-});
-
-}
-
-/* QR */
-
-function generateQRCode(){
+function generateQRCode(docID){
 
 document.getElementById(
 "qrCodeContainer"
@@ -1120,9 +1306,9 @@ document.getElementById(
 ),
 {
 text:
-document.getElementById(
-"previewArea"
-).innerText,
+location.origin +
+"/verify.html?id=" +
+docID,
 width:140,
 height:140
 }
@@ -1130,7 +1316,9 @@ height:140
 
 }
 
-/* PDF */
+/* =========================================
+PDF
+========================================= */
 
 function downloadPDF(){
 
@@ -1140,11 +1328,15 @@ document.getElementById(
 "previewArea"
 )
 )
-.save();
+.save(
+"Affidavit.pdf"
+);
 
 }
 
-/* PNG */
+/* =========================================
+PNG
+========================================= */
 
 function exportPNG(){
 
@@ -1169,7 +1361,9 @@ link.click();
 
 }
 
-/* WHATSAPP */
+/* =========================================
+WHATSAPP
+========================================= */
 
 function shareWhatsApp(){
 
@@ -1186,7 +1380,9 @@ document.getElementById(
 
 }
 
-/* EMAIL */
+/* =========================================
+EMAIL
+========================================= */
 
 function emailPDF(){
 
@@ -1195,7 +1391,9 @@ window.location.href =
 
 }
 
-/* VOICE */
+/* =========================================
+VOICE
+========================================= */
 
 function startVoiceInput(){
 
@@ -1226,7 +1424,9 @@ event.results[0][0].transcript;
 
 }
 
-/* AI */
+/* =========================================
+AI
+========================================= */
 
 function generateAIQuickAffidavit(){
 
@@ -1242,7 +1442,9 @@ generateAffidavit();
 
 }
 
-/* OCR */
+/* =========================================
+OCR
+========================================= */
 
 document.getElementById(
 "ocrUpload"
@@ -1278,7 +1480,9 @@ result.data.text;
 
 });
 
-/* REWRITE */
+/* =========================================
+REWRITE
+========================================= */
 
 function rewriteAffidavit(){
 
@@ -1292,7 +1496,9 @@ details.value +=
 
 }
 
-/* THEME */
+/* =========================================
+THEME
+========================================= */
 
 function toggleTheme(){
 
@@ -1302,7 +1508,9 @@ document.body.classList.toggle(
 
 }
 
-/* SIGNATURE */
+/* =========================================
+SIGNATURE CLEAR
+========================================= */
 
 function clearSignaturePad(){
 
@@ -1310,7 +1518,9 @@ signaturePad.clear();
 
 }
 
-/* AUTO SAVE */
+/* =========================================
+AUTO SAVE
+========================================= */
 
 setInterval(()=>{
 
