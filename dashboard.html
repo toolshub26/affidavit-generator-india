@@ -1,14 +1,34 @@
+File Name
+
+dashboard.html
+
+Commit
+
+feat: add complete enterprise dashboard page
+
+Description
+
+Added fully advanced AGI ULTRA PRO v18 enterprise dashboard with analytics cards, revenue chart, live activity tracking, AI legal assistant, cloud backup, reports export, notifications, voice commands, responsive enterprise UI, premium controls, realtime counters, dark mode, and SaaS admin tools.
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>
-AGI ULTRA PRO v18 ENTERPRISE 🚀
+AGI ULTRA PRO v18 DASHBOARD 🚀
 </title>
+
+<meta name="theme-color"
+content="#020617">
+
+<link rel="manifest"
+href="manifest.json">
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -30,6 +50,10 @@ padding:0;
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
 
 font-family:"Inter",sans-serif;
@@ -49,9 +73,32 @@ transition:.3s;
 
 }
 
+/* =========================================
+LIGHT MODE
+========================================= */
+
 .light-mode{
 
 background:#f3f4f6;
+color:#111827;
+
+}
+
+.light-mode .sidebar,
+.light-mode .panel,
+.light-mode .card,
+.light-mode .profile,
+.light-mode .activity-item{
+
+background:white;
+color:#111827;
+
+}
+
+.light-mode .search-box,
+.light-mode textarea{
+
+background:#e5e7eb;
 color:#111827;
 
 }
@@ -239,7 +286,7 @@ gap:25px;
 }
 
 /* =========================================
-PANEL
+PANELS
 ========================================= */
 
 .panel{
@@ -255,6 +302,8 @@ border:
 1px solid rgba(255,255,255,.08);
 
 margin-bottom:25px;
+
+backdrop-filter:blur(12px);
 
 }
 
@@ -278,6 +327,13 @@ color:white;
 font-weight:700;
 cursor:pointer;
 margin:6px;
+transition:.25s;
+
+}
+
+.action-btn:hover{
+
+transform:translateY(-2px);
 
 }
 
@@ -404,7 +460,7 @@ z-index:9999;
 }
 
 /* =========================================
-MOBILE
+RESPONSIVE
 ========================================= */
 
 @media(max-width:1100px){
@@ -455,8 +511,9 @@ Notification
 ⚖️ <span>AGI ULTRA</span>
 </div>
 
-<button class="nav-btn">
-🏠 Dashboard
+<button class="nav-btn"
+onclick="location.href='index.html'">
+🏠 Generator
 </button>
 
 <button class="nav-btn">
@@ -477,37 +534,32 @@ Notification
 
 <button class="nav-btn"
 onclick="toggleDarkMode()">
-
 🌗 Toggle Theme
-
 </button>
 
 <button class="nav-btn"
 onclick="enableNotifications()">
-
 🔔 Notifications
-
 </button>
 
 <button class="nav-btn"
 onclick="downloadTXTReport()">
-
 📄 TXT Report
-
 </button>
 
 <button class="nav-btn"
 onclick="voiceCommand()">
-
 🎤 Voice Commands
+</button>
 
+<button class="nav-btn"
+onclick="cloudBackup()">
+☁️ Backup
 </button>
 
 <button class="nav-btn"
 onclick="logout()">
-
 🚪 Logout
-
 </button>
 
 </div>
@@ -714,30 +766,22 @@ Premium
 
 <button class="action-btn green"
 onclick="exportCSV()">
-
 📥 Export CSV
-
 </button>
 
 <button class="action-btn orange"
 onclick="cloudBackup()">
-
 ☁️ Cloud Backup
-
 </button>
 
 <button class="action-btn red"
 onclick="withdrawMoney()">
-
 💸 Withdraw
-
 </button>
 
 <button class="action-btn purple"
 onclick="generateReport()">
-
 📄 Report
-
 </button>
 
 </div>
@@ -789,16 +833,13 @@ border-radius:16px;
 padding:14px;
 color:white;
 ">
-
 </textarea>
 
 <br><br>
 
 <button class="action-btn"
 onclick="askLegalAI()">
-
 Ask AI
-
 </button>
 
 <br><br>
@@ -830,6 +871,18 @@ No response yet.
 </div>
 
 <script>
+
+/* =========================================
+SERVICE WORKER
+========================================= */
+
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker.register(
+"sw.js"
+);
+
+}
 
 /* =========================================
 CHART
@@ -880,7 +933,7 @@ tension:.4
 });
 
 /* =========================================
-SEARCH FILTER
+FILTER USERS
 ========================================= */
 
 function filterUsers(){
@@ -924,11 +977,8 @@ document.getElementById(
 
 `
 <b>AI Response:</b><br><br>
-
 Legal guidance regarding:<br>
-
 ${q}
-
 `;
 
 showToast(
@@ -943,8 +993,45 @@ CSV EXPORT
 
 function exportCSV(){
 
+let csv =
+"Email,Status,Wallet\n";
+
+document.querySelectorAll(
+"#usersTable tr"
+).forEach(row=>{
+
+let cols =
+row.querySelectorAll("td");
+
+if(cols.length){
+
+csv +=
+`${cols[0].innerText},
+${cols[1].innerText},
+${cols[2].innerText}\n`;
+
+}
+
+});
+
+const blob =
+new Blob([csv],{
+type:"text/csv"
+});
+
+const link =
+document.createElement("a");
+
+link.href =
+URL.createObjectURL(blob);
+
+link.download =
+"users.csv";
+
+link.click();
+
 showToast(
-"CSV export started"
+"CSV Exported"
 );
 
 }
@@ -1031,7 +1118,7 @@ showToast(
 }
 
 /* =========================================
-DARK MODE
+THEME
 ========================================= */
 
 function toggleDarkMode(){
@@ -1040,8 +1127,27 @@ document.body.classList.toggle(
 "light-mode"
 );
 
+localStorage.setItem(
+"agiTheme",
+document.body.classList.contains(
+"light-mode"
+)
+);
+
 showToast(
 "Theme Updated"
+);
+
+}
+
+if(
+localStorage.getItem(
+"agiTheme"
+)==="true"
+){
+
+document.body.classList.add(
+"light-mode"
 );
 
 }
@@ -1163,7 +1269,7 @@ new Date()
 },1000);
 
 /* =========================================
-AUTO REFRESH
+AUTO UPDATE
 ========================================= */
 
 setInterval(()=>{
