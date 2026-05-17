@@ -1,3 +1,8 @@
+<!-- =========================================
+AGI ULTRA PRO v18 VERIFY 🚀
+ULTIMATE ENTERPRISE VERIFY SYSTEM
+========================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,6 +16,15 @@ content="width=device-width, initial-scale=1.0">
 <title>
 AGI ULTRA PRO v18 VERIFY 🚀
 </title>
+
+<meta name="theme-color"
+content="#020617">
+
+<meta name="description"
+content="Enterprise AI Legal Verification System">
+
+<link rel="manifest"
+href="manifest.json">
 
 <link rel="preconnect"
 href="https://fonts.googleapis.com">
@@ -62,7 +76,7 @@ VERIFY BOX
 .verify-box{
 
 width:100%;
-max-width:700px;
+max-width:760px;
 
 background:
 rgba(255,255,255,.05);
@@ -71,17 +85,48 @@ backdrop-filter:blur(12px);
 
 padding:40px;
 
-border-radius:28px;
+border-radius:30px;
 
 border:
 1px solid rgba(255,255,255,.08);
 
 box-shadow:
-0 15px 45px rgba(0,0,0,.35);
+0 20px 55px rgba(0,0,0,.35);
 
 text-align:center;
 
 animation:fadeIn .5s ease;
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+/* =========================================
+WATERMARK
+========================================= */
+
+.watermark{
+
+position:absolute;
+
+top:50%;
+left:50%;
+
+transform:
+translate(-50%,-50%)
+rotate(-30deg);
+
+font-size:80px;
+
+font-weight:800;
+
+color:rgba(255,255,255,.03);
+
+white-space:nowrap;
+
+pointer-events:none;
 
 }
 
@@ -91,10 +136,13 @@ LOGO
 
 .logo{
 
-font-size:34px;
+font-size:36px;
 font-weight:800;
 
 margin-bottom:10px;
+
+position:relative;
+z-index:2;
 
 }
 
@@ -108,9 +156,12 @@ TITLE
 
 h2{
 
-font-size:28px;
+font-size:30px;
 
 margin-bottom:25px;
+
+position:relative;
+z-index:2;
 
 }
 
@@ -124,15 +175,18 @@ margin-top:20px;
 
 padding:25px;
 
-border-radius:20px;
+border-radius:22px;
 
 background:#111827;
 
 font-size:16px;
 
-line-height:1.8;
+line-height:1.9;
 
 word-break:break-word;
+
+position:relative;
+z-index:2;
 
 }
 
@@ -143,7 +197,9 @@ STATUS
 .success{
 
 color:#10b981;
-font-size:30px;
+
+font-size:34px;
+
 font-weight:800;
 
 margin-bottom:15px;
@@ -153,7 +209,9 @@ margin-bottom:15px;
 .failed{
 
 color:#ef4444;
-font-size:30px;
+
+font-size:34px;
+
 font-weight:800;
 
 margin-bottom:15px;
@@ -170,11 +228,14 @@ margin-top:20px;
 
 background:#1f2937;
 
-padding:20px;
+padding:22px;
 
 border-radius:18px;
 
 text-align:left;
+
+border-left:
+5px solid #2563eb;
 
 }
 
@@ -215,6 +276,49 @@ background:#dc2626;
 }
 
 /* =========================================
+SEARCH BOX
+========================================= */
+
+.search-box{
+
+margin-top:25px;
+
+display:flex;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+justify-content:center;
+
+position:relative;
+z-index:2;
+
+}
+
+.search-box input{
+
+flex:1;
+
+min-width:220px;
+
+padding:14px;
+
+border:none;
+
+border-radius:14px;
+
+background:#1f2937;
+
+color:white;
+
+font-size:14px;
+
+outline:none;
+
+}
+
+/* =========================================
 BUTTONS
 ========================================= */
 
@@ -226,6 +330,9 @@ display:flex;
 gap:14px;
 justify-content:center;
 flex-wrap:wrap;
+
+position:relative;
+z-index:2;
 
 }
 
@@ -245,6 +352,8 @@ font-size:14px;
 
 transition:.25s;
 
+color:white;
+
 }
 
 button:hover{
@@ -255,17 +364,47 @@ transform:translateY(-2px);
 
 .primary{
 background:#2563eb;
-color:white;
 }
 
 .green{
 background:#059669;
-color:white;
 }
 
 .red{
 background:#dc2626;
-color:white;
+}
+
+.orange{
+background:#ea580c;
+}
+
+.purple{
+background:#7c3aed;
+}
+
+/* =========================================
+STATUS BAR
+========================================= */
+
+.status-bar{
+
+margin-top:20px;
+
+padding:14px;
+
+border-radius:16px;
+
+background:#1e293b;
+
+font-size:14px;
+
+font-weight:700;
+
+color:#60a5fa;
+
+position:relative;
+z-index:2;
+
 }
 
 /* =========================================
@@ -279,6 +418,9 @@ margin-top:30px;
 font-size:13px;
 
 opacity:.7;
+
+position:relative;
+z-index:2;
 
 }
 
@@ -324,6 +466,12 @@ font-size:28px;
 
 }
 
+.doc-card{
+
+padding:16px;
+
+}
+
 }
 
 </style>
@@ -334,19 +482,55 @@ font-size:28px;
 
 <div class="verify-box">
 
+<div class="watermark">
+AGI VERIFY
+</div>
+
 <div class="logo">
 ⚖️ <span>AGI VERIFY</span>
 </div>
 
 <h2>
-🔍 Document Verification System
+🔍 Enterprise Document Verification
 </h2>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input
+type="text"
+id="manualID"
+placeholder="Enter Document ID">
+
+<button
+class="purple"
+onclick="manualVerify()">
+
+Verify ID
+
+</button>
+
+</div>
+
+<!-- RESULT -->
 
 <div id="result">
 
 Checking document...
 
 </div>
+
+<!-- STATUS -->
+
+<div class="status-bar"
+id="statusBar">
+
+⚡ AGI Verification Engine Active
+
+</div>
+
+<!-- ACTIONS -->
 
 <div class="actions">
 
@@ -361,6 +545,20 @@ onclick="goHome()">
 onclick="printPage()">
 
 🖨 Print
+
+</button>
+
+<button class="orange"
+onclick="downloadResult()">
+
+📥 Save
+
+</button>
+
+<button class="purple"
+onclick="copyDocID()">
+
+📋 Copy ID
 
 </button>
 
@@ -384,10 +582,22 @@ AGI ULTRA PRO v18 AI 🚀
 <script>
 
 /* =========================================
-GET DOC ID
+SERVICE WORKER
 ========================================= */
 
-const id =
+if("serviceWorker" in navigator){
+
+navigator.serviceWorker.register(
+"sw.js"
+);
+
+}
+
+/* =========================================
+GET URL ID
+========================================= */
+
+let currentID =
 new URLSearchParams(
 location.search
 ).get("id");
@@ -402,10 +612,22 @@ document.getElementById(
 );
 
 /* =========================================
-VERIFY
+STATUS
 ========================================= */
 
-function verifyDocument(){
+function setStatus(msg){
+
+document.getElementById(
+"statusBar"
+).innerHTML = msg;
+
+}
+
+/* =========================================
+VERIFY FUNCTION
+========================================= */
+
+function verifyDocument(id){
 
 if(!id){
 
@@ -424,6 +646,10 @@ INVALID
 </div>
 
 `;
+
+setStatus(
+"❌ Verification Failed"
+);
 
 return;
 
@@ -476,6 +702,11 @@ ${d.purpose || "Official Affidavit"}
 Verified Successfully
 </p>
 
+<p>
+<b>Verification Time:</b>
+${new Date().toLocaleString()}
+</p>
+
 </div>
 
 <div class="badge valid">
@@ -483,6 +714,10 @@ AUTHENTIC DOCUMENT
 </div>
 
 `;
+
+setStatus(
+"✅ Authentic Legal Document"
+);
 
 }else{
 
@@ -504,10 +739,15 @@ Possible reasons:
 
 <p>
 • Invalid QR Code</p>
+
 <p>
 • Deleted document</p>
+
 <p>
 • Expired verification</p>
+
+<p>
+• Fake affidavit attempt</p>
 
 </div>
 
@@ -517,7 +757,93 @@ INVALID DOCUMENT
 
 `;
 
+setStatus(
+"🚨 Invalid Document Detected"
+);
+
 }
+
+}
+
+/* =========================================
+MANUAL VERIFY
+========================================= */
+
+function manualVerify(){
+
+const id =
+document.getElementById(
+"manualID"
+).value.trim();
+
+if(!id){
+
+alert(
+"Enter Document ID"
+);
+
+return;
+
+}
+
+currentID = id;
+
+verifyDocument(id);
+
+}
+
+/* =========================================
+COPY ID
+========================================= */
+
+function copyDocID(){
+
+if(!currentID){
+
+alert(
+"No Document ID"
+);
+
+return;
+
+}
+
+navigator.clipboard.writeText(
+currentID
+);
+
+alert(
+"Copied ✔"
+);
+
+}
+
+/* =========================================
+DOWNLOAD RESULT
+========================================= */
+
+function downloadResult(){
+
+const blob =
+new Blob(
+[
+document.body.innerText
+],
+{
+type:"text/plain"
+}
+);
+
+const a =
+document.createElement("a");
+
+a.href =
+URL.createObjectURL(blob);
+
+a.download =
+"verification.txt";
+
+a.click();
 
 }
 
@@ -553,10 +879,23 @@ location.reload();
 }
 
 /* =========================================
+LIVE STATUS
+========================================= */
+
+setInterval(()=>{
+
+document.title =
+"VERIFY • " +
+new Date()
+.toLocaleTimeString();
+
+},1000);
+
+/* =========================================
 AUTO VERIFY
 ========================================= */
 
-verifyDocument();
+verifyDocument(currentID);
 
 </script>
 
