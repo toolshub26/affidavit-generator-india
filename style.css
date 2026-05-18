@@ -85,7 +85,8 @@ color:white;
 .dark-mode .analytics-box,
 .dark-mode .topbar,
 .dark-mode .floating-box,
-.dark-mode #legalAiBox{
+.dark-mode #legalAiBox,
+.dark-mode .user-profile-card{
 
 background:#111827;
 color:white;
@@ -111,37 +112,27 @@ color:rgba(255,255,255,.04);
 }
 
 /* =========================================
-TOPBAR
+HEADER
 ========================================= */
 
-.topbar{
+header{
 
 max-width:1600px;
 
 margin:0 auto 25px;
 
-padding:20px 25px;
+padding:25px;
 
 border-radius:28px;
 
 background:white;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-flex-wrap:wrap;
-
-gap:20px;
 
 box-shadow:
 0 15px 40px rgba(0,0,0,.08);
 
 }
 
-.logo-box h1{
+header h1{
 
 font-size:38px;
 
@@ -160,7 +151,7 @@ linear-gradient(
 
 }
 
-.logo-box p{
+.tagline{
 
 margin-top:6px;
 
@@ -170,13 +161,116 @@ font-size:15px;
 
 }
 
-.top-buttons{
+#premiumStatus{
+
+margin-top:12px;
+
+font-weight:700;
+
+color:#059669;
+
+}
+
+.top-nav{
 
 display:flex;
 
 gap:12px;
 
 flex-wrap:wrap;
+
+margin-top:18px;
+
+}
+
+.top-nav a{
+
+text-decoration:none;
+
+padding:10px 16px;
+
+border-radius:14px;
+
+background:#eef2ff;
+
+font-weight:700;
+
+color:#111827;
+
+transition:.25s;
+
+}
+
+.top-nav a:hover{
+
+background:#2563eb;
+color:white;
+
+}
+
+/* =========================================
+PROFILE CARD
+========================================= */
+
+.user-profile-card{
+
+display:flex;
+
+align-items:center;
+
+gap:18px;
+
+background:white;
+
+padding:24px;
+
+border-radius:28px;
+
+margin-bottom:25px;
+
+box-shadow:
+0 12px 35px rgba(0,0,0,.08);
+
+}
+
+/* =========================================
+ROTATING MEEZAN LOGO
+========================================= */
+
+.user-avatar{
+
+width:120px;
+height:120px;
+
+border-radius:30px;
+
+object-fit:cover;
+
+animation:
+spinLogo 12s linear infinite;
+
+box-shadow:
+0 0 35px rgba(37,99,235,.45);
+
+background:white;
+
+padding:6px;
+
+}
+
+/* =========================================
+ROTATION ANIMATION
+========================================= */
+
+@keyframes spinLogo{
+
+0%{
+transform:rotate(0deg);
+}
+
+100%{
+transform:rotate(360deg);
+}
 
 }
 
@@ -420,7 +514,7 @@ margin-top:22px;
 ANALYTICS
 ========================================= */
 
-.analytics{
+.analytics-container{
 
 display:grid;
 
@@ -445,6 +539,27 @@ text-align:center;
 
 box-shadow:
 0 12px 30px rgba(0,0,0,.08);
+
+}
+
+/* CLICKABLE ANALYTICS */
+
+.clickable-card{
+
+cursor:pointer;
+
+transition:.25s;
+
+}
+
+.clickable-card:hover{
+
+transform:
+translateY(-4px)
+scale(1.02);
+
+box-shadow:
+0 15px 35px rgba(37,99,235,.18);
 
 }
 
@@ -474,7 +589,7 @@ PREVIEW SECTION
 
 background:white;
 
-width:210mm;
+width:100%;
 
 min-height:297mm;
 
@@ -491,7 +606,7 @@ box-shadow:
 
 }
 
-.document-preview{
+.preview-content{
 
 position:relative;
 
@@ -503,7 +618,7 @@ line-height:2;
 
 }
 
-.document-preview p{
+.preview-content p{
 
 margin-bottom:18px;
 
@@ -581,7 +696,7 @@ z-index:5;
 TITLE
 ========================================= */
 
-.doc-title{
+.title{
 
 text-align:center;
 
@@ -599,7 +714,7 @@ font-weight:700;
 
 }
 
-.doc-subtitle{
+.subtitle{
 
 text-align:center;
 
@@ -630,24 +745,6 @@ font-weight:800;
 color:#2563eb;
 
 margin-bottom:10px;
-
-}
-
-/* =========================================
-LIST
-========================================= */
-
-.document-preview ol{
-
-padding-left:30px;
-
-margin-top:14px;
-
-}
-
-.document-preview li{
-
-margin-bottom:15px;
 
 }
 
@@ -825,48 +922,6 @@ display:none;
 
 }
 
-#legalAiBox textarea{
-
-width:100%;
-
-margin-top:12px;
-
-padding:14px;
-
-border-radius:14px;
-
-border:1px solid #d1d5db;
-
-resize:none;
-
-min-height:120px;
-
-}
-
-#legalAiBox button{
-
-margin-top:14px;
-
-width:100%;
-
-}
-
-#legalAIResponse{
-
-margin-top:15px;
-
-padding:14px;
-
-border-radius:14px;
-
-background:#f3f4f6;
-
-font-size:14px;
-
-line-height:1.7;
-
-}
-
 /* =========================================
 INSTALL BUTTON
 ========================================= */
@@ -927,12 +982,19 @@ z-index:999999;
 
 }
 
-#globalLoader::after{
+.loader-box{
 
-content:"";
+text-align:center;
+color:white;
+
+}
+
+.loader-circle{
 
 width:70px;
 height:70px;
+
+margin:auto auto 20px;
 
 border-radius:50%;
 
@@ -950,46 +1012,6 @@ animation:spin 1s linear infinite;
 to{
 transform:rotate(360deg);
 }
-
-}
-
-/* =========================================
-FLOATING BOX
-========================================= */
-
-.floating-box{
-
-position:fixed;
-
-bottom:20px;
-right:20px;
-
-width:340px;
-
-background:white;
-
-padding:20px;
-
-border-radius:22px;
-
-box-shadow:
-0 15px 40px rgba(0,0,0,.2);
-
-z-index:9999;
-
-}
-
-/* =========================================
-RTL
-========================================= */
-
-[dir="rtl"]{
-
-text-align:right;
-
-font-family:
-"Noto Nastaliq Urdu",
-serif;
 
 }
 
@@ -1019,7 +1041,7 @@ padding:20px;
 grid-template-columns:1fr;
 }
 
-.doc-title{
+.title{
 font-size:34px;
 }
 
@@ -1035,11 +1057,11 @@ body{
 padding:10px;
 }
 
-.topbar{
+header{
 padding:18px;
 }
 
-.logo-box h1{
+header h1{
 font-size:30px;
 }
 
@@ -1048,15 +1070,15 @@ padding:16px;
 border-radius:20px;
 }
 
-.doc-title{
+.title{
 font-size:28px;
 }
 
-.doc-subtitle{
+.subtitle{
 font-size:12px;
 }
 
-.document-preview{
+.preview-content{
 font-size:14px;
 }
 
@@ -1098,6 +1120,13 @@ left:10px;
 
 }
 
+.user-avatar{
+
+width:90px;
+height:90px;
+
+}
+
 }
 
 /* =========================================
@@ -1116,7 +1145,7 @@ background:white;
 padding:0;
 }
 
-.topbar,
+header,
 .form-section,
 .history-box,
 #legalAiBox,
