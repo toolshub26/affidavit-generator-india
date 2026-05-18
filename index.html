@@ -159,7 +159,7 @@ PROFILE
 <img
 src="launchericon-192x192.png"
 class="user-avatar"
-alt="User">
+alt="Meezan Logo">
 
 <div>
 
@@ -181,24 +181,50 @@ ANALYTICS
 
 <div class="analytics-container">
 
+<!-- TOTAL DOCS -->
+
 <div class="analytics-box">
+
 <h3 id="totalDocs">0</h3>
+
 <p>Total Docs</p>
+
 </div>
 
-<div class="analytics-box">
+<!-- AI CARD -->
+
+<div
+class="analytics-box clickable-card"
+onclick="openLegalAI()">
+
 <h3>AI</h3>
+
 <p>Legal Engine</p>
+
 </div>
 
-<div class="analytics-box">
+<!-- PREMIUM CARD -->
+
+<div
+class="analytics-box clickable-card"
+onclick="window.location.href='premium.html'">
+
 <h3>Premium</h3>
+
 <p>Subscription</p>
+
 </div>
 
-<div class="analytics-box">
+<!-- PWA CARD -->
+
+<div
+class="analytics-box clickable-card"
+onclick="triggerInstallApp()">
+
 <h3>PWA</h3>
+
 <p>Install Ready</p>
+
 </div>
 
 </div>
@@ -209,17 +235,13 @@ MAIN CONTAINER
 
 <div class="container">
 
-<!-- =========================================
-FORM SECTION
-========================================= -->
+<!-- FORM SECTION -->
 
 <div class="form-section">
 
 <h2>
 Generate Affidavit
 </h2>
-
-<!-- AI PROMPT -->
 
 <label>
 AI Prompt
@@ -250,8 +272,6 @@ onclick="startVoiceInput()">
 
 </div>
 
-<!-- LANGUAGE -->
-
 <label>
 Language
 </label>
@@ -262,37 +282,8 @@ Language
 <option>Urdu</option>
 <option>Hindi</option>
 <option>Arabic</option>
-<option>Spanish</option>
-<option>Chinese</option>
 
 </select>
-
-<!-- PURPOSE -->
-
-<label>
-Purpose
-</label>
-
-<select id="purposeType">
-
-<option>Name Change</option>
-<option>Address Proof</option>
-<option>Birth Affidavit</option>
-<option>Marriage Affidavit</option>
-<option>Income Proof</option>
-<option>Lost Document</option>
-<option>Nationality</option>
-<option>Property Declaration</option>
-<option>Gap Certificate</option>
-<option>Vehicle Ownership</option>
-<option>Identity Declaration</option>
-<option>Legal Heir</option>
-<option>One And Same Person</option>
-<option>Pension Affidavit</option>
-
-</select>
-
-<!-- INPUTS -->
 
 <label>
 Full Name
@@ -328,9 +319,7 @@ Address
 Details
 </label>
 
-<textarea id="details">
-This affidavit is verified true.
-</textarea>
+<textarea id="details"></textarea>
 
 <label>
 Place
@@ -347,8 +336,6 @@ Date
 <input
 type="date"
 id="date">
-
-<!-- SIGNATURE -->
 
 <label>
 Digital Signature
@@ -369,8 +356,6 @@ Clear Signature
 
 </button>
 
-<!-- OCR -->
-
 <label>
 OCR Scan
 </label>
@@ -385,8 +370,6 @@ OCR Result Here
 
 </div>
 
-<!-- GENERATE -->
-
 <button
 class="main-generate"
 onclick="generateAffidavit()">
@@ -394,8 +377,6 @@ onclick="generateAffidavit()">
 🚀 GENERATE AFFIDAVIT
 
 </button>
-
-<!-- ACTION BUTTONS -->
 
 <div class="button-group">
 
@@ -431,41 +412,7 @@ Email
 
 </button>
 
-<button
-class="btn-green"
-onclick="rewriteAffidavit()">
-
-AI Rewrite
-
-</button>
-
-<button
-class="btn-purple"
-onclick="exportPNG()">
-
-PNG
-
-</button>
-
-<button
-class="btn-blue"
-onclick="toggleDarkMode()">
-
-Theme
-
-</button>
-
-<button
-class="btn-red"
-onclick="window.print()">
-
-Print
-
-</button>
-
 </div>
-
-<!-- STATUS -->
 
 <div id="aiStatus">
 
@@ -473,36 +420,11 @@ Print
 
 </div>
 
-<!-- CLOCK -->
-
 <div id="liveClock"></div>
 
-<!-- HISTORY -->
-
-<div class="history-box">
-
-<h3>
-Recent Documents
-</h3>
-
-<input
-type="text"
-placeholder="Search history..."
-id="searchHistory">
-
-<div id="history">
-
-No documents yet.
-
 </div>
 
-</div>
-
-</div>
-
-<!-- =========================================
-PREVIEW SECTION
-========================================= -->
+<!-- PREVIEW SECTION -->
 
 <div class="preview-section">
 
@@ -554,9 +476,7 @@ Powered by AGI ULTRA PRO v18
 
 </div>
 
-<!-- =========================================
-LEGAL AI
-========================================= -->
+<!-- LEGAL AI -->
 
 <button
 class="legal-ai-btn"
@@ -569,7 +489,8 @@ onclick="openLegalAI()">
 <!-- INSTALL -->
 
 <button
-id="installAppBtn">
+id="installAppBtn"
+style="display:none;">
 
 📲 Install App
 
@@ -622,10 +543,14 @@ AGI ULTRA PRO v18 ENTERPRISE © 2026
 </footer>
 
 <!-- =========================================
-SERVICE WORKER
+SCRIPTS
 ========================================= -->
 
 <script>
+
+/* =========================================
+SERVICE WORKER
+========================================= */
 
 if("serviceWorker" in navigator){
 
@@ -635,33 +560,295 @@ window.addEventListener(
 
 navigator.serviceWorker.register(
 "sw.js"
-)
-.then(()=>{
-
-console.log(
-"Service Worker Registered"
 );
 
-})
-.catch((error)=>{
+}
+);
+
+}
+
+/* =========================================
+LEGAL AI BOX
+========================================= */
+
+function openLegalAI(){
+
+const box =
+document.getElementById(
+"legalAiBox"
+);
+
+if(
+box.style.display === "block"
+){
+
+box.style.display = "none";
+
+}else{
+
+box.style.display = "block";
+
+}
+
+}
+
+/* =========================================
+PWA INSTALL
+========================================= */
+
+let deferredPrompt;
+
+window.addEventListener(
+'beforeinstallprompt',
+(e)=>{
+
+e.preventDefault();
+
+deferredPrompt = e;
+
+document.getElementById(
+"installAppBtn"
+).style.display = "block";
+
+}
+);
+
+function triggerInstallApp(){
+
+if(deferredPrompt){
+
+deferredPrompt.prompt();
+
+deferredPrompt.userChoice.then(()=>{
 
 console.log(
-"SW Error:",
-error
+"PWA Installed"
 );
 
 });
 
+}else{
+
+alert(
+"Install option not available yet."
+);
+
+}
+
+}
+
+document
+.getElementById(
+"installAppBtn"
+)
+.addEventListener(
+"click",
+triggerInstallApp
+);
+
+/* =========================================
+LIVE CLOCK
+========================================= */
+
+setInterval(()=>{
+
+const now =
+new Date();
+
+document.getElementById(
+"liveClock"
+).innerHTML =
+now.toLocaleTimeString();
+
+},1000);
+
+/* =========================================
+SIMPLE AI
+========================================= */
+
+function askLegalAI(){
+
+const q =
+document.getElementById(
+"legalQuestion"
+).value;
+
+document.getElementById(
+"legalAIResponse"
+).innerHTML =
+
+"AI Response:<br><br>" +
+"Legal guidance regarding:<br><br>" +
+q;
+
+}
+
+/* =========================================
+GENERATE AFFIDAVIT
+========================================= */
+
+function generateAffidavit(){
+
+const name =
+document.getElementById(
+"name"
+).value;
+
+const father =
+document.getElementById(
+"father"
+).value;
+
+const age =
+document.getElementById(
+"age"
+).value;
+
+const address =
+document.getElementById(
+"address"
+).value;
+
+const details =
+document.getElementById(
+"details"
+).value;
+
+const place =
+document.getElementById(
+"place"
+).value;
+
+const date =
+document.getElementById(
+"date"
+).value;
+
+document.querySelector(
+".preview-content"
+).innerHTML =
+
+`
+<p>
+
+I, <b>${name}</b>,
+S/o <b>${father}</b>,
+aged about <b>${age}</b> years,
+resident of <b>${address}</b>.
+
+</p>
+
+<p>
+
+${details}
+
+</p>
+
+<p>
+
+Place: ${place}
+
+<br><br>
+
+Date: ${date}
+
+</p>
+`;
+
+}
+
+/* =========================================
+PDF
+========================================= */
+
+function downloadPDF(){
+
+const element =
+document.getElementById(
+"previewArea"
+);
+
+html2pdf().from(element).save();
+
+}
+
+/* =========================================
+QR
+========================================= */
+
+function generateQRCode(){
+
+document.getElementById(
+"qrCodeContainer"
+).innerHTML = "";
+
+new QRCode(
+document.getElementById(
+"qrCodeContainer"
+),
+{
+text:"AGI ULTRA VERIFIED",
+width:120,
+height:120
 }
 );
 
 }
 
+/* =========================================
+WHATSAPP
+========================================= */
+
+function shareWhatsApp(){
+
+window.open(
+"https://wa.me/?text=AGI ULTRA AFFIDAVIT GENERATED"
+);
+
+}
+
+/* =========================================
+EMAIL
+========================================= */
+
+function emailPDF(){
+
+window.location.href =
+"mailto:?subject=Affidavit&body=Generated by AGI ULTRA";
+
+}
+
+/* =========================================
+DARK MODE
+========================================= */
+
+function toggleDarkMode(){
+
+document.body.classList.toggle(
+"dark-mode"
+);
+
+}
+
+/* =========================================
+SIGN PAD
+========================================= */
+
+const canvas =
+document.getElementById(
+"signaturePad"
+);
+
+const signaturePad =
+new SignaturePad(canvas);
+
+function clearSignaturePad(){
+
+signaturePad.clear();
+
+}
+
 </script>
-
-<!-- MAIN SCRIPT -->
-
-<script src="script.js"></script>
 
 </body>
 </html>
