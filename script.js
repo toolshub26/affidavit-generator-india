@@ -4,7 +4,7 @@
 ========================================= */
 
 /* =========================================
-   GLOBAL APP CONFIG
+GLOBAL APP CONFIG
 ========================================= */
 
 const AGI = {
@@ -27,14 +27,14 @@ pwa:true
 };
 
 /* =========================================
-   GLOBAL VARIABLES
+GLOBAL VARIABLES
 ========================================= */
 
 let signaturePad = null;
 let deferredPrompt = null;
 
 /* =========================================
-   MULTI LANGUAGE TEMPLATES
+MULTI LANGUAGE TEMPLATES
 ========================================= */
 
 const affidavitTemplates = {
@@ -144,81 +144,12 @@ intro:(d)=>`
 <b>${d.address}</b>.
 `
 
-},
-
-Arabic:{
-
-title:"إفادة خطية",
-
-subtitle:"أمام كاتب العدل",
-
-place:"المكان",
-
-date:"التاريخ",
-
-intro:(d)=>`
-أنا
-<b>${d.name}</b>
-ابن
-<b>${d.father}</b>
-العمر
-<b>${d.age}</b>
-المقيم في
-<b>${d.address}</b>
-`
-
-},
-
-Spanish:{
-
-title:"DECLARACIÓN JURADA",
-
-subtitle:"ANTE EL NOTARIO",
-
-place:"Lugar",
-
-date:"Fecha",
-
-intro:(d)=>`
-Yo,
-<b>${d.name}</b>,
-hijo de
-<b>${d.father}</b>,
-edad
-<b>${d.age}</b>,
-residente de
-<b>${d.address}</b>.
-`
-
-},
-
-Chinese:{
-
-title:"宣誓书",
-
-subtitle:"在公证人面前",
-
-place:"地点",
-
-date:"日期",
-
-intro:(d)=>`
-本人
-<b>${d.name}</b>
-父亲
-<b>${d.father}</b>
-年龄
-<b>${d.age}</b>
-住址
-<b>${d.address}</b>
-`
-
 }
 
 };
 
 /* =========================================
-   GET VALUE
+GET VALUE
 ========================================= */
 
 function getVal(id){
@@ -233,7 +164,7 @@ return String(el.value || "").trim();
 }
 
 /* =========================================
-   ON LOAD
+ON LOAD
 ========================================= */
 
 window.addEventListener(
@@ -262,10 +193,12 @@ showToast(
 "AGI ULTRA Ready 🚀"
 );
 
-});
+initializeSearch();
+
+}
 
 /* =========================================
-   SIGNATURE PAD
+SIGNATURE PAD
 ========================================= */
 
 function initializeSignaturePad(){
@@ -289,7 +222,7 @@ new SignaturePad(canvas);
 }
 
 /* =========================================
-   CLOCK
+CLOCK
 ========================================= */
 
 function startClock(){
@@ -314,7 +247,7 @@ new Date()
 }
 
 /* =========================================
-   DOC ID
+DOC ID
 ========================================= */
 
 function generateDocID(){
@@ -336,7 +269,7 @@ return `${AGI.docPrefix}${d}-${r}`;
 }
 
 /* =========================================
-   TOAST
+TOAST
 ========================================= */
 
 function showToast(msg){
@@ -370,6 +303,9 @@ toast.style.borderRadius =
 toast.style.zIndex =
 "999999";
 
+toast.style.fontWeight =
+"700";
+
 document.body.appendChild(
 toast
 );
@@ -383,7 +319,65 @@ toast.remove();
 }
 
 /* =========================================
-   GENERATE AFFIDAVIT
+LEGAL AI
+========================================= */
+
+function openLegalAI(){
+
+const box =
+document.getElementById(
+"legalAiBox"
+);
+
+if(!box) return;
+
+if(
+box.style.display==="block"
+){
+
+box.style.display="none";
+
+}else{
+
+box.style.display="block";
+
+}
+
+}
+
+function askLegalAI(){
+
+const q =
+getVal("legalQuestion");
+
+const res =
+document.getElementById(
+"legalAIResponse"
+);
+
+if(!q){
+
+showToast(
+"Enter Question"
+);
+
+return;
+
+}
+
+res.innerHTML = `
+<b>AI Legal Assistant:</b>
+<br><br>
+Regarding:
+"${q}"
+<br><br>
+Please verify with local legal authority.
+`;
+
+}
+
+/* =========================================
+GENERATE AFFIDAVIT
 ========================================= */
 
 function generateAffidavit(){
@@ -496,6 +490,10 @@ preview.innerHTML = `
 ₹10
 </div>
 
+<div class="meezan-logo">
+⚖️ MEEZAN LEGAL SERVICES
+</div>
+
 <div class="title">
 ${lang.title}
 </div>
@@ -590,7 +588,7 @@ showToast(
 }
 
 /* =========================================
-   QR CODE
+QR CODE
 ========================================= */
 
 function generateQRCode(docID){
@@ -619,17 +617,18 @@ height:140
 }
 
 /* =========================================
-   PDF
+PDF
 ========================================= */
 
 function downloadPDF(){
 
-html2pdf()
-.from(
+const area =
 document.getElementById(
 "previewArea"
-)
-)
+);
+
+html2pdf()
+.from(area)
 .save(
 "Affidavit.pdf"
 );
@@ -637,7 +636,7 @@ document.getElementById(
 }
 
 /* =========================================
-   PNG EXPORT
+PNG EXPORT
 ========================================= */
 
 function exportPNG(){
@@ -664,7 +663,7 @@ link.click();
 }
 
 /* =========================================
-   WHATSAPP
+WHATSAPP
 ========================================= */
 
 function shareWhatsApp(){
@@ -683,7 +682,7 @@ document.getElementById(
 }
 
 /* =========================================
-   EMAIL
+EMAIL
 ========================================= */
 
 function emailPDF(){
@@ -694,7 +693,7 @@ window.location.href =
 }
 
 /* =========================================
-   VOICE INPUT
+VOICE INPUT
 ========================================= */
 
 function startVoiceInput(){
@@ -734,7 +733,7 @@ event.results[0][0]
 }
 
 /* =========================================
-   AI QUICK
+AI QUICK
 ========================================= */
 
 function generateAIQuickAffidavit(){
@@ -762,7 +761,7 @@ generateAffidavit();
 }
 
 /* =========================================
-   AI REWRITE
+AI REWRITE
 ========================================= */
 
 function rewriteAffidavit(){
@@ -782,7 +781,7 @@ showToast(
 }
 
 /* =========================================
-   OCR
+OCR
 ========================================= */
 
 function initializeOCR(){
@@ -843,7 +842,7 @@ showToast(
 }
 
 /* =========================================
-   HISTORY
+HISTORY
 ========================================= */
 
 function saveHistory(
@@ -962,8 +961,24 @@ showToast(
 }
 
 /* =========================================
-   SEARCH HISTORY
+SEARCH HISTORY
 ========================================= */
+
+function initializeSearch(){
+
+const input =
+document.getElementById(
+"searchHistory"
+);
+
+if(!input) return;
+
+input.addEventListener(
+"keyup",
+searchHistory
+);
+
+}
 
 function searchHistory(){
 
@@ -992,7 +1007,7 @@ item.innerText
 }
 
 /* =========================================
-   ANALYTICS
+ANALYTICS
 ========================================= */
 
 function updateAnalytics(){
@@ -1019,24 +1034,24 @@ total;
 }
 
 /* =========================================
-   THEME
+THEME
 ========================================= */
 
-function toggleTheme(){
+function toggleDarkMode(){
 
 document.body.classList.toggle(
-"light-mode"
+"dark-mode"
 );
 
 localStorage.setItem(
 "theme",
 document.body.classList.contains(
-"light-mode"
+"dark-mode"
 )
 ?
-"light"
-:
 "dark"
+:
+"light"
 );
 
 }
@@ -1046,11 +1061,11 @@ function restoreTheme(){
 if(
 localStorage.getItem(
 "theme"
-)==="light"
+)==="dark"
 ){
 
 document.body.classList.add(
-"light-mode"
+"dark-mode"
 );
 
 }
@@ -1058,17 +1073,24 @@ document.body.classList.add(
 }
 
 /* =========================================
-   AUTOSAVE
+AUTOSAVE
 ========================================= */
 
 setInterval(()=>{
 
-localStorage.setItem(
-"agiDraft",
+const details =
 document.getElementById(
 "details"
-).value
 );
+
+if(details){
+
+localStorage.setItem(
+"agiDraft",
+details.value
+);
+
+}
 
 },10000);
 
@@ -1091,7 +1113,7 @@ draft;
 }
 
 /* =========================================
-   CLEAR SIGNATURE
+CLEAR SIGNATURE
 ========================================= */
 
 function clearSignaturePad(){
@@ -1109,7 +1131,7 @@ showToast(
 }
 
 /* =========================================
-   PREMIUM
+PREMIUM
 ========================================= */
 
 function activatePremium(){
@@ -1174,7 +1196,7 @@ AGI.premium = true;
 }
 
 /* =========================================
-   CLOUD SAVE
+CLOUD SAVE
 ========================================= */
 
 function saveToCloud(){
@@ -1221,7 +1243,7 @@ showToast(
 }
 
 /* =========================================
-   COPY
+COPY
 ========================================= */
 
 function copyAffidavit(){
@@ -1240,7 +1262,7 @@ showToast(
 }
 
 /* =========================================
-   LOADER
+LOADER
 ========================================= */
 
 function showLoader(){
@@ -1276,7 +1298,7 @@ loader.style.display =
 }
 
 /* =========================================
-   PWA INSTALL
+PWA INSTALL
 ========================================= */
 
 window.addEventListener(
@@ -1321,8 +1343,12 @@ deferredPrompt.prompt();
 });
 
 /* =========================================
-   SUPPORT
+SUPPORT
 ========================================= */
+
+window.addEventListener(
+"load",
+()=>{
 
 const supportBtn =
 document.getElementById(
@@ -1344,8 +1370,10 @@ window.open(
 
 }
 
+});
+
 /* =========================================
-   NETWORK STATUS
+NETWORK STATUS
 ========================================= */
 
 window.addEventListener(
