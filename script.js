@@ -1,7 +1,8 @@
 /* =========================================
 AGI ULTRA PRO v18 ENTERPRISE 🚀
 FULL FIXED ENTERPRISE SCRIPT
-NO HIDDEN BUTTONS + PWA FIX + MOBILE FIX
+ULTIMATE FINAL VERSION
+PWA + SIGNATURE + PURPOSE + MOBILE FIX
 ========================================= */
 
 /* =========================================
@@ -13,7 +14,7 @@ const AGI = {
 premium:false,
 premiumCode:"INDIA49",
 docPrefix:"IND-AFF-",
-version:"v18 ENTERPRISE"
+version:"v18 ENTERPRISE FINAL"
 
 };
 
@@ -146,6 +147,31 @@ new Date()
 SIGNATURE PAD
 ========================================= */
 
+function resizeSignatureCanvas(){
+
+const canvas =
+document.getElementById(
+"signaturePad"
+);
+
+if(!canvas) return;
+
+const ratio =
+Math.max(window.devicePixelRatio || 1,1);
+
+canvas.width =
+canvas.offsetWidth * ratio;
+
+canvas.height =
+220 * ratio;
+
+const ctx =
+canvas.getContext("2d");
+
+ctx.scale(ratio,ratio);
+
+}
+
 function initializeSignaturePad(){
 
 const canvas =
@@ -159,6 +185,8 @@ typeof SignaturePad !==
 "undefined"
 ){
 
+resizeSignatureCanvas();
+
 signaturePad =
 new SignaturePad(canvas,{
 
@@ -169,6 +197,11 @@ penColor:
 "rgb(0,0,0)"
 
 });
+
+window.addEventListener(
+"resize",
+resizeSignatureCanvas
+);
 
 }
 
@@ -281,6 +314,7 @@ signatureHTML = `
 
 <div style="
 margin-top:25px;
+text-align:left;
 ">
 
 <img
@@ -691,48 +725,6 @@ Please verify with legal authority.
 }
 
 /* =========================================
-THEME
-========================================= */
-
-function toggleDarkMode(){
-
-document.body.classList.toggle(
-"dark-mode"
-);
-
-localStorage.setItem(
-
-"theme",
-
-document.body.classList.contains(
-"dark-mode"
-)
-?
-"dark"
-:
-"light"
-
-);
-
-}
-
-function restoreTheme(){
-
-if(
-localStorage.getItem(
-"theme"
-)==="dark"
-){
-
-document.body.classList.add(
-"dark-mode"
-);
-
-}
-
-}
-
-/* =========================================
 HISTORY
 ========================================= */
 
@@ -767,151 +759,7 @@ JSON.stringify(history)
 
 );
 
-loadHistory();
-
 }
-
-function loadHistory(){
-
-const box =
-document.getElementById(
-"history"
-);
-
-if(!box) return;
-
-const history =
-JSON.parse(
-localStorage.getItem(
-"agiHistory"
-)||"[]"
-);
-
-if(history.length===0){
-
-box.innerHTML =
-"No documents yet.";
-
-return;
-
-}
-
-let html = "";
-
-history.forEach((item,index)=>{
-
-html += `
-
-<div class="history-item">
-
-<b>${item.name}</b><br>
-
-${item.purpose}<br>
-
-${item.date}<br>
-
-<small>${item.id}</small>
-
-<br><br>
-
-<button
-class="btn-red"
-onclick="deleteHistory(${index})">
-
-Delete
-
-</button>
-
-</div>
-
-`;
-
-});
-
-box.innerHTML = html;
-
-}
-
-function deleteHistory(index){
-
-let history =
-JSON.parse(
-localStorage.getItem(
-"agiHistory"
-)||"[]"
-);
-
-history.splice(index,1);
-
-localStorage.setItem(
-
-"agiHistory",
-
-JSON.stringify(history)
-
-);
-
-loadHistory();
-
-updateAnalytics();
-
-showToast(
-"Deleted ✔"
-);
-
-}
-
-/* =========================================
-SEARCH
-========================================= */
-
-function initializeSearch(){
-
-const input =
-document.getElementById(
-"searchHistory"
-);
-
-if(!input) return;
-
-input.addEventListener(
-"keyup",
-searchHistory
-);
-
-}
-
-function searchHistory(){
-
-const search =
-getVal("searchHistory")
-.toLowerCase();
-
-const items =
-document.querySelectorAll(
-".history-item"
-);
-
-items.forEach(item=>{
-
-item.style.display =
-
-item.innerText
-.toLowerCase()
-.includes(search)
-
-?
-"block"
-:
-"none";
-
-});
-
-}
-
-/* =========================================
-ANALYTICS
-========================================= */
 
 function updateAnalytics(){
 
@@ -962,12 +810,14 @@ installBtn.style.display =
 
 });
 
-function triggerInstallApp(){
+async function triggerInstallApp(){
+
+try{
 
 if(!deferredPrompt){
 
 showToast(
-"PWA Install not available yet"
+"Use Chrome → Add to Home Screen"
 );
 
 return;
@@ -976,8 +826,22 @@ return;
 
 deferredPrompt.prompt();
 
-deferredPrompt.userChoice
-.then(()=>{
+const choice =
+await deferredPrompt.userChoice;
+
+if(choice.outcome === "accepted"){
+
+showToast(
+"PWA Installed ✔"
+);
+
+}else{
+
+showToast(
+"Install Cancelled"
+);
+
+}
 
 deferredPrompt = null;
 
@@ -993,7 +857,15 @@ installBtn.style.display =
 
 }
 
-});
+}catch(err){
+
+console.log(err);
+
+showToast(
+"PWA Failed ❌"
+);
+
+}
 
 }
 
@@ -1058,6 +930,50 @@ showToast(
 });
 
 /* =========================================
+PREVENT HIDDEN BUTTON BUG
+========================================= */
+
+window.addEventListener(
+"scroll",
+()=>{
+
+const btn =
+document.querySelector(
+".main-generate"
+);
+
+if(btn){
+
+btn.style.opacity = "1";
+btn.style.visibility = "visible";
+
+}
+
+});
+
+/* =========================================
+ANALYTICS CARD CLICK FIX
+========================================= */
+
+window.addEventListener(
+"load",
+()=>{
+
+const cards =
+document.querySelectorAll(
+".analytics-box"
+);
+
+cards.forEach(card=>{
+
+card.style.cursor =
+"pointer";
+
+});
+
+});
+
+/* =========================================
 ON LOAD
 ========================================= */
 
@@ -1067,19 +983,13 @@ window.addEventListener(
 
 initializeSignaturePad();
 
-restoreTheme();
-
-loadHistory();
-
-updateAnalytics();
-
-initializeSearch();
-
 initializeSupport();
 
 startClock();
 
 hideLoader();
+
+updateAnalytics();
 
 showToast(
 "AGI ULTRA Ready 🚀"
@@ -1088,14 +998,34 @@ showToast(
 });
 
 /* =========================================
-PREVENT BUTTON HIDE BUG
+SERVICE WORKER
 ========================================= */
 
-window.addEventListener(
-"resize",
-()=>{
+if("serviceWorker" in navigator){
 
-document.body.style.overflowX =
-"hidden";
+window.addEventListener(
+"load",
+async ()=>{
+
+try{
+
+await navigator.serviceWorker.register(
+"./sw.js"
+);
+
+console.log(
+"SW Registered"
+);
+
+}catch(err){
+
+console.log(
+"SW Failed",
+err
+);
+
+}
 
 });
+
+}
