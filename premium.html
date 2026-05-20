@@ -1,3 +1,9 @@
+<!-- =========================================
+FIXED PREMIUM.HTML
+AGI ULTRA PRO v18 PREMIUM ENTERPRISE 🚀
+FINAL FIXED VERSION
+========================================= -->
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,24 +11,29 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
+<meta
+name="viewport"
 content="width=device-width, initial-scale=1.0">
 
 <title>
-AGI ULTRA PRO v18 PREMIUM ENTERPRISE 🚀
+AGI ULTRA PRO v18 PREMIUM 🚀
 </title>
 
-<meta name="theme-color"
+<meta
+name="theme-color"
 content="#020617">
 
-<link rel="manifest"
-href="manifest.json">
+<link
+rel="manifest"
+href="./manifest.json">
 
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
+<link
+rel="icon"
+href="./launchericon-192x192.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap"
-rel="stylesheet">
+<link
+rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;700&display=swap">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -46,6 +57,11 @@ padding:0;
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+overflow-x:hidden;
+}
+
 body{
 
 background:
@@ -60,6 +76,9 @@ font-family:'Inter',sans-serif;
 color:white;
 
 overflow-x:hidden;
+overflow-y:auto;
+
+min-height:100vh;
 
 }
 
@@ -69,7 +88,7 @@ TOPBAR
 
 .topbar{
 
-padding:20px 30px;
+padding:20px;
 
 display:flex;
 
@@ -81,6 +100,11 @@ flex-wrap:wrap;
 
 gap:20px;
 
+position:sticky;
+top:0;
+
+z-index:9999;
+
 background:
 linear-gradient(
 135deg,
@@ -88,11 +112,41 @@ linear-gradient(
 #1e293b
 );
 
+border-bottom:
+1px solid rgba(255,255,255,.08);
+
 }
+
+/* =========================================
+BACK BUTTON FIX
+========================================= */
+
+.back-btn{
+
+background:#dc2626;
+
+padding:12px 18px;
+
+border:none;
+
+border-radius:14px;
+
+font-weight:700;
+
+color:white;
+
+cursor:pointer;
+
+}
+
+/* =========================================
+LOGO
+========================================= */
 
 .logo h1{
 
-font-size:34px;
+font-size:32px;
+
 font-weight:800;
 
 }
@@ -100,21 +154,24 @@ font-weight:800;
 .logo p{
 
 opacity:.8;
-margin-top:5px;
 
-}
-
-.top-actions{
-
-display:flex;
-gap:12px;
-flex-wrap:wrap;
+margin-top:6px;
 
 }
 
 /* =========================================
 BUTTONS
 ========================================= */
+
+.top-actions{
+
+display:flex;
+
+gap:12px;
+
+flex-wrap:wrap;
+
+}
 
 button{
 
@@ -178,6 +235,8 @@ grid-template-columns:390px 1fr;
 
 gap:30px;
 
+align-items:start;
+
 }
 
 /* =========================================
@@ -193,25 +252,45 @@ padding:25px;
 border-radius:24px;
 
 position:sticky;
-top:20px;
 
-height:fit-content;
+top:110px;
+
+height:auto;
+
+overflow:visible;
+
+}
+
+/* =========================================
+NO HIDDEN BUTTONS FIX
+========================================= */
+
+.sidebar button{
+
+width:100%;
+
+display:block;
+
+visibility:visible !important;
+
+opacity:1 !important;
+
+position:relative;
+
+z-index:10;
 
 }
 
-.sidebar h2{
-
-font-size:24px;
-
-margin-bottom:20px;
-
-}
+/* =========================================
+INPUTS
+========================================= */
 
 .label{
 
 display:block;
 
 margin-top:15px;
+
 margin-bottom:8px;
 
 font-weight:700;
@@ -243,6 +322,7 @@ outline:none;
 .textarea{
 
 min-height:100px;
+
 resize:vertical;
 
 }
@@ -261,10 +341,12 @@ gap:12px;
 
 margin-top:20px;
 
+margin-bottom:20px;
+
 }
 
 /* =========================================
-SIGNATURE
+SIGNATURE FIX
 ========================================= */
 
 #signaturePad{
@@ -278,6 +360,8 @@ background:white;
 border-radius:16px;
 
 margin-top:10px;
+
+touch-action:none;
 
 }
 
@@ -340,6 +424,26 @@ overflow:hidden;
 
 }
 
+/* =========================================
+SIGNATURE LEFT FIX
+========================================= */
+
+.signature-box{
+
+margin-top:30px;
+
+text-align:left !important;
+
+display:flex;
+
+justify-content:flex-start;
+
+}
+
+/* =========================================
+WATERMARK
+========================================= */
+
 .watermark{
 
 position:absolute;
@@ -360,6 +464,10 @@ color:rgba(0,0,0,.04);
 pointer-events:none;
 
 }
+
+/* =========================================
+STAMP
+========================================= */
 
 .stamp{
 
@@ -388,6 +496,10 @@ transform:rotate(-15deg);
 
 }
 
+/* =========================================
+DOC
+========================================= */
+
 .doc-title{
 
 text-align:center;
@@ -407,6 +519,7 @@ margin-top:20px;
 text-align:center;
 
 margin-top:10px;
+
 margin-bottom:40px;
 
 letter-spacing:2px;
@@ -416,75 +529,8 @@ letter-spacing:2px;
 .doc-content{
 
 line-height:2;
+
 font-size:18px;
-
-}
-
-.doc-content ol{
-
-padding-left:24px;
-
-margin-top:20px;
-
-}
-
-.doc-footer{
-
-margin-top:40px;
-
-text-align:center;
-
-font-size:13px;
-
-color:#6b7280;
-
-}
-
-/* =========================================
-HISTORY
-========================================= */
-
-.history{
-
-margin-top:25px;
-
-background:#1e293b;
-
-padding:20px;
-
-border-radius:20px;
-
-}
-
-.history-item{
-
-background:#0f172a;
-
-padding:12px;
-
-border-radius:12px;
-
-margin-bottom:10px;
-
-font-size:13px;
-
-}
-
-/* =========================================
-STATUS
-========================================= */
-
-.status{
-
-margin-top:20px;
-
-padding:12px;
-
-border-radius:12px;
-
-background:#0f172a;
-
-font-size:13px;
 
 }
 
@@ -495,15 +541,99 @@ RESPONSIVE
 @media(max-width:1100px){
 
 .main{
+
 grid-template-columns:1fr;
+
+}
+
+.sidebar{
+
+position:relative;
+
+top:0;
+
 }
 
 .btn-grid{
+
 grid-template-columns:1fr;
+
 }
 
 .preview{
+
 padding:20px;
+
+}
+
+}
+
+/* =========================================
+MOBILE FIX
+========================================= */
+
+@media(max-width:768px){
+
+body{
+
+padding-bottom:80px;
+
+}
+
+.topbar{
+
+padding:16px;
+
+}
+
+.logo h1{
+
+font-size:24px;
+
+}
+
+.main{
+
+padding:14px;
+
+gap:25px;
+
+}
+
+.sidebar{
+
+padding:18px;
+
+overflow:visible;
+
+}
+
+.preview{
+
+padding:16px;
+
+min-height:auto;
+
+}
+
+.doc-title{
+
+font-size:32px;
+
+}
+
+.watermark{
+
+font-size:50px;
+
+}
+
+button{
+
+font-size:14px;
+
+padding:14px;
+
 }
 
 }
@@ -544,6 +674,18 @@ TOPBAR
 
 <div class="topbar">
 
+<div>
+
+<button
+class="back-btn"
+onclick="goBackPage()">
+
+⬅ Back
+
+</button>
+
+</div>
+
 <div class="logo">
 
 <h1>
@@ -560,27 +702,37 @@ Enterprise Premium Legal SaaS Platform
 
 <button class="green"
 onclick="generateQRCode()">
+
 QR Verify
+
 </button>
 
 <button class="purple"
 onclick="shareWhatsApp()">
+
 WhatsApp
+
 </button>
 
 <button class="orange"
 onclick="downloadPDF()">
+
 PDF
+
 </button>
 
 <button class="primary"
-onclick="toggleDarkMode()">
-🌙 Theme
+onclick="triggerInstallApp()">
+
+📲 PWA
+
 </button>
 
 <button class="red"
 onclick="window.print()">
+
 🖨 Print
+
 </button>
 
 </div>
@@ -593,9 +745,7 @@ MAIN
 
 <div class="main">
 
-<!-- =========================================
-SIDEBAR
-========================================= -->
+<!-- SIDEBAR -->
 
 <div class="sidebar">
 
@@ -604,35 +754,16 @@ Generate Affidavit
 </h2>
 
 <label class="label">
-Language
-</label>
-
-<select class="select" id="lang">
-
-<option>English</option>
-<option>Urdu</option>
-<option>Hindi</option>
-<option>Arabic</option>
-<option>Spanish</option>
-<option>Chinese</option>
-
-</select>
-
-<label class="label">
 Purpose
 </label>
 
-<select class="select" id="purposeType">
+<select class="select"
+id="purposeType">
 
 <option>Name Change</option>
-<option>Address Proof</option>
-<option>Birth Affidavit</option>
 <option>Marriage Affidavit</option>
 <option>Income Proof</option>
-<option>Lost Document</option>
-<option>Nationality</option>
-<option>Property Declaration</option>
-<option>Vehicle Ownership</option>
+<option>Birth Affidavit</option>
 
 </select>
 
@@ -640,173 +771,65 @@ Purpose
 Full Name
 </label>
 
-<input class="input" id="name">
+<input
+class="input"
+id="name">
 
 <label class="label">
 Father Name
 </label>
 
-<input class="input" id="father">
+<input
+class="input"
+id="father">
 
 <label class="label">
 Age
 </label>
 
-<input class="input" id="age">
-
-<label class="label">
-Address
-</label>
-
-<textarea class="textarea" id="address"></textarea>
+<input
+class="input"
+id="age">
 
 <label class="label">
 Details
 </label>
 
-<textarea class="textarea" id="details"></textarea>
-
-<label class="label">
-Place
-</label>
-
-<input class="input" id="place">
-
-<label class="label">
-Date
-</label>
-
-<input
-type="date"
-class="input"
-id="date">
-
-<label class="label">
-AI Prompt
-</label>
-
 <textarea
 class="textarea"
-id="aiPrompt"></textarea>
-
-<div class="btn-grid">
-
-<button class="purple"
-onclick="generateAIQuickAffidavit()">
-
-AI Draft
-
-</button>
-
-<button class="orange"
-onclick="startVoiceInput()">
-
-Voice
-
-</button>
-
-</div>
+id="details"></textarea>
 
 <label class="label">
-Digital Signature
+Signature
 </label>
 
 <canvas id="signaturePad"></canvas>
 
 <div class="btn-grid">
 
-<button class="orange"
+<button
+class="orange"
 onclick="clearSignature()">
 
 Clear Sign
 
 </button>
 
-<button class="green"
-onclick="saveDraft()">
-
-Save Draft
-
-</button>
-
-</div>
-
-<label class="label">
-OCR Scan
-</label>
-
-<input
-type="file"
-class="input"
-id="ocrUpload">
-
-<div class="status"
-id="ocrResult">
-
-OCR Ready
-
-</div>
-
-<div class="btn-grid">
-
-<button class="primary"
+<button
+class="primary"
 onclick="generateAffidavit()">
 
 Generate
 
 </button>
 
-<button class="green"
-onclick="downloadPDF()">
-
-PDF
-
-</button>
-
-<button class="purple"
-onclick="exportPNG()">
-
-PNG
-
-</button>
-
-<button class="orange"
-onclick="emailPDF()">
-
-Email
-
-</button>
-
-</div>
-
-<div class="status"
-id="statusBox">
-
-System Ready 🚀
-
-</div>
-
-<div class="history">
-
-<h3>
-📁 Recent Documents
-</h3>
-
-<div id="history">
-No documents yet.
 </div>
 
 </div>
 
-</div>
-
-<!-- =========================================
-RIGHT
-========================================= -->
+<!-- RIGHT -->
 
 <div>
-
-<!-- ANALYTICS -->
 
 <div class="analytics">
 
@@ -828,20 +851,12 @@ RIGHT
 <p>Smart Engine</p>
 </div>
 
-<div class="stat">
-⚖️
-<h3>v18</h3>
-<p>Enterprise</p>
 </div>
-
-</div>
-
-<!-- PREVIEW -->
 
 <div class="preview">
 
 <div class="watermark">
-AGI ULTRA PRO
+AGI ULTRA
 </div>
 
 <div id="previewArea">
@@ -877,40 +892,85 @@ Your affidavit preview will appear here.
 <script>
 
 /* =========================================
-GLOBAL
+SIGNATURE FIX
 ========================================= */
 
 let signaturePad;
-let total = 0;
-
-/* =========================================
-LOAD
-========================================= */
 
 window.onload = ()=>{
 
-signaturePad =
-new SignaturePad(
+const canvas =
 document.getElementById(
 "signaturePad"
-)
 );
 
-restoreDraft();
+resizeCanvas();
 
-loadHistory();
+signaturePad =
+new SignaturePad(canvas,{
+
+backgroundColor:"white",
+penColor:"black"
+
+});
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
 
 };
 
+function resizeCanvas(){
+
+const canvas =
+document.getElementById(
+"signaturePad"
+);
+
+const ratio =
+Math.max(
+window.devicePixelRatio || 1,
+1
+);
+
+canvas.width =
+canvas.offsetWidth * ratio;
+
+canvas.height =
+180 * ratio;
+
+canvas.getContext("2d")
+.scale(ratio,ratio);
+
+}
+
 /* =========================================
-STATUS
+BACK FIX
 ========================================= */
 
-function setStatus(msg){
+function goBackPage(){
 
-document.getElementById(
-"statusBox"
-).innerText = msg;
+if(window.history.length > 1){
+
+window.history.back();
+
+}else{
+
+window.location.href =
+"./index.html";
+
+}
+
+}
+
+/* =========================================
+SIGNATURE CLEAR
+========================================= */
+
+function clearSignature(){
+
+signaturePad.clear();
 
 }
 
@@ -935,24 +995,9 @@ document.getElementById(
 "age"
 ).value;
 
-const address =
-document.getElementById(
-"address"
-).value;
-
 const details =
 document.getElementById(
 "details"
-).value;
-
-const place =
-document.getElementById(
-"place"
-).value;
-
-const date =
-document.getElementById(
-"date"
 ).value;
 
 const purpose =
@@ -960,38 +1005,12 @@ document.getElementById(
 "purposeType"
 ).value;
 
-if(!name || !father || !age){
-
-alert(
-"Fill required fields ❌"
-);
-
-return;
-
-}
-
 const signature =
 signaturePad.isEmpty()
 ?
 ""
 :
 signaturePad.toDataURL();
-
-const docID =
-"IND-AFF-" +
-Math.random()
-.toString(36)
-.substring(2,8)
-.toUpperCase();
-
-localStorage.setItem(
-"doc_"+docID,
-JSON.stringify({
-name,
-date,
-purpose
-})
-);
 
 document.getElementById(
 "previewArea"
@@ -1019,43 +1038,39 @@ S/o
 <b>${father}</b>,
 aged about
 <b>${age}</b>
-years,
-resident of
-<b>${address}</b>.
+years.
 
 </p>
 
-<ol>
+<p>
 
-<li>
-This affidavit is submitted for
-${purpose}.
-</li>
+Purpose:
+<b>${purpose}</b>
 
-<li>
+</p>
+
+<p>
+
 ${details}
-</li>
 
-</ol>
-
-<p>
-Place:
-<b>${place}</b>
 </p>
 
-<p>
-Date:
-<b>${date}</b>
-</p>
+<div class="signature-box">
 
 ${
 signature
 ?
-`<img src="${signature}"
-style="height:90px;margin-top:25px;">`
+`<img
+src="${signature}"
+style="
+height:90px;
+object-fit:contain;
+">`
 :
 ""
 }
+
+</div>
 
 <div id="qrCodeContainer"
 style="
@@ -1065,34 +1080,11 @@ justify-content:center;
 ">
 </div>
 
-<div class="doc-footer">
-
-${docID}
-
-<br><br>
-
-Powered by AGI ULTRA PRO v18
-
-</div>
-
 </div>
 
 `;
 
-generateQRCode(docID);
-
-total++;
-
-document.getElementById(
-"totalDocs"
-).innerText =
-total;
-
-saveHistory(docID,name);
-
-setStatus(
-"Affidavit Generated ✅"
-);
+generateQRCode();
 
 }
 
@@ -1100,25 +1092,26 @@ setStatus(
 QR
 ========================================= */
 
-function generateQRCode(docID){
+function generateQRCode(){
 
+const qr =
 document.getElementById(
 "qrCodeContainer"
-).innerHTML = "";
+);
 
-new QRCode(
-document.getElementById(
-"qrCodeContainer"
-),
-{
+if(!qr) return;
+
+qr.innerHTML = "";
+
+new QRCode(qr,{
+
 text:
-location.origin +
-"/verify.html?id=" +
-docID,
+location.href,
+
 width:140,
 height:140
-}
-);
+
+});
 
 }
 
@@ -1152,7 +1145,7 @@ document.getElementById(
 )
 ).then(canvas=>{
 
-let link =
+const link =
 document.createElement("a");
 
 link.download =
@@ -1173,7 +1166,7 @@ WHATSAPP
 
 function shareWhatsApp(){
 
-let text =
+const text =
 document.getElementById(
 "previewArea"
 ).innerText;
@@ -1186,257 +1179,58 @@ window.open(
 }
 
 /* =========================================
-EMAIL
+PWA FIX
 ========================================= */
 
-function emailPDF(){
+let deferredPrompt;
 
-window.location.href =
-"mailto:?subject=Affidavit";
+window.addEventListener(
+"beforeinstallprompt",
+(e)=>{
 
-}
+e.preventDefault();
 
-/* =========================================
-VOICE
-========================================= */
+deferredPrompt = e;
 
-function startVoiceInput(){
+});
 
-if(!('webkitSpeechRecognition' in window)){
+async function triggerInstallApp(){
+
+if(!deferredPrompt){
 
 alert(
-"Voice not supported ❌"
+"Use Chrome → Add to Home Screen"
 );
 
 return;
 
 }
 
-const recognition =
-new webkitSpeechRecognition();
+deferredPrompt.prompt();
 
-recognition.lang =
-"en-IN";
+await deferredPrompt.userChoice;
 
-recognition.start();
-
-recognition.onresult =
-function(event){
-
-document.getElementById(
-"details"
-).value =
-event.results[0][0].transcript;
-
-};
+deferredPrompt = null;
 
 }
 
 /* =========================================
-AI
+SERVICE WORKER
 ========================================= */
 
-function generateAIQuickAffidavit(){
+if("serviceWorker" in navigator){
 
-document.getElementById(
-"details"
-).value =
+window.addEventListener(
+"load",
+()=>{
 
-document.getElementById(
-"aiPrompt"
-).value;
-
-generateAffidavit();
-
-}
-
-/* =========================================
-SAVE DRAFT
-========================================= */
-
-function saveDraft(){
-
-const fields = [
-
-"name",
-"father",
-"age",
-"address",
-"details",
-"place",
-"date"
-
-];
-
-fields.forEach(id=>{
-
-localStorage.setItem(
-id,
-document.getElementById(id).value
+navigator.serviceWorker.register(
+"./sw.js"
 );
 
 });
 
-setStatus(
-"Draft Saved ✅"
-);
-
 }
-
-function restoreDraft(){
-
-const fields = [
-
-"name",
-"father",
-"age",
-"address",
-"details",
-"place",
-"date"
-
-];
-
-fields.forEach(id=>{
-
-const val =
-localStorage.getItem(id);
-
-if(val){
-
-document.getElementById(id).value =
-val;
-
-}
-
-});
-
-}
-
-/* =========================================
-SIGNATURE
-========================================= */
-
-function clearSignature(){
-
-signaturePad.clear();
-
-}
-
-/* =========================================
-HISTORY
-========================================= */
-
-function saveHistory(id,name){
-
-let history =
-JSON.parse(
-localStorage.getItem(
-"agiHistory"
-) || "[]"
-);
-
-history.unshift({
-
-id:id,
-name:name
-
-});
-
-localStorage.setItem(
-"agiHistory",
-JSON.stringify(history)
-);
-
-loadHistory();
-
-}
-
-function loadHistory(){
-
-let box =
-document.getElementById(
-"history"
-);
-
-let history =
-JSON.parse(
-localStorage.getItem(
-"agiHistory"
-) || "[]"
-);
-
-if(history.length===0){
-
-box.innerHTML =
-"No documents yet.";
-
-return;
-
-}
-
-let html = "";
-
-history.forEach(item=>{
-
-html += `
-
-<div class="history-item">
-
-<b>${item.name}</b>
-
-<br>
-
-${item.id}
-
-</div>
-
-`;
-
-});
-
-box.innerHTML = html;
-
-}
-
-/* =========================================
-THEME
-========================================= */
-
-function toggleDarkMode(){
-
-document.body.classList.toggle(
-"dark-mode"
-);
-
-}
-
-/* =========================================
-OCR
-========================================= */
-
-document.getElementById(
-"ocrUpload"
-).addEventListener(
-"change",
-function(){
-
-document.getElementById(
-"ocrResult"
-).innerText =
-"OCR Scan Complete ✅";
-
-});
-
-/* =========================================
-AUTO SAVE
-========================================= */
-
-setInterval(()=>{
-
-saveDraft();
-
-},30000);
 
 </script>
 
