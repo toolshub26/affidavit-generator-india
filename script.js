@@ -144,7 +144,7 @@ new Date()
 }
 
 /* =========================================
-SIGNATURE PAD
+SIGNATURE PAD PERFECT FIX
 ========================================= */
 
 function resizeSignatureCanvas(){
@@ -164,6 +164,12 @@ canvas.offsetWidth * ratio;
 
 canvas.height =
 220 * ratio;
+
+canvas.style.width =
+"100%";
+
+canvas.style.height =
+"220px";
 
 const ctx =
 canvas.getContext("2d");
@@ -191,17 +197,30 @@ signaturePad =
 new SignaturePad(canvas,{
 
 backgroundColor:
-"rgb(255,255,255)",
+"white",
 
 penColor:
-"rgb(0,0,0)"
+"black",
+
+minWidth:1,
+maxWidth:2.5
 
 });
 
 window.addEventListener(
 "resize",
-resizeSignatureCanvas
-);
+()=>{
+
+const data =
+signaturePad.toData();
+
+resizeSignatureCanvas();
+
+signaturePad.clear();
+
+signaturePad.fromData(data);
+
+});
 
 }
 
@@ -313,16 +332,19 @@ signaturePad &&
 signatureHTML = `
 
 <div style="
-margin-top:25px;
-text-align:left;
+margin-top:30px;
+display:flex;
+justify-content:flex-start;
+align-items:flex-start;
 ">
 
 <img
 src="${signaturePad.toDataURL()}"
 style="
 height:90px;
-max-width:220px;
+max-width:240px;
 object-fit:contain;
+display:block;
 ">
 
 </div>
@@ -367,14 +389,14 @@ resident of
 
 <p>
 
-${data.details}
+${data.details || "Affidavit details not provided."}
 
 </p>
 
 <p>
 
 Purpose:
-<b>${data.purpose}</b>
+<b>${data.purpose || "General Affidavit"}</b>
 
 </p>
 
@@ -504,8 +526,17 @@ return;
 }
 
 html2pdf()
+.set({
+
+margin:5,
+filename:"Affidavit.pdf",
+image:{type:"jpeg",quality:1},
+html2canvas:{scale:2},
+jsPDF:{unit:"mm",format:"a4"}
+
+})
 .from(area)
-.save("Affidavit.pdf");
+.save();
 
 }
 
@@ -785,7 +816,7 @@ total;
 }
 
 /* =========================================
-PWA INSTALL FIX
+PWA INSTALL PERFECT FIX
 ========================================= */
 
 window.addEventListener(
@@ -796,6 +827,10 @@ e.preventDefault();
 
 deferredPrompt = e;
 
+showToast(
+"PWA Ready 🚀"
+);
+
 const installBtn =
 document.getElementById(
 "installAppBtn"
@@ -805,6 +840,18 @@ if(installBtn){
 
 installBtn.style.display =
 "block";
+
+installBtn.style.position =
+"fixed";
+
+installBtn.style.bottom =
+"90px";
+
+installBtn.style.right =
+"20px";
+
+installBtn.style.zIndex =
+"999999";
 
 }
 
@@ -817,14 +864,14 @@ try{
 if(!deferredPrompt){
 
 showToast(
-"Use Chrome → Add to Home Screen"
+"Chrome → Add to Home Screen"
 );
 
 return;
 
 }
 
-deferredPrompt.prompt();
+await deferredPrompt.prompt();
 
 const choice =
 await deferredPrompt.userChoice;
@@ -880,6 +927,25 @@ showToast(
 });
 
 /* =========================================
+BACK BUTTON FIX
+========================================= */
+
+function goBackPage(){
+
+if(window.history.length > 1){
+
+window.history.back();
+
+}else{
+
+window.location.href =
+"./index.html";
+
+}
+
+}
+
+/* =========================================
 SUPPORT BUTTON
 ========================================= */
 
@@ -891,6 +957,18 @@ document.getElementById(
 );
 
 if(!supportBtn) return;
+
+supportBtn.style.position =
+"fixed";
+
+supportBtn.style.left =
+"15px";
+
+supportBtn.style.bottom =
+"15px";
+
+supportBtn.style.zIndex =
+"999999";
 
 supportBtn.addEventListener(
 "click",
@@ -930,7 +1008,7 @@ showToast(
 });
 
 /* =========================================
-PREVENT HIDDEN BUTTON BUG
+PREVENT BUTTON HIDE BUG
 ========================================= */
 
 window.addEventListener(
@@ -946,6 +1024,7 @@ if(btn){
 
 btn.style.opacity = "1";
 btn.style.visibility = "visible";
+btn.style.display = "block";
 
 }
 
@@ -968,6 +1047,9 @@ cards.forEach(card=>{
 
 card.style.cursor =
 "pointer";
+
+card.style.zIndex =
+"999";
 
 });
 
