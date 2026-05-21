@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AGI ULTRA PRO v18 PREMIUM</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +14,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -33,10 +31,6 @@ color:white;
 overflow-x:hidden;
 transition:.3s;
 }
-
-/* =========================
-LIGHT MODE
-========================= */
 
 body.light{
 background:#f3f4f6;
@@ -57,10 +51,6 @@ body.light .textarea{
 background:#e5e7eb;
 color:#111827;
 }
-
-/* =========================
-TOPBAR
-========================= */
 
 .topbar{
 position:sticky;
@@ -115,10 +105,6 @@ opacity:.9;
 .purple{background:#7c3aed;}
 .gray{background:#374151;}
 
-/* =========================
-LAYOUT
-========================= */
-
 .main{
 display:grid;
 grid-template-columns:380px 1fr;
@@ -128,10 +114,6 @@ max-width:1700px;
 margin:auto;
 align-items:start;
 }
-
-/* =========================
-SIDEBAR
-========================= */
 
 .sidebar{
 background:#111827;
@@ -185,10 +167,6 @@ gap:10px;
 margin-top:16px;
 }
 
-/* =========================
-SIGNATURE
-========================= */
-
 .signature-wrap{
 background:white;
 border-radius:18px;
@@ -204,10 +182,6 @@ display:block;
 border-radius:12px;
 }
 
-/* =========================
-STATUS
-========================= */
-
 .status{
 margin-top:18px;
 padding:12px;
@@ -215,10 +189,6 @@ background:#0f172a;
 border-radius:12px;
 font-size:13px;
 }
-
-/* =========================
-HISTORY
-========================= */
 
 .history{
 margin-top:20px;
@@ -235,10 +205,6 @@ margin-top:10px;
 font-size:13px;
 word-break:break-word;
 }
-
-/* =========================
-ANALYTICS
-========================= */
 
 .analytics{
 display:grid;
@@ -258,10 +224,6 @@ text-align:center;
 font-size:28px;
 margin-top:8px;
 }
-
-/* =========================
-PREVIEW
-========================= */
 
 .preview{
 background:white;
@@ -330,10 +292,6 @@ transform:rotate(-15deg);
 font-size:20px;
 }
 
-/* =========================
-BACK BUTTON
-========================= */
-
 .floating-back{
 position:fixed;
 bottom:20px;
@@ -350,12 +308,7 @@ font-size:26px;
 box-shadow:0 10px 25px rgba(0,0,0,.3);
 }
 
-/* =========================
-MOBILE
-========================= */
-
 @media(max-width:1100px){
-
 .main{
 grid-template-columns:1fr;
 padding:14px;
@@ -397,15 +350,9 @@ width:100%;
 .top-actions button{
 width:auto;
 }
-
 }
 
-/* =========================
-PRINT
-========================= */
-
 @media print{
-
 .sidebar,
 .topbar,
 .floating-back{
@@ -421,51 +368,35 @@ padding:0;
 body{
 background:white;
 }
-
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- BACK BUTTON -->
-
-<button class="floating-back" onclick="history.back()">
-←
-</button>
-
-<!-- TOPBAR -->
+<button class="floating-back" onclick="goBack()">←</button>
 
 <div class="topbar">
-
 <div class="logo">
 <h1>⚖️ AGI ULTRA PRO v18</h1>
 <p>Premium Enterprise Affidavit Generator</p>
 </div>
 
 <div class="top-actions">
-<button class="green" onclick="generateQRCode(lastDocId)">QR Verify</button>
+<button class="green" onclick="verifyQR()">QR Verify</button>
 <button class="purple" onclick="shareWhatsApp()">WhatsApp</button>
 <button class="orange" onclick="downloadPDF()">PDF</button>
 <button class="primary" onclick="toggleTheme()">Theme</button>
 <button class="red" onclick="window.print()">Print</button>
 </div>
-
 </div>
-
-<!-- MAIN -->
 
 <div class="main">
 
-<!-- SIDEBAR -->
-
 <div class="sidebar">
-
 <h2>Generate Affidavit</h2>
 
 <label class="label">Language</label>
-
 <select class="select" id="lang">
 <option>English</option>
 <option>Urdu</option>
@@ -474,20 +405,69 @@ background:white;
 </select>
 
 <label class="label">Purpose</label>
-
 <select class="select" id="purposeType">
-
-<option>Name Change</option>
-<option>Address Proof</option>
+<option>Name Change Affidavit</option>
+<option>Address Proof Affidavit</option>
 <option>Birth Affidavit</option>
 <option>Marriage Affidavit</option>
-<option>Income Proof</option>
+<option>Income Proof Affidavit</option>
 <option>Passport Affidavit</option>
 <option>Nationality Affidavit</option>
-<option>Gap Certificate</option>
-<option>Lost Document</option>
+<option>Gap Certificate Affidavit</option>
+<option>Lost Document Affidavit</option>
+<option>Lost Mobile Affidavit</option>
+<option>Vehicle Ownership Affidavit</option>
+<option>Property Declaration Affidavit</option>
+<option>Affidavit for Visa</option>
+<option>Affidavit for Loan</option>
+<option>Affidavit for GST</option>
+<option>Affidavit for PAN Card</option>
+<option>Affidavit for Aadhaar</option>
+<option>Affidavit for Bank</option>
+<option>Affidavit for SIM Card</option>
+<option>Affidavit for FIR</option>
+<option>Affidavit for Court</option>
+<option>Affidavit for Scholarship</option>
+<option>Affidavit for Education</option>
+<option>Affidavit for Employment</option>
+<option>Affidavit for Salary</option>
+<option>Affidavit for Pension</option>
+<option>Affidavit for Electricity</option>
+<option>Affidavit for Water Connection</option>
+<option>Affidavit for Gas Connection</option>
+<option>Affidavit for Driving License</option>
+<option>Affidavit for Ration Card</option>
+<option>Affidavit for Election Card</option>
+<option>Affidavit for Minor Child</option>
+<option>Affidavit for Divorce</option>
+<option>Affidavit for Child Custody</option>
+<option>Affidavit for Nikah</option>
+<option>Affidavit for Legal Heir</option>
+<option>Affidavit for Business</option>
+<option>Affidavit for Company</option>
+<option>Affidavit for Insurance</option>
+<option>Affidavit for Travel</option>
+<option>Affidavit for Immigration</option>
+<option>Affidavit for Hostel</option>
+<option>Affidavit for Experience</option>
+<option>Affidavit for Internship</option>
+<option>Affidavit for Character Certificate</option>
+<option>Affidavit for Name Correction</option>
+<option>Affidavit for Address Change</option>
+<option>Affidavit for Religion Change</option>
+<option>Affidavit for Gender Change</option>
+<option>Affidavit for ATM Card</option>
+<option>Affidavit for Credit Card</option>
+<option>Affidavit for Refund</option>
+<option>Affidavit for Agreement</option>
+<option>Affidavit for Partnership</option>
+<option>Affidavit for Society</option>
+<option>Affidavit for NGO</option>
+<option>Affidavit for Trust</option>
+<option>Affidavit for Labour Department</option>
+<option>Affidavit for Criminal Case</option>
+<option>Affidavit for Civil Case</option>
 <option>Custom Affidavit</option>
-
 </select>
 
 <label class="label">Full Name</label>
@@ -520,7 +500,6 @@ background:white;
 </div>
 
 <label class="label">Digital Signature</label>
-
 <div class="signature-wrap">
 <canvas id="signaturePad"></canvas>
 </div>
@@ -533,9 +512,7 @@ background:white;
 <label class="label">OCR Scan</label>
 <input type="file" class="input" id="ocrUpload">
 
-<div class="status" id="ocrResult">
-OCR Ready
-</div>
+<div class="status" id="ocrResult">OCR Ready</div>
 
 <div class="btn-grid">
 <button class="primary" onclick="generateAffidavit()">Generate</button>
@@ -544,116 +521,66 @@ OCR Ready
 <button class="orange" onclick="emailPDF()">Email</button>
 </div>
 
-<div class="status" id="statusBox">
-System Ready 🚀
-</div>
+<div class="status" id="statusBox">System Ready 🚀</div>
 
 <div class="history">
 <h3>📁 Recent Documents</h3>
 <div id="history">No documents yet.</div>
 </div>
-
 </div>
-
-<!-- RIGHT -->
 
 <div>
-
 <div class="analytics">
-
-<div class="stat">
-📄
-<h3 id="totalDocs">0</h3>
-<p>Total Docs</p>
-</div>
-
-<div class="stat">
-⭐
-<h3>Premium</h3>
-<p>Enterprise</p>
-</div>
-
-<div class="stat">
-🤖
-<h3>AI</h3>
-<p>Smart Engine</p>
-</div>
-
-<div class="stat">
-⚖️
-<h3>v18</h3>
-<p>Enterprise</p>
-</div>
-
+<div class="stat">📄<h3 id="totalDocs">0</h3><p>Total Docs</p></div>
+<div class="stat">⭐<h3>Premium</h3><p>Enterprise</p></div>
+<div class="stat">🤖<h3>AI</h3><p>Smart Engine</p></div>
+<div class="stat">⚖️<h3>v18</h3><p>Enterprise</p></div>
 </div>
 
 <div class="preview">
-
-<div class="watermark">
-AGI ULTRA PRO
-</div>
+<div class="watermark">AGI ULTRA PRO</div>
 
 <div id="previewArea">
-
 <div class="stamp">₹10</div>
-
-<div class="doc-title">
-AFFIDAVIT
-</div>
-
-<div class="doc-sub">
-BEFORE THE NOTARY PUBLIC
-</div>
-
+<div class="doc-title">AFFIDAVIT</div>
+<div class="doc-sub">BEFORE THE NOTARY PUBLIC</div>
 <div class="doc-content">
 <p>Your affidavit preview will appear here.</p>
 </div>
-
 </div>
-
 </div>
-
 </div>
-
 </div>
 
 <script>
-
 let signaturePad;
 let total = 0;
 let lastDocId = '';
 
 window.onload = ()=>{
-
 const canvas = document.getElementById('signaturePad');
-
 canvas.width = canvas.offsetWidth;
 canvas.height = 180;
 
-signaturePad = new SignaturePad(canvas,{
-backgroundColor:'white',
-penColor:'black'
-});
+signaturePad = new SignaturePad(canvas,{backgroundColor:'white',penColor:'black'});
 
 restoreDraft();
 loadHistory();
-
 };
-
-/* =========================
-STATUS
-========================= */
 
 function setStatus(msg){
 document.getElementById('statusBox').innerText = msg;
 }
 
-/* =========================
-GENERATE
-========================= */
+function goBack(){
+if(window.history.length > 1){
+window.history.back();
+}else{
+window.location.href='/';
+}
+}
 
 function generateAffidavit(){
-
 const name = document.getElementById('name').value.trim();
 const father = document.getElementById('father').value.trim();
 const age = document.getElementById('age').value.trim();
@@ -670,31 +597,16 @@ return;
 
 const signature = signaturePad.isEmpty() ? '' : signaturePad.toDataURL();
 
-const docID =
-'IND-AFF-' +
-Math.random().toString(36).substring(2,8).toUpperCase();
-
+const docID = 'IND-AFF-' + Math.random().toString(36).substring(2,8).toUpperCase();
 lastDocId = docID;
 
 const preview = `
-
 <div class="stamp">₹10</div>
-
-<div class="doc-title">
-AFFIDAVIT
-</div>
-
-<div class="doc-sub">
-BEFORE THE NOTARY PUBLIC
-</div>
-
+<div class="doc-title">AFFIDAVIT</div>
+<div class="doc-sub">BEFORE THE NOTARY PUBLIC</div>
 <div class="doc-content">
-
 <p>
-I, <b>${name}</b>, S/o <b>${father}</b>,
-aged about <b>${age}</b> years,
-resident of <b>${address}</b>,
-do hereby solemnly affirm and declare as under:
+I, <b>${name}</b>, S/o <b>${father}</b>, aged about <b>${age}</b> years, resident of <b>${address}</b>, do hereby solemnly affirm and declare as under:
 </p>
 
 <ol style="padding-left:25px;margin-top:20px;">
@@ -704,334 +616,155 @@ do hereby solemnly affirm and declare as under:
 </ol>
 
 <br>
-
 <p><b>Place:</b> ${place}</p>
 <p><b>Date:</b> ${date}</p>
 
-${signature ? `
-<div style="margin-top:30px;">
-<img src="${signature}" style="height:90px;">
-</div>
-` : ''}
+${signature ? `<div style="margin-top:30px;"><img src="${signature}" style="height:90px;"></div>` : ''}
 
-<div id="qrCodeContainer"
-style="margin-top:35px;display:flex;justify-content:center;">
-</div>
+<div id="qrCodeContainer" style="margin-top:35px;display:flex;justify-content:center;"></div>
 
 <div class="doc-footer">
-
-${docID}
-
-<br><br>
-
+${docID}<br><br>
 Powered by AGI ULTRA PRO v18
-
 </div>
-
-</div>
-
-`;
+</div>`;
 
 document.getElementById('previewArea').innerHTML = preview;
 
 generateQRCode(docID);
-
 saveHistory(docID,name);
-
-localStorage.setItem('doc_'+docID,
-JSON.stringify({
-id:docID,
-name,
-purpose,
-date
-}));
 
 total++;
 document.getElementById('totalDocs').innerText = total;
 
 setStatus('Affidavit Generated Successfully ✅');
-
 }
 
-/* =========================
-QR
-========================= */
-
 function generateQRCode(docID){
+if(!docID){
+alert('Generate affidavit first ❌');
+return;
+}
 
 const qr = document.getElementById('qrCodeContainer');
-
 if(!qr) return;
 
 qr.innerHTML='';
 
-new QRCode(qr,{
-text:location.href + '?verify=' + docID,
-width:140,
-height:140
-});
-
+new QRCode(qr,{text:location.href + '?verify=' + docID,width:140,height:140});
 }
 
-/* =========================
-PDF
-========================= */
+function verifyQR(){
+if(!lastDocId){
+alert('Generate affidavit first ❌');
+return;
+}
+
+generateQRCode(lastDocId);
+setStatus('QR Generated Successfully ✅');
+}
 
 function downloadPDF(){
-
-html2pdf()
-.set({
-margin:10,
-filename:'Affidavit.pdf',
-image:{type:'jpeg',quality:1},
-html2canvas:{scale:2},
-jsPDF:{unit:'mm',format:'a4',orientation:'portrait'}
-})
-.from(document.getElementById('previewArea'))
-.save();
-
+html2pdf().from(document.getElementById('previewArea')).save('Affidavit.pdf');
 }
-
-/* =========================
-PNG
-========================= */
 
 function exportPNG(){
-
-html2canvas(
-document.getElementById('previewArea')
-).then(canvas=>{
-
+html2canvas(document.getElementById('previewArea')).then(canvas=>{
 const link = document.createElement('a');
-
 link.download='affidavit.png';
-
 link.href = canvas.toDataURL();
-
 link.click();
-
 });
-
 }
-
-/* =========================
-WHATSAPP
-========================= */
 
 function shareWhatsApp(){
-
-const text =
-document.getElementById('previewArea').innerText;
-
-window.open(
-`https://wa.me/?text=${encodeURIComponent(text)}`,
-'_blank'
-);
-
+const text = document.getElementById('previewArea').innerText;
+window.open(`https://wa.me/?text=${encodeURIComponent(text)}`,'_blank');
 }
-
-/* =========================
-EMAIL
-========================= */
 
 function emailPDF(){
-
-window.location.href =
-'mailto:?subject=Affidavit';
-
+window.location.href='mailto:?subject=Affidavit';
 }
 
-/* =========================
-VOICE
-========================= */
-
 function startVoiceInput(){
-
 if(!('webkitSpeechRecognition' in window)){
 alert('Voice not supported ❌');
 return;
 }
 
-const recognition =
-new webkitSpeechRecognition();
-
+const recognition = new webkitSpeechRecognition();
 recognition.lang='en-IN';
-
 recognition.start();
 
 recognition.onresult=function(event){
-
-document.getElementById('details').value =
-event.results[0][0].transcript;
-
+document.getElementById('details').value = event.results[0][0].transcript;
 };
-
 }
-
-/* =========================
-AI
-========================= */
 
 function generateAIQuickAffidavit(){
-
-document.getElementById('details').value =
-document.getElementById('aiPrompt').value;
-
+document.getElementById('details').value = document.getElementById('aiPrompt').value;
 generateAffidavit();
-
 }
-
-/* =========================
-SIGNATURE
-========================= */
 
 function clearSignature(){
 signaturePad.clear();
 }
 
-/* =========================
-SAVE DRAFT
-========================= */
-
 function saveDraft(){
-
-const fields = [
-'name',
-'father',
-'age',
-'address',
-'details',
-'place',
-'date',
-'aiPrompt'
-];
-
+const fields = ['name','father','age','address','details','place','date','aiPrompt'];
 fields.forEach(id=>{
-
-localStorage.setItem(
-id,
-document.getElementById(id).value
-);
-
+localStorage.setItem(id,document.getElementById(id).value);
 });
 
 setStatus('Draft Saved ✅');
-
 }
 
 function restoreDraft(){
-
-const fields = [
-'name',
-'father',
-'age',
-'address',
-'details',
-'place',
-'date',
-'aiPrompt'
-];
-
+const fields = ['name','father','age','address','details','place','date','aiPrompt'];
 fields.forEach(id=>{
-
 const val = localStorage.getItem(id);
-
 if(val){
 document.getElementById(id).value = val;
 }
-
 });
-
 }
 
-/* =========================
-HISTORY
-========================= */
-
 function saveHistory(id,name){
-
-let history =
-JSON.parse(
-localStorage.getItem('agiHistory') || '[]'
-);
-
+let history = JSON.parse(localStorage.getItem('agiHistory') || '[]');
 history.unshift({id,name});
-
-localStorage.setItem(
-'agiHistory',
-JSON.stringify(history)
-);
-
+localStorage.setItem('agiHistory',JSON.stringify(history));
 loadHistory();
-
 }
 
 function loadHistory(){
-
-const box =
-document.getElementById('history');
-
-let history =
-JSON.parse(
-localStorage.getItem('agiHistory') || '[]'
-);
+const box = document.getElementById('history');
+let history = JSON.parse(localStorage.getItem('agiHistory') || '[]');
 
 if(history.length===0){
-
 box.innerHTML='No documents yet.';
 return;
-
 }
 
 let html='';
 
 history.slice(0,10).forEach(item=>{
-
-html += `
-
-<div class="history-item">
-<b>${item.name}</b><br>
-${item.id}
-</div>
-
-`;
-
+html += `<div class="history-item"><b>${item.name}</b><br>${item.id}</div>`;
 });
 
 box.innerHTML = html;
-
 }
-
-/* =========================
-THEME
-========================= */
 
 function toggleTheme(){
-
 document.body.classList.toggle('light');
-
 }
 
-/* =========================
-OCR
-========================= */
-
-document.getElementById('ocrUpload')
-.addEventListener('change',()=>{
-
-document.getElementById('ocrResult')
-.innerText='OCR Scan Complete ✅';
-
+document.getElementById('ocrUpload').addEventListener('change',()=>{
+document.getElementById('ocrResult').innerText='OCR Scan Complete ✅';
 });
-
-/* =========================
-AUTO SAVE
-========================= */
 
 setInterval(()=>{
 saveDraft();
 },30000);
-
 </script>
 
 </body>
